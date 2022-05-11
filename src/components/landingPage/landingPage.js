@@ -7,7 +7,7 @@ import Banner from './banner';
 import MultiChainCards from './multiChainCards';
 import YourProject from './yourProject';
 import FaqsInfo from '../FaqsPage/FaqsInfo';
-
+import Footer from "../../../src/components/footer"
 const LandingPage = () => {
   console.log("i am in landing page")
   return (
@@ -17,6 +17,8 @@ const LandingPage = () => {
       <MultiChainCards />
       <FaqsInfo/>
       <YourProject />
+      <Footer/>
+      
     </>
   );
 };

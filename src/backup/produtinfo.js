@@ -540,6 +540,7 @@ const ProductInfo = () => {
                     <h4 className='text-white mt-2'>Pool Not Started </h4>
                   ) : (
                     <>
+                    
                       <div className='input-wrapper'>
                         {approveErr === '' ? (
                           <>

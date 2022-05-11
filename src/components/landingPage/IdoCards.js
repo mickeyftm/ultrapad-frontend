@@ -5,14 +5,12 @@ import Twitter from '../../assets/images/twiiter.png'
 import Icon4 from '../../assets/images/icon-4.png'
 import { ProgressBar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import {DefualtImageSetter} from "../../utils/globalHelpers"
 function IdoCards ({ idoArr }) {
   // console.log(idoArr)
   const socialLinks = [Icon1, Icon2, Twitter, Icon4, Icon4]
   //   console.log('ido arr in cards', idoArr)
-const addDefaultImg = ev => {
-    ev.target.src =
-      'https://media.istockphoto.com/photos/abstract-graphic-world-map-illustration-on-blue-background-big-data-picture-id1294021851'
-  }
+
   return (
     <div className='row'>
       {idoArr.map((item, index) => {
@@ -29,17 +27,17 @@ const addDefaultImg = ev => {
                     className='img-fluid profile'
                     src={item.logoHash}
                     alt='Gammes'
-                       onError={addDefaultImg}
+                       onError={DefualtImageSetter}
                   />
                 </figure>
 
                 <div className='w-100'>
                   <strong className='card-title s-line first'>
-                    ${item.idoName}
+                    {item.idoName}
                   </strong>
                   <div className='d-flex justify-content-between align-items-center'>
                     <p className='text-uppercase s-line second'>
-                      ${item.idoName}
+                      {item.idoName}
                     </p>
                     {/* <a href="#" href="#" className='tag-btn text-uppercase'>upcoming</a> */}
                   </div>

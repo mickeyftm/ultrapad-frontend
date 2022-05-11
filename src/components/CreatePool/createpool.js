@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 // import DatePicker from "react-datepicker"
 import { Link } from 'react-router-dom'
-import { faBackward } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowAltCircleLeft,
+  faPlusCircle
+} from '@fortawesome/free-solid-svg-icons'
 import 'react-datepicker/dist/react-datepicker.css'
 import {
   Form,
@@ -23,6 +26,8 @@ import {
   faExclamation,
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
+
+// import { FaBeer  } from "react-icons";
 import Info from '../InfoBtn/info'
 import { ethers } from 'ethers'
 import { useCookies } from 'react-cookie'
@@ -92,6 +97,7 @@ function Createpool () {
     twitter: ''
   })
   const [poolBalance, setPoolBalance] = useState(0)
+
   const [errors, setErrors] = useState({})
 
   const [apTok1, setApTok1] = useState(false)
@@ -118,20 +124,12 @@ function Createpool () {
   // ----- All Event Handlers appear Below -------
   //----------------------------------------------
 
-  const AlertNotify = (message, time) => {
-    setAlert(message)
-
-    setTimeout(() => {
-      setAlert('')
-    }, time)
-  }
-
-  const handleCreateCheck = async () => {
-    handleValidation()
-    setCreateCheck(true)
-    myRef.current.scrollIntoView()
-    console.log('myRef', myRef)
-  }
+  // const handleCreateCheck = async () => {
+  //   handleValidation()
+  //   setCreateCheck(true)
+  //   myRef.current.scrollIntoView()
+  //   console.log('myRef', myRef)
+  // }
   const handleNetwork = async network => {
     console.log('network selection', network)
 
@@ -518,12 +516,54 @@ function Createpool () {
     console.log('approval status', approve)
     return approve
   }
+
+  const exponentialToDecimal = exponential => {
+    let decimal = exponential.toString().toLowerCase()
+    if (decimal.includes('e+')) {
+      const exponentialSplitted = decimal.split('e+')
+      let postfix = ''
+      for (
+        let i = 0;
+        i <
+        +exponentialSplitted[1] -
+          (exponentialSplitted[0].includes('.')
+            ? exponentialSplitted[0].split('.')[1].length
+            : 0);
+        i++
+      ) {
+        postfix += '0'
+      }
+      const addCommas = text => {
+        let j = 3
+        let textLength = text.length
+        while (j < textLength) {
+          text = `${text.slice(0, textLength - j)},${text.slice(
+            textLength - j,
+            textLength
+          )}`
+          textLength++
+          j += 3 + 1
+        }
+        return text
+      }
+      decimal = addCommas(exponentialSplitted[0].replace('.', '') + postfix)
+    }
+    if (decimal.toLowerCase().includes('e-')) {
+      const exponentialSplitted = decimal.split('e-')
+      let prefix = '0.'
+      for (let i = 0; i < +exponentialSplitted[1] - 1; i++) {
+        prefix += '0'
+      }
+      decimal = prefix + exponentialSplitted[0].replace('.', '')
+    }
+    return decimal
+  }
+
   const depositTokens = async idoAddress => {
     const {
       poolingToken,
       biddingToken,
       isKyc,
-
       tokenPrice,
       marketCap
     } = poolMeta
@@ -534,27 +574,29 @@ function Createpool () {
     const start1 = startDate / 1000
     var endDate = Date.parse(eDate)
     const end1 = endDate / 1000
+    // clean price
+    const price = (tokenPrice * Math.pow(10, poolDecimals)).toString()
+    const priceNew = exponentialToDecimal(price)
+    var cleanPrice = priceNew.replace(/,/g, '')
+    console.log('clean value', cleanPrice)
 
-    console.log('end Date', end1)
+    // clean price
 
-    console.log('Start Date', start1)
+    // clean marketCap
+    const marketCapNew1 = marketCap * Math.pow(10, poolDecimals)
+    const decimalsNew = exponentialToDecimal(marketCapNew1)
+    console.log('market cap new in initiate pool', decimalsNew)
+    var cleanStr = decimalsNew.replace(/,/g, '')
+    console.log('clean value', cleanStr)
+    // clean marketCap
 
-    console.log('price before depoist', tokenPrice)
-
-    const price = tokenPrice * Math.pow(10, poolDecimals)
-
-    console.log('price after multiply', price)
-    console.log('market cap', marketCap)
-
-    const marketCapNew = marketCap * Math.pow(10, poolDecimals)
-    console.log('market cap new ', parseFloat(marketCapNew))
     fetchIdoContract
       .initiateIDO(
-        parseFloat(marketCapNew),
+        cleanStr,
         poolingToken,
         biddingToken,
-        parseFloat(price),
-        parseFloat(marketCapNew),
+        cleanPrice,
+        cleanStr,
         start1,
         end1,
         isKyc
@@ -605,21 +647,30 @@ function Createpool () {
       )
     }
 
-    const marketCapNew = marketCap * Math.pow(10, poolDecimals)
-
-    console.log('marketCapNew', marketCapNew)
-
     client.add(JSON.stringify(poolMeta)).then(async res => {
       console.log('ipfs hash', res.path)
 
-      const price = tokenPrice * Math.pow(10, poolDecimals)
 
+      
+      // price clean
+      const price = (tokenPrice * Math.pow(10, poolDecimals)).toString()
+      const priceNew = exponentialToDecimal(price)
+      var cleanPrice = priceNew.replace(/,/g, '')
+      // price clean
+
+      // marketcap new
+      const marketCapNew = (marketCap * Math.pow(10, poolDecimals)).toString()
+      const decimalsNew = exponentialToDecimal(marketCapNew)
+      var cleanStr = decimalsNew.replace(/,/g, '')
+      // marketcap new
+
+      console.log('clean value', cleanStr)
       storageContract
         .initiatePool([
-          marketCapNew,
+          cleanStr,
           sDate1,
           eDate1,
-          price,
+          cleanPrice,
           parseInt(poolDecimals),
           networks,
           idoAddress,
@@ -706,6 +757,7 @@ function Createpool () {
         )
       }
     } else {
+      AlertNotify('Check for Errors !!!! ', 3000)
       setModalShow(false)
     }
   }
@@ -713,6 +765,14 @@ function Createpool () {
   const handleImgError = ev => {}
   const handleBack = () => {
     setBack(true)
+  }
+
+  const AlertNotify = (message, time) => {
+    setAlert(message)
+
+    setTimeout(() => {
+      setAlert('')
+    }, time)
   }
   return (
     <>
@@ -725,26 +785,27 @@ function Createpool () {
             <Button
               onClick={handleBack}
               // onClick={() => setAddPool(false)}
-              className='text-white light-blue-btn text-capitalize d-inline w-md-25'
+              className='text-white light-blue-btn text-capitalize d-inline w-md-25 btn-design'
             >
-              <FontAwesomeIcon className='add-icon' icon={faBackward} />
+              <FontAwesomeIcon
+                className='add-icon mx-2 ms-0'
+                icon={faArrowAltCircleLeft}
+              />
               Back to Pools
             </Button>
           </div>
         </div>
+
         <div className='heading'>
           <h3 className='text-white  mt-4'>Information</h3>
         </div>
         <hr className='text-white'></hr>
 
-        <Form
-          className='create-pool text-white'
-          onKeyUp={createCheck ? handleValidation : null}
-        >
-          <Row>
+        <Form className='create-pool text-white' onKeyUp={handleValidation}>
+          <Row className='align-items-center'>
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group
-                className='mb-md-5 mb-3 input_error'
+                className='mb-md-4 mb-4 input_error'
                 controlId='title'
               >
                 <Info
@@ -762,9 +823,55 @@ function Createpool () {
                 />
                 <ErrorLabels props={errors.title} />
               </Form.Group>
+            </div>
+            <div className='col-md-6 mb-md-0 mb-3'>
+              <div className='img-cover-box'>
+                {/* <p className='mb-0'> Image will be appear here</p> */}
+                {poolMeta.logo !== '' ? (
+                  <>
+                    <img
+                      src={`https://ipfs.infura.io/ipfs/${poolMeta.logo}`}
+                      alt='logo'
+                      className='img-fluid'
+                      width='100'
+                      height='100'
+                      onError={handleImgError}
+                    ></img>
 
+                    <Form.Control
+                      className='upload_logo'
+                      name='logo'
+                      placeholder='Upload Logo'
+                      type='file'
+                      onChange={handleChange}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Form.Label htmlFor='fileUpload'>
+                      <p className='logo_text mb-0'>
+                        <FontAwesomeIcon
+                          className='add-icon mx-2 ms-0'
+                          icon={faPlusCircle}
+                        />
+                        Select logo
+                      </p>
+                    </Form.Label>
+                    <Form.Control
+                      className='upload_logo'
+                      name='logo'
+                      placeholder='Upload Logo'
+                      type='file'
+                      onChange={handleChange}
+                    />
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className='col-md-12 mb-md-0 mb-3'>
               <Form.Group
-                className='mb-md-5 mb-3 cms-pages-style'
+                className='mb-md-5 mb-4 cms-pages-style'
                 controlId='description'
               >
                 <Info
@@ -781,51 +888,6 @@ function Createpool () {
                 />
               </Form.Group>
             </div>
-
-            <div className='col-md-6 mb-md-0 mb-3'>
-              <Row>
-                <div className='col-12'>
-                  <Form.Group className='mb-4' controlId='logo'>
-                    <Form.Label>Upload Logo</Form.Label>
-                    <div className='input_btn'>
-                      <Form.Control
-                        className='upload_logo'
-                        name='logo'
-                        placeholder='Upload Logo'
-                      />
-                      <button
-                        type='file'
-                        onClick={handleChange}
-                        class='form-submit upload_btn'
-                      >
-                        choose file
-                      </button>
-                    </div>
-
-                    {/* <Form.Control className='upload_logo'
-                    type='file'
-                    onChange={handleChange}
-                    name='logo'
-                    placeholder='Upload Logo'
-                  /> */}
-                  </Form.Group>
-                </div>
-                {poolMeta.logo !== '' ? (
-                  <div className='col-md-6 '>
-                    <img
-                      src={`https://ipfs.infura.io/ipfs/${poolMeta.logo}`}
-                      alt='logo'
-                      className='img-fluid user_img'
-                      width='100'
-                      height='100'
-                      onError={handleImgError}
-                    ></img>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </div>
           </Row>
           {/* Chain Information */}
           <div className='heading'>
@@ -834,7 +896,7 @@ function Createpool () {
           <hr className='text-white mb-md-5 mb-3'></hr>
           <Row>
             <div className='col-md-6 mb-md-0 mb-3'>
-              <Form.Group className='mb-md-5 mb-3' controlId='poolStartDat1e'>
+              <Form.Group className='mb-md-5 mb-4' controlId='poolStartDat1e'>
                 <Info name={'Network'} desc={'Select Network e.g Bsc,Eth'} />
                 <Dropdown style={{ backgroundColor: '#1F1D3D' }}>
                   <Dropdown.Toggle
@@ -868,7 +930,7 @@ function Createpool () {
                   </Dropdown.Menu>
                 </Dropdown>
               </Form.Group>
-              <Form.Group className='mb-md-5 mb-3' controlId='poolingToken'>
+              <Form.Group className='mb-md-5 mb-4' controlId='poolingToken'>
                 <Info
                   name={'Pooling Token'}
                   desc={'Enter Address of pooling token in hex form e.g 0x....'}
@@ -898,7 +960,7 @@ function Createpool () {
                 <ErrorLabels props={errors.poolingToken} />
               </Form.Group>
             </div>
-            <div className='col-md-6 mb-md-5 mb-3'>
+            <div className='col-md-6 mb-md-5 mb-4'>
               <div className='d-flex flex-column justify-content-end h-100'>
                 <Form.Group className='input_error' controlId='biddingToken'>
                   <Info
@@ -942,7 +1004,7 @@ function Createpool () {
           <Row>
             <div className='col-md-6'>
               <Form.Group
-                className='mb-md-5 mb-3 cms-pages-style'
+                className='mb-md-5 mb-4 cms-pages-style'
                 controlId='description'
               >
                 <Info name={'Price'} desc={'Enter Token Current Price '} />
@@ -957,7 +1019,7 @@ function Createpool () {
                 <ErrorLabels props={errors.tokenPrice} />
               </Form.Group>
               <Form.Group
-                className='mb-md-5 mb-3 cms-pages-style'
+                className='mb-5 cms-pages-style'
                 controlId='description'
               >
                 <Info name={'Market Cap'} desc={'Enter Token Market Cap '} />
@@ -969,7 +1031,7 @@ function Createpool () {
                   onChange={handleChange}
                   isInvalid={!!errors.marketCap}
                 />
-                <p className='text-secondary mt-1'>
+                <p className='text-secondary mt-1 mb-0'>
                   Current Balance :{poolBalance} {poolName}{' '}
                 </p>
                 <ErrorLabels props={errors.marketCap} />
@@ -977,7 +1039,7 @@ function Createpool () {
             </div>
             <div className='col-md-6'>
               <Form.Group
-                className='mb-md-5 mb-3 cms-pages-style'
+                className='mb-md-5 mb-4 cms-pages-style'
                 controlId='TotalBiddingToken'
               >
                 <Info name={'Total Supply'} desc={'Token Total Supply'} />
@@ -1002,7 +1064,7 @@ function Createpool () {
           <Row>
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group
-                className='mb-md-5 mb-3 d-flex flex-column'
+                className='mb-md-5 mb-4 d-flex flex-column'
                 controlId='poolStartDate11'
               >
                 <Info
@@ -1027,7 +1089,7 @@ function Createpool () {
                 )}
               </Form.Group>
               <FormGroup
-                className='mb-md-5 mb-3 d-flex flex-column'
+                className='mb-md-5 mb-4 d-flex flex-column'
                 controlId='poolStartDate'
               >
                 <Info
@@ -1043,14 +1105,14 @@ function Createpool () {
                     onChange={e => handleKyc(e)}
                   />
                   <label htmlFor='switch-1' className='switch-label'>
-                    Switch
+                    {/* Switch */}
                   </label>
                 </div>
               </FormGroup>
             </div>
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group
-                className='mb-md-5 mb-3 d-flex flex-column'
+                className='mb-md-5 mb-4 d-flex flex-column'
                 controlId='poolEndDate'
               >
                 <Info name={'IDO end Date'} desc={'Enter when IDO will End'} />
@@ -1080,7 +1142,7 @@ function Createpool () {
 
           <Row>
             <div className='col-md-6 mb-md-0 mb-3'>
-              <Form.Group className='mb-md-5 mb-3' controlId='twitter'>
+              <Form.Group className='mb-md-5 mb-4' controlId='twitter'>
                 <Form.Label>Twitter</Form.Label>
                 <Form.Control
                   type='url'
@@ -1094,7 +1156,7 @@ function Createpool () {
                 <ErrorLabels props={errors.twitter} />
               </Form.Group>
 
-              <Form.Group className='mb-md-5 mb-3' controlId='medium'>
+              <Form.Group className='mb-md-5 mb-4' controlId='medium'>
                 <Form.Label>Medium</Form.Label>
                 <Form.Control
                   type='url'
@@ -1107,7 +1169,7 @@ function Createpool () {
 
                 <ErrorLabels props={errors.medium} />
               </Form.Group>
-              <Form.Group className='mb-md-5 mb-3' controlId='formBasicEmail'>
+              <Form.Group className='mb-md-5 mb-4' controlId='formBasicEmail'>
                 <Form.Label>Website</Form.Label>
                 <Form.Control
                   type='url'
@@ -1122,7 +1184,7 @@ function Createpool () {
               </Form.Group>
             </div>
             <div className='col-md-6 mb-md-0 mb-3'>
-              <Form.Group className='mb-md-5 mb-3' controlId='formBasicEmail'>
+              <Form.Group className='mb-md-5 mb-4' controlId='formBasicEmail'>
                 <Form.Label>Discord</Form.Label>
                 <Form.Control
                   type='url'
@@ -1136,7 +1198,7 @@ function Createpool () {
                 <ErrorLabels props={errors.discord} />
               </Form.Group>
 
-              <Form.Group className='mb-md-5 mb-3' controlId='formBasicEmail'>
+              <Form.Group className='mb-md-5 mb-4' controlId='formBasicEmail'>
                 <Form.Label>Telegram</Form.Label>
                 <Form.Control
                   type='url'
@@ -1159,13 +1221,14 @@ function Createpool () {
               className='light-blue-btn w-10'
               // onClick={GetHash}
 
-              onClick={createCheck ? IDOSale : handleCreateCheck}
+              onClick={IDOSale}
             >
               Create Pool
             </Button>
           </div>
         </Form>
       </div>
+      {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
       {modalShow ? (
         <Modal
           className='pool-modal '

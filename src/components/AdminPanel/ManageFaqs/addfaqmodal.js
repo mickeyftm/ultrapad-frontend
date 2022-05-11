@@ -30,7 +30,7 @@ function FaqModal ({ show, handleModal }) {
         setAlert('SuccessFullt Added Faq')
         setTimeout(()=>{
           setAlert("")
-        },3000)
+        },77000)
       
       })
       .catch(err => {
@@ -38,7 +38,7 @@ function FaqModal ({ show, handleModal }) {
         setAlert('Unable to Add Faq,Check Server!!!')
         setTimeout(()=>{
           setAlert("")
-        },3000)
+        },77000)
       })
   }
   return (

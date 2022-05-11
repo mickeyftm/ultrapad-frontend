@@ -590,5 +590,4 @@ const data = [
     type: 'function'
   }
 ]
-
 export default data

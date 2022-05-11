@@ -29,9 +29,20 @@ function App () {
           return accounts.length > 0
         }
 
-        await isMetaMaskConnected().then(connected => {
+        await isMetaMaskConnected().then(async connected => {
           if (connected) {
             console.log('MetamasK connected ')
+            ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x61' }]
+            })
+            const accounts = await ethereum.request({
+              method: 'eth_requestAccounts'
+            })
+            if (accounts !== null) {
+              
+              setCookies('address', accounts[0])
+            }
           } else {
             AlertNotify(
             "Connect Your Metamask",3000
@@ -39,17 +50,7 @@ function App () {
           }
         })
 
-        ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x61' }]
-        })
-        const accounts = await ethereum.request({
-          method: 'eth_requestAccounts'
-        })
-        if (accounts !== null) {
-          
-          setCookies('address', accounts[0])
-        }
+       
       } else {
         console.log('Error in Getting metamask')
         AlertNotify(
@@ -91,7 +92,7 @@ function App () {
             )}
           </Routes>
         </main>
-        {/* <Footer /> */}
+       
       </div>
     </div>
   )

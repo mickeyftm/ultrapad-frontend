@@ -97,41 +97,7 @@ function ManagePools () {
     // console.log(contract);
     // setIsDeleted()
   }
-  // const timeConverter = useCallback(
-  //   UNIX_timestamp => {
-  //     // var a = new Date(UNIX_timestamp * 1000);
-  //     var a = new Date(UNIX_timestamp * 1000)
-  //     var months = [
-  //       'Jan',
-  //       'Feb',
-  //       'Mar',
-  //       'Apr',
-  //       'May',
-  //       'Jun',
-  //       'Jul',
-  //       'Aug',
-  //       'Sep',
-  //       'Oct',
-  //       'Nov',
-  //       'Dec'
-  //     ]
-  //     var year = a.getFullYear()
-  //     var month = months[a.getMonth()]
-  //     var date = a.getDate()
-  //     var hour = a.getHours()
-  //     var min = a.getMinutes()
-  //     // var sec = a.getSeconds()
 
-  //     var time1 = date + ' ' + month + ' ' + year
-  //     time.month = month
-  //     time.hour = hour
-  //     time.min = min
-  //     time.date = date
-  //     // console.log('time', time)
-  //     return time1
-  //   },
-  //   [time]
-  // )
   const AlertNotify = (message, time) => {
     setAlert(message)
 
@@ -214,9 +180,9 @@ function ManagePools () {
                                 <td>{item.network}</td>
                                 <td>
                                   {item.isEnable ? (
-                                    <Badge bg='info'>Active</Badge>
+                                    <Badge className='px-2 py-1' bg='info'>Active</Badge>
                                   ) : (
-                                    <Badge bg='secondary'>Disabled</Badge>
+                                    <Badge className='px-2 py-1' bg='secondary'>Disabled</Badge>
                                   )}{' '}
                                 </td>
                                 <td>{item.startDate}</td>

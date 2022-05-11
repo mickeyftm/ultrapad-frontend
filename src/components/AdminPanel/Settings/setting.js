@@ -18,14 +18,11 @@ function Setting () {
     meta_description: ''
   })
   const [alert, setAlert] = useState('')
-  const [disabled, setDisabled] = useState(true)
+
   const handleChange = e => {
     const { name, value } = e.target
 
     setSettingDetails({ ...settingDetail, [name]: value })
-  }
-  const EditSetting = () => {
-    setDisabled(false)
   }
 
   const SaveSettings = () => {
@@ -52,15 +49,16 @@ function Setting () {
         setAlert('SuccessFullt Edited Faq')
         setTimeout(() => {
           setAlert('')
-        }, 3000)
-        setDisabled(true)
+        }, 5000)
       })
       .catch(err => {
         console.log('Error in  fetching settings Component', err)
         setAlert('Unable to Edit Settings Check for Error')
+        
+        
         setTimeout(() => {
           setAlert('')
-        }, 3000)
+        }, 5000)
       })
   }
   useEffect(() => {
@@ -79,26 +77,20 @@ function Setting () {
     <div>
       <div className='content'>
         <div className='cms-pg'>
+        {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
           <Card>
             <Card.Header className='titles-sett text-center'>
-            <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
-            <div className='mb-sm-0 mb-2'>Site Settings</div>
-              <div>
-                <button
-                  className='d-inline light-blue-btn text-capitalize mb-sm-0 mb-2' 
-                  onClick={SaveSettings}
-                >
-                  Save Settings
-                </button>
-                <button
-                  className='d-inline light-blue-btn text-capitalize ms-2 ms-xs-0'
-                  onClick={EditSetting}
-                >
-                  Edit Settings
-                </button>
+              <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
+                <div className='mb-sm-0 mb-2'>Site Settings</div>
+                <div>
+                  <button
+                    className='d-inline light-blue-btn text-capitalize mb-sm-0 mb-2'
+                    onClick={SaveSettings}
+                  >
+                    Save Settings
+                  </button>
+                </div>
               </div>
-            </div>
-              
             </Card.Header>
             <Card.Body>
               <div className='cms-pages-style'>
@@ -114,10 +106,7 @@ function Setting () {
                               name='site_title'
                               onChange={handleChange}
                               placeholder='Enter Name'
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
-                              disabled={disabled}
+                              className={'text-white'}
                               value={settingDetail.site_title}
                             />
                           </Form.Group>
@@ -129,12 +118,9 @@ function Setting () {
                             <Form.Control
                               type='text'
                               name='meta_title'
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               onChange={handleChange}
                               placeholder='Enter meta_title'
-                              disabled={disabled}
                               value={settingDetail.meta_title}
                             />
                           </Form.Group>
@@ -151,39 +137,30 @@ function Setting () {
                                 type='text'
                                 name='meta_keywords'
                                 onChange={handleChange}
-                                disabled={disabled}
-                                className={
-                                  disabled ? 'text-white-50' : 'text-white'
-                                }
+                                className={'text-white'}
                                 placeholder='Enter meta_keywords'
                                 value={settingDetail.meta_keywords}
                               />
                             </Form.Group>
                             <Form.Label>Site Description</Form.Label>
-                            <Form.Control
+                            <Form.Control id="scroll-1"
                               as='textarea'
                               rows={2}
-                              disabled={disabled}
                               name='site_description'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Description'
                               value={settingDetail.site_description}
                             />
                           </Form.Group>
                           <Form.Group>
                             <Form.Label>Meta Description</Form.Label>
-                            <Form.Control
+                            <Form.Control id="scroll-1"
                               as='textarea'
                               rows={2}
-                              disabled={disabled}
                               name='site_description'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Description'
                               value={settingDetail.site_description}
                             />
@@ -198,9 +175,7 @@ function Setting () {
                               name='twitter_link'
                               onChange={handleChange}
                               placeholder='Enter Twitter Link'
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               value={settingDetail.twitter_link}
                             />
                           </Form.Group>
@@ -213,9 +188,7 @@ function Setting () {
                               type='link'
                               onChange={handleChange}
                               name='telegram_link'
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Telegram Link'
                               value={settingDetail.telegram_link}
                             />
@@ -229,9 +202,7 @@ function Setting () {
                               type='link'
                               name='medium_link'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Medium Link'
                               value={settingDetail.medium_link}
                             />
@@ -245,9 +216,7 @@ function Setting () {
                               type='link'
                               name='aap_link'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter App Link'
                               value={settingDetail.aap_link}
                             />
@@ -261,9 +230,7 @@ function Setting () {
                               type='link'
                               name='poscast_link'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Podcast Link'
                               value={settingDetail.poscast_link}
                             />
@@ -277,9 +244,7 @@ function Setting () {
                               type='link'
                               name='website_link'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
+                              className={'text-white'}
                               placeholder='Enter Website Link'
                               value={settingDetail.website_link}
                             />
@@ -291,7 +256,7 @@ function Setting () {
                 </div>
               </div>
             </Card.Body>
-            {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
+           
           </Card>
         </div>
       </div>

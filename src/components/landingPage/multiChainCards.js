@@ -7,9 +7,7 @@ import { createClient } from 'urql'
 import IdoCards from './IdoCards'
 import useFetchIdoCounts from '../../CustomHooks/FetchIdoCounts'
 
-import Abi from '../../utils/api'
-import { ethers } from 'ethers'
-import useFetchGraph from '../../CustomHooks/FetchGraph'
+// import useFetchGraph from '../../CustomHooks/FetchGraph'
 import LoaderCardSkeleton from './loaderCardSkeleton'
 // import { ethers } from 'ethers'
 const MultiChainCards = () => {
@@ -20,46 +18,41 @@ const MultiChainCards = () => {
   const [time] = useState({})
   const [poolStatus, setPoolStatus] = useState('')
 
-  const [dummyPool] = useFetchGraph()
-
-  const [idoInfo, setIdoInfo] = useState(dummyPool)
-
   const [totalIdo] = useFetchIdoCounts()
-  const timeConverter = useCallback(
-    UNIX_timestamp => {
-      // var a = new Date(UNIX_timestamp * 1000);
-      var a = new Date(UNIX_timestamp * 1000)
-      var months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
-      var year = a.getFullYear()
-      var month = months[a.getMonth()]
-      var date = a.getDate()
-      var hour = a.getHours()
-      var min = a.getMinutes()
-      // var sec = a.getSeconds()
 
-      var time1 = date + ' ' + month + ' ' + year
-      time.month = month
-      time.hour = hour
-      time.min = min
-      time.date = date
-      // console.log('time', time)
-      return time1
-    },
-    [time]
-  )
+  const [idoInfo, setIdoInfo] = useState([])
+  const timeConverter = useCallback(UNIX_timestamp => {
+    // var a = new Date(UNIX_timestamp * 1000);
+    var a = new Date(UNIX_timestamp * 1000)
+    var months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ]
+    var year = a.getFullYear()
+    var month = months[a.getMonth()]
+    var date = a.getDate()
+    var hour = a.getHours()
+    var min = a.getMinutes()
+    // var sec = a.getSeconds()
+
+    var time1 = date + ' ' + month + ' ' + year
+    time.month = month
+    time.hour = hour
+    time.min = min
+    time.date = date
+    // console.log('time', time)
+    return time1
+  },[time])
 
   const ParseData = async arg => {
     const url = await axios.get(`https://ipfs.io/ipfs/${arg}`)
@@ -84,22 +77,45 @@ const MultiChainCards = () => {
     }
     return remainHour
   }
-  const FetchProvider = async (tokenAdd, Abi) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    var address = tokenAdd
-    var contract = await new ethers.Contract(address, Abi, signer)
-    return contract
-  }
+
   const GetTotalStakeAmout = async (token, raised) => {
-    const contract = await FetchProvider(token, Abi)
+    // const tokenAdd = token.toUpperCase()
+    console.log('token address', token)
 
-    const totalBidding = parseInt(await contract.totalPurchasedAmount())
-
-    const perc = ((parseInt(totalBidding) / raised) * 100).toFixed(2)
-
+    let perc = Math.floor(Math.random() * 100)
     return perc
-    // setTotBidStake(totalBidding * item.swapRate)
+    //  Get total purchase Amount per User
+
+    // const contract = await CustomRpcProvider(token, IdoAbi)
+    // console.log('token', contract)
+    // const total = await contract.owner()
+    // console.log('total', total)
+
+    // console.log('token address', contract)
+    // const BidToken = (await contract.totalPurchasedAmount()).toString()
+    // console.log('total purchase', BidToken)
+
+    // const totalBidding = parseInt(await contract.totalPurchasedAmount())
+    // console.log('token address', totalBidding)
+
+    //   const newPurchaseAmount =
+    //     purchasedAmouPerUser / parseInt(decimalConvert)
+
+    //   setBidPerUser(newPurchaseAmount)
+    // }
+
+    // console.log('total Bidding Amount')
+
+    // const divWithDecimals = totalBidding / decimalConvert
+    // // const result = exponentialToDecimal(divWithDecimals)
+
+    // setTotAucStake(divWithDecimals)
+
+    // const divTotalBid = totalBidding / decimalConvert
+    // const perc = ((divTotalBid / totalSupply) * 100).toFixed(2)
+    // setPercent(perc)
+    // return perc
+    //  Get total purchase Amount per User
   }
 
   const FetchDataSetter = useCallback(
@@ -115,6 +131,7 @@ const MultiChainCards = () => {
             poolingToken,
             startDate,
             endDate,
+
             price,
             idoName,
             logoHash,
@@ -141,15 +158,11 @@ const MultiChainCards = () => {
           var newPrice =
             parseInt(price) / parseInt(Math.pow(10, poolMeta.decimal))
 
-          // const percentFilled = await GetTotalStakeAmout(
-          //   poolingToken,
-          //   totalRaised
-          // )
           const percentFilled = await GetTotalStakeAmout(
             poolingToken,
             newTotalRaised
           )
-          console.log('percent', percentFilled)
+
           let dummyObj = {
             poolId: poolId,
             totalRaised: newTotalRaised.toFixed(2),
@@ -184,12 +197,13 @@ const MultiChainCards = () => {
       
       poolInfos(orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} where:{startDate_lt: ${timestamp},  endDate_gt:${timestamp}  } ){
       poolingToken
+      
       poolId
       totalRaised
       startDate
       endDate
       price
-  
+      
       idoName
       logoHash
       infoHash
@@ -222,9 +236,9 @@ const MultiChainCards = () => {
     }
   }
   useEffect(() => {
-    // fetchUpcomingIdo()
+    fetchUpcomingIdo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dummyPool])
+  }, [])
 
   const fetchUpcomingIdo = async () => {
     console.log('flag value', idoInfo, itemPerPage)
@@ -324,9 +338,8 @@ const MultiChainCards = () => {
       fetchUpcomingIdo()
     } else if (poolStatus === 'ended') {
       console.log('handle status', poolStatus)
-      setItemPerPage(  itemPerPage + 4 , () => {
-        fetchEndedIdo()
-      })
+      setItemPerPage(itemPerPage + 4)
+      fetchEndedIdo()
     }
   }
 

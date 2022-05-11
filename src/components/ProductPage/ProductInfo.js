@@ -12,23 +12,17 @@ import TokenAbi from '../../utils/token20Abi'
 import { createClient } from 'urql'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-
+import { DefualtImageSetter } from '../../utils/globalHelpers'
 import Alerts from '../Alerts/alert'
 import OrderDetail from '../OrderDetails/orderdetail'
 import LoaderProductSkeleton from './productSkeleton'
+import CountdownMonths from './timer'
 const ProductInfo = () => {
   const { id } = useParams()
-  const [approveErr, setApproveErr] = useState('')
-  const [biddTokenInfo, setBiddTokenInfo] = useState({
-    name: '',
-    decimals: '',
-    symbol: ''
-  })
-  const [approveAmou, setApproveAmou] = useState(0)
-  const [itemId] = useState(id)
 
   const API_URL = process.env.REACT_APP_SUBGRAPH_API_LATEST_BSC
-  const [alert, setAlert] = useState('')
+
+  const [itemId] = useState(id) //get Pool Id from custom Navigation
   const [item, setItem] = useState({
     idoTokenSymbol: '',
     poolingToken: '',
@@ -50,22 +44,35 @@ const ProductInfo = () => {
       day: ' '
     }
   })
+
+  //wallet and user Handling states
+  const [approveAmou, setApproveAmou] = useState(0)
   const [acc, setAcc] = useState('Connect Wallet')
   const [cookies, setCookies, removeCookie] = useCookies(['address'])
+  const [balan, setBal] = useState(0)
+  //wallet and user Handling states
 
-  // const [totalStake] = useState(0)
-  // const [totBidStake, setTotBidStake] = useState(0)
+  // bidding and staking states
+  const [biddTokenInfo, setBiddTokenInfo] = useState({
+    name: '',
+    decimals: 1,
+    symbol: ''
+  })
   const [totAucStake, setTotAucStake] = useState(0)
-
   const [stakeAmou, setStakeAmou] = useState(0)
   const [bidPerUser, setBidPerUser] = useState(0)
   const [percen, setPercent] = useState(0)
+  // bidding and staking states
+
+  // error handling states
   const [errors, setErrors] = useState('')
+  const [alert, setAlert] = useState('')
+  const [approveErr, setApproveErr] = useState('')
   const [stakErr, setStakErr] = useState('')
-  //for checking user balance if user has balance
-  const [balan, setBal] = useState(0)
+  // error handling states
 
   const [time] = useState({})
+
   // ----------------------------------------
   // ----------- Helper Functions -----------
   // ----------------------------------------
@@ -96,6 +103,8 @@ const ProductInfo = () => {
       var sec = a.getSeconds()
       var time1
       if (parseInt(hour) > 12) {
+        const newHour = parseInt(hour) - 12
+
         time1 =
           date +
           ' ' +
@@ -103,7 +112,7 @@ const ProductInfo = () => {
           ' ' +
           year +
           ' ' +
-          hour +
+          newHour +
           ':' +
           min +
           ':' +
@@ -143,10 +152,7 @@ const ProductInfo = () => {
 
     return url.data
   }
-  const addDefaultImg = ev => {
-    ev.target.src =
-      'https://media.istockphoto.com/photos/abstract-graphic-world-map-illustration-on-blue-background-big-data-picture-id1294021851'
-  }
+
   const GetRemainDays = async arg => {
     var unix = await Math.round(+new Date() / 1000)
     // console.log(unix)
@@ -224,23 +230,6 @@ const ProductInfo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cookies.address]
   )
-  const handleApprove = async () => {
-    const contract = await FetchProvider(item.biddingToken, TokenAbi)
-
-    const newApproveAmou = parseFloat(approveAmou * biddTokenInfo.decimals)
-    const approve = await contract.approve(
-      item.idoAddress,
-      '115792089237316195423570985008687907853269984665640564039457584007913129639935'
-    )
-    console.log(newApproveAmou)
-    console.log('approve', approve)
-
-    const receipt = await approve.wait()
-    setApproveErr('')
-    console.log('receipt', receipt)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }
 
   // ----------------------------------------
   // --------- Helper Functions End ---------
@@ -248,25 +237,45 @@ const ProductInfo = () => {
 
   const GetTotalStakeAmout = useCallback(
     async args => {
-      const { idoAddress, totalSupply } = args
+      const { idoAddress, totalSupply, biddingToken } = args
+
       const tokenAdd = idoAddress
 
+      // Get bidding decimal here
+
+      const biddingTokenContract = await FetchProvider(biddingToken, TokenAbi)
+      const Decimals = parseInt(await biddingTokenContract.decimals())
+      const decimalConvert = Math.pow(10, Decimals)
+      // Get bidding decimal here
+
+      //  Get total purchase Amount per User
       const contract = await FetchProvider(tokenAdd, Abi)
       console.log(contract)
       const totalBidding = parseInt(await contract.totalPurchasedAmount())
       if (cookies.address !== undefined) {
-        const purchasedAmouPerUser = parseInt(
+        const purchasedAmouPerUser = parseFloat(
           await contract.purchasedAmounts(cookies.address)
         )
-        setBidPerUser(purchasedAmouPerUser)
-      }
-      console.log('total Bidding Amount')
-      setTotAucStake(parseInt(totalBidding))
-      const perc = ((parseInt(totalBidding) / totalSupply) * 100).toFixed(2)
-      setPercent(perc)
-      // setTotBidStake(totalBidding * item.swapRate)
-    },
 
+        const newPurchaseAmount =
+          purchasedAmouPerUser / parseInt(decimalConvert)
+
+        setBidPerUser(newPurchaseAmount)
+      }
+
+      console.log('total Bidding Amount')
+
+      const divWithDecimals = totalBidding / decimalConvert
+      // const result = exponentialToDecimal(divWithDecimals)
+
+      setTotAucStake(divWithDecimals)
+
+      const divTotalBid = totalBidding / decimalConvert
+      const perc = ((divTotalBid / totalSupply) * 100).toFixed(2)
+      setPercent(perc)
+      //  Get total purchase Amount per User
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [cookies.address]
   )
 
@@ -288,16 +297,14 @@ const ProductInfo = () => {
         twitter,
         discord,
         medium,
+        poolStartDate,
         telegram,
         website
       } = hashData
-
+      console.log('i am here ')
       const contract = await FetchProvider(poolingToken, TokenAbi)
       const symbol = await contract.symbol()
 
-      console.log('symbolsymbolsymbolsymbol', symbol)
-
-      await Math.round(+new Date() / 1000)
       var poolStatus = ''
       var unix = Math.round(+new Date() / 1000)
       if (unix < idoData.startDate && unix < idoData.endDate) {
@@ -307,18 +314,20 @@ const ProductInfo = () => {
       } else if (unix > idoData.startDate && unix < idoData.endDate) {
         poolStatus = 'open'
       }
-      const timinStart = timeConverter(idoData.startDate)
-      const timinEnd = timeConverter(idoData.endDate)
+
+      const timinStart = await timeConverter(idoData.startDate)
+      console.log('dates', timinStart)
+      const timinEnd = await timeConverter(idoData.endDate)
       const remainHour = await GetRemainDays(idoData.endDate)
 
-      console.log('logo', logo)
-      // console.log(logoHash)
       var newTotalRaised =
         idoData.totalRaised / Math.pow(10, idoData.poolMeta.decimal)
       console.log('newTotalRaised', idoData.totalRaised)
+
       var newPrice =
         parseInt(idoData.price) /
         parseInt(Math.pow(10, idoData.poolMeta.decimal))
+
       let dummyObj = {
         poolId: idoData.poolId,
         symbol: symbol,
@@ -327,7 +336,7 @@ const ProductInfo = () => {
         price: tokenPrice,
         idoAddress: idoData.poolingToken,
         totalSupply: newTotalRaised,
-        hardCap: newTotalRaised * newPrice,
+        hardCap: (newTotalRaised * newPrice).toFixed(3),
         name: title,
         logo: logo,
         description: description,
@@ -337,28 +346,30 @@ const ProductInfo = () => {
         decimals: idoData.poolMeta.decimal,
         remainTime: remainHour,
         isKyc: isKyc.toString(),
-        poolStatus: poolStatus
+        poolStatus: poolStatus,
+        timeCounter: poolStartDate
       }
-      console.log('dummyObj', dummyObj)
+      console.log('i am here ')
+      console.log('dummyObj ----', dummyObj)
+      setItem(dummyObj)
       if (
-        cookies.address !== undefined &&
-        dummyObj.biddingToken !== undefined
+        cookies.address !== undefined 
       ) {
-        CheckApprove(dummyObj)
+      
+        await CheckApprove(dummyObj)
         GetTotalStakeAmout(dummyObj)
       }
-      setItem(dummyObj)
     },
-    [timeConverter, GetTotalStakeAmout, CheckApprove, cookies.address]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [timeConverter, GetTotalStakeAmout, CheckApprove]
   )
 
   const fetchWithId = useCallback(
     async id => {
       console.log('id', id)
       var str = id
-      
+
       str = str.replace(':', '')
-     
 
       const tokensQuery = `{
       poolInfos (where :{ poolingToken:"${str}" }) 
@@ -398,16 +409,6 @@ const ProductInfo = () => {
     [API_URL, FetchDataSetter]
   )
 
-  // const addDefaultImg = ev => {
-  //   ev.target.src =
-  //     'https://media.istockphoto.com/photos/abstract-graphic-world-map-illustration-on-blue-background-big-data-picture-id1294021851'
-  //   ev.target.alt = ''
-  // }
-
-  //pass as callback to userinfo to get balance
-
-  // It helps to get the total stake amount for the pool
-
   useEffect(() => {
     if (window.ethereum !== undefined) {
       window.ethereum.on('accountsChanged', accounts => {
@@ -441,55 +442,88 @@ const ProductInfo = () => {
   // ----------------------------------
 
   const handleChange = e => {
-    setStakeAmou(e.target.value)
-  }
-
-  const handleStakeClick = async () => {
-    console.log('we are in handle stake')
+    const remainAucAmount = item.totalSupply - totAucStake
+    console.log('remainAucAmount', remainAucAmount)
     if (
-      stakeAmou <= 0 ||
-      // stakeAmou < parseInt(item.minBuyAmount) ||
-      stakeAmou > balan
+      item.totalSupply < e.target.value ||
+      remainAucAmount < e.target.value ||
+      e.target.value < 0
     ) {
-      // console.log('stakeAmou ', stakeAmou)
-      setErrors(`You dont have Enough ${biddTokenInfo.name} `)
+      setErrors('Enter Valid Amount')
     } else {
       setErrors('')
+    }
+    setStakeAmou(e.target.value)
+  }
+  const handleApprove = async () => {
+    const contract = await FetchProvider(item.biddingToken, TokenAbi)
 
-      setStakErr('')
-      const tokenAdd = item.idoAddress
-      console.log('token address', tokenAdd)
-      const contract = await FetchProvider(tokenAdd, Abi)
-      console.log(biddTokenInfo)
-      // const stakeWithDecimal = stakeAmou * tokenInf.decimal
-      // console.log('bidding token decimals', tokenInf.decimal)
+    const newApproveAmou = parseFloat(approveAmou * biddTokenInfo.decimals)
+    const approve = await contract.approve(
+      item.idoAddress,
+      '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+    )
+    console.log(newApproveAmou)
+    console.log('approve', approve)
 
-      console.log('decimals', biddTokenInfo.decimals)
-      const stakeWithBid = stakeAmou * parseInt(biddTokenInfo.decimals)
+    const receipt = await approve.wait()
+    setApproveErr('')
+    console.log('receipt', receipt)
 
-      contract
-        .purchase(stakeWithBid)
-        .then(async res => {
-          const receipt = await res.wait()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+  const handleStakeClick = async () => {
+    if (cookies.address !== undefined) {
+      if (
+        parseFloat(stakeAmou) <= 0 ||
+        // stakeAmou < parseInt(item.minBuyAmount) ||
+        parseFloat(stakeAmou) > parseFloat(balan)
+      ) {
+        // console.log('stakeAmou ', stakeAmou)
+        setErrors(`You dont have Enough ${biddTokenInfo.name} `)
+      } else {
+        setErrors('')
 
-          console.log('receipt', receipt)
+        setStakErr('')
+        const tokenAdd = item.idoAddress
+        console.log('token address', tokenAdd)
+        const contract = await FetchProvider(tokenAdd, Abi)
+        console.log(biddTokenInfo)
+        // const stakeWithDecimal = stakeAmou * tokenInf.decimal
+        // console.log('bidding token decimals', tokenInf.decimal)
 
-          await GetTotalStakeAmout(item)
-        })
-        .catch(err => {
-          AlertNotify(`Error in Staking Tokens ${err}`, 4000)
-          console.log('error in fetching ', err.data.message)
-        })
+        console.log('decimals', biddTokenInfo.decimals)
 
-      setApproveErr('')
+        const stakeWithBid = (
+          stakeAmou * parseInt(biddTokenInfo.decimals)
+        ).toString()
 
-      //after placing orer it should again check for total bidding tokens to update pool balance
+        console.log('stakeWithBid', stakeWithBid)
 
-      // } else {
-      // setStakErr('Stake Limit Exceeded Reduce Stake Amount')
-      // }
+        contract
+          .purchase(stakeWithBid)
+          .then(async res => {
+            const receipt = await res.wait()
+
+            console.log('receipt', receipt)
+
+            await GetTotalStakeAmout(item)
+          })
+          .catch(err => {
+            AlertNotify(`Error in Staking Tokens ${err}`, 4000)
+            console.log('error in fetching ', err)
+          })
+
+        setApproveErr('')
+      }
+    } else {
+      AlertNotify('Connect Your MetaMask', 4000)
     }
   }
+
+  // ----------------------------------
+  // ---Form and Field Handlers End----
+  // ----------------------------------
   const AlertNotify = (message, time) => {
     setAlert(message)
 
@@ -497,10 +531,6 @@ const ProductInfo = () => {
       setAlert('')
     }, time)
   }
-
-  // ----------------------------------
-  // ---Form and Field Handlers End----
-  // ----------------------------------
 
   return (
     <section className='section_padding' id='productInfo'>
@@ -515,7 +545,7 @@ const ProductInfo = () => {
                     <img
                       src={`https://ipfs.io/ipfs/${item.logo}`}
                       alt='Profile img'
-                      onError={addDefaultImg}
+                      onError={DefualtImageSetter}
                     />
                   </div>
                   <div className='name'>
@@ -537,63 +567,88 @@ const ProductInfo = () => {
                 <div className='wallet-sec text-center'>
                   {item.poolStatus === 'close' ? (
                     <>
-                      <h4 className='text-white mt-2'>Pool Ended</h4>
+                      <h4 className='text-white mt-2'>Sale Ended</h4>
                     </>
                   ) : item.poolStatus === 'upcoming' ? (
                     <>
-                      <h4 className='text-white mt-2'>
-                        Pool Starts on {item.startDate}{' '}
+                      <h4 className='text-white mt-3'>
+                        Sale Starts on
+                        <CountdownMonths poolStartDate={item.startDate} />
                       </h4>
                     </>
                   ) : (
                     <>
-                      <div className='input-wrapper'>
+                      <div className='input-wrapper justify-content-center'>
                         {approveErr === '' ? (
                           <>
-                            <div className='filed-wrapper'>
-                              <input
-                                type='number'
-                                onChange={handleChange}
-                                value={stakeAmou}
-                                placeholder='Enter value to Stake'
-                                name='stake-amou'
-                                className='input-field text-white p-1 '
-                                required
-                              />
+                            <div className='slide_text_code'>
+                              <div className='d-flex'>
+                                <div className='filed-wrapper'>
+                                  <input
+                                    type='number'
+                                    onChange={handleChange}
+                                    value={stakeAmou}
+                                    placeholder='Enter value to Stake'
+                                    name='stake-amou'
+                                    className='input-field text-white border-left'
+                                    required
+                                  />
+                                </div>
+                                {errors === '' ? (
+                                  <button
+                                    className='light-blue-btn border-left'
+                                    onClick={handleStakeClick}
+                                  >
+                                    Stake
+                                  </button>
+                                ) : (
+                                  <button
+                                    className='light-blue-btn '
+                                    disabled={true}
+                                  >
+                                    Stake
+                                  </button>
+                                )}
+                              </div>
+                              <div className='slide_text w-100'>
+                                <span>
+                                  {stakeAmou} {item.symbol} ={' '}
+                                  {(stakeAmou * item.price).toFixed(4)}{' '}
+                                  {biddTokenInfo.symbol}{' '}
+                                </span>
+                              </div>
                             </div>
-                            <button
-                              className='light-blue-btn'
-                              onClick={handleStakeClick}
-                            >
-                              Stake
-                            </button>
                           </>
                         ) : (
                           <>
-                            <div className='filed-wrapper'>
-                              <input
-                                type='number'
-                                onChange={e => {
-                                  console.log(e.target.value)
-                                  setApproveAmou(parseFloat(e.target.value))
-                                }}
-                                value={approveAmou}
-                                placeholder='Enter value to Stake'
-                                name='approveAmou'
-                                className='input-field text-white p-1 '
-                                required
-                              />
+                            <div className='slide_text_code'>
+                              <div className='d-flex'>
+                                <div className='filed-wrapper'>
+                                  <input
+                                    type='number'
+                                    onChange={e => {
+                                      console.log(e.target.value)
+                                      setApproveAmou(parseFloat(e.target.value))
+                                    }}
+                                    value={'Approve Your Tokens'}
+                                    placeholder='Approve Your Tokens'
+                                    name='approveAmou'
+                                    disabled={true}
+                                    className='input-field text-white'
+                                    required
+                                  />
+                                </div>
+                                <button
+                                  className='light-blue-btn'
+                                  onClick={handleApprove}
+                                >
+                                  Approve
+                                </button>
+                              </div>
                             </div>
-                            <button
-                              className='light-blue-btn'
-                              onClick={handleApprove}
-                            >
-                              Approve
-                            </button>
                           </>
                         )}
                       </div>
-
                       <UserInfo
                         item={item.biddingToken}
                         bal={balan}
@@ -634,7 +689,7 @@ const ProductInfo = () => {
                   <div className='prog-text d-flex '>
                     {/* <span>{totBidStake} BUSD</span> */}
                     <span className='pt-2'>
-                      {totAucStake} {item.symbol} /{item.totalSupply}{' '}
+                      {totAucStake} {item.symbol} /{item.totalSupply.toFixed(2)}{' '}
                       {item.symbol}
                     </span>
                   </div>
@@ -660,9 +715,7 @@ const ProductInfo = () => {
                   </svg>
                   <span>IDO and distribution on BSC</span>
                 </div>
-                {/* table */}
 
-                {/* end  */}
                 <div className='d-sm-flex text-white justify-content-between '>
                   <div className='sale mb-2'>
                     <span>User Buy Amount</span>
@@ -682,25 +735,36 @@ const ProductInfo = () => {
                   <OrderDetail
                     idoAddress={item.idoAddress}
                     ownerAddress={cookies.address}
+                    bidDecimal={item.biddingToken}
+                    poolDecimal={item.decimals}
                   />
                 ) : (
                   <></>
                 )}
               </div>
             </div>
-            {/* here we will paste product page */}
+            {/* here Start product infp */}
             <div className='col-lg-8 mb-lg-0 mb-3'>
               <div className='coin-detail text-white'>
-                <div className='d-flex align-items-center '>
-                  <div className='coin-profile'>
+                <div className='d-flex flex-sm-row flex-column align-items-center justify-content-between'>
+                  <div className='coin-profile d-flex align-items-center'>
                     <img
                       src={`https://ipfs.io/ipfs/${item.logo}`}
                       alt='Profile img'
-                      onError={addDefaultImg}
+                      onError={DefualtImageSetter}
                     />
+                    <h2 className='mb-0 ms-1'>{item.name}</h2>
                   </div>
-                  <h2>{item.name}</h2>
+
+                  <div className='mb-sm-0 mb-2'>
+                    <img
+                      src='https://dex-bin.bnbstatic.com/static/images/logo_BNB_Chain.svg'
+                      className='chainLogo'
+                      alt='network logo'
+                    ></img>
+                  </div>
                 </div>
+
                 <p>{item.description}</p>
                 <div className='social-icons'>
                   <ul className='mb-0'>
@@ -798,9 +862,9 @@ const ProductInfo = () => {
                     <li>
                       <span className='title'>Swap Rate: </span>
                       <span className='desc-color'>
-                        1 {item.name}
+                        1 {item.symbol}
                         <span className='text-white'> = </span> ${item.price} |{' '}
-                        {item.price} {item.name}
+                        {item.price} {item.symbol}
                         <span className='text-white'> per </span> {item.price}{' '}
                         {biddTokenInfo.name}
                       </span>
@@ -818,7 +882,7 @@ const ProductInfo = () => {
                       <span className='title'>Token: </span>
                       <span className='desc-color'>
                         {' '}
-                        {item.name}({item.name})
+                        {item.name}({item.symbol})
                       </span>
                     </li>
                     <li>
@@ -826,14 +890,15 @@ const ProductInfo = () => {
                       <span> Levels</span>
                     </li>
                     <li>
-                      <span className='title'>Total Supply: </span>
-                      <span> {/* {item.totalSupply} {item.name} */}</span>
+                      {/* <span className='title'>Total Supply: </span>
+                      <span> {/* {item.totalSupply} {item.name} */}
+                      {/* </span> */}
                     </li>
                     <li>
                       <span className='title'>Initial Supply: </span>
                       <span className='desc-color'>
                         {' '}
-                        {item.hardCap} {item.name}
+                        {item.hardCap} {item.symbol}
                       </span>
                     </li>
                     <li className='mb-0'>

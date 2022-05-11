@@ -17,6 +17,7 @@ function LoaderProductSkeleton () {
               <span className='outerside level'>level</span> */}
             </div>
             <div className='wallet-sec text-center'></div>
+       
 
             <div className='usd skeleton'>
               <h3 className='mt-4'> </h3>

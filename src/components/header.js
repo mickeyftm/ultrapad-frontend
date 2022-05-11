@@ -114,14 +114,14 @@ const Header = () => {
                 >
                   Pools
                 </Link>
-                <Link
-                  to='/faqs'
+                <a
+                  href='/#faqs'
                   className={
                     pathname === '#faqs' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
                   }
                 >
                   FAQs
-                </Link>
+                </a>
               </Nav>
             </Navbar.Collapse>
 

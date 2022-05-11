@@ -10,7 +10,7 @@ function Alerts (props) {
   return (
     <div id={show !== false ? 'message' : 'hidden-message'}>
       <div id='inner-message' className='alert alert-error'>
-        <p className='content'>{props.message}</p>
+        <p className='content p-1'>{props.message}</p>
         <h2 type='button' data-dismiss='alert' onClick={handleClose}>
           &times;
         </h2>

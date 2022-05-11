@@ -90,7 +90,7 @@ function ManageFaq () {
                   key={index}
                 >
                   <div className='card-header border-bottom border-primary'>
-                    <h4 className='card-title text-white '>
+                    <h4 className='card-title text-white mb-0'>
                       {'Q'}
                       {' . '}
                       {item.title}

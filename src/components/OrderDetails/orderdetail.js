@@ -2,18 +2,20 @@ import React, { useEffect, useState, useCallback } from 'react'
 
 import Abi from '../../utils/api'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import TokenAbi from '../../utils/token20Abi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ethers } from 'ethers'
 import Alerts from '../Alerts/alert'
 
-function OrderDetail ({ ownerAddress, idoAddress }) {
+function OrderDetail ({ ownerAddress, idoAddress, bidDecimal, poolDecimal }) {
   // console.log(ownerAddress, idoAddress)
   const [alert] = useState('')
   const [orderDetail, setOrderDetail] = useState({
     userAddress: ownerAddress,
-
+    biddingDecimal: bidDecimal,
     idoAddress: idoAddress,
     claimAmount: 0,
+    poolingDecimal: poolDecimal,
     purchasedAmount: 0
   })
   const FetchProvider = async (tokenAdd, Abi) => {
@@ -27,43 +29,50 @@ function OrderDetail ({ ownerAddress, idoAddress }) {
     const contract = await FetchProvider(idoAddress, Abi)
     // console.log('contract  --', contract)
 
-    const purchasedAmou = parseInt(
+    const bidToken = await FetchProvider(bidDecimal, TokenAbi)
+    const Decimals = parseInt(await bidToken.decimals())
+    const purchasedAmou = parseFloat(
       await contract.purchasedAmounts(ownerAddress)
     )
-    // console.log('purchased amount', purchasedAmou)
-    const claimedAmou = parseInt(await contract.claimedAmounts(ownerAddress))
-    // console.log('Claimed amount', claimedAmou)
+    const newPurchase = parseFloat(purchasedAmou / Math.pow(10, Decimals))
+    const claimedAmou = parseFloat(await contract.claimedAmounts(ownerAddress))
+
+    const newClaimedAmount = claimedAmou / Math.pow(10, Decimals)
     setOrderDetail({
       ...orderDetail,
-      claimAmount: claimedAmou,
-      purchasedAmount: purchasedAmou
+      claimAmount: newClaimedAmount,
+      purchasedAmount: newPurchase,
+      biddingDecimal: Decimals
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ownerAddress])
+  }, [ownerAddress, bidDecimal])
 
   useEffect(() => {
     FormatData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [FormatData,orderDetail])
-  // const AlertNotify = (message, time) => {
-  //   setAlert(message)
+  }, [FormatData, orderDetail])
 
-  //   setTimeout(() => {
-  //     setAlert('')
-  //   }, time)
-  // }
   const ClaimTokens = async () => {
     const contract = await FetchProvider(idoAddress, Abi)
-    // console.log('contract', contract)
-    const claimAmount = await contract.claim(
-      parseInt(orderDetail.purchasedAmount)
-    )
+   
+   
+    const newClaim = (
+      orderDetail.purchasedAmount * Math.pow(10, orderDetail.biddingDecimal)
+    ).toString()
+   
+
+
+    const claimAmount = await contract.claim(newClaim)
     const receipt = await claimAmount.wait()
+
+
 
     console.log('receipt', receipt)
     const contract2 = await FetchProvider(idoAddress, Abi)
     const claimedAmou = parseInt(await contract2.claimedAmounts(ownerAddress))
     console.log(claimedAmou)
+
+    
   }
 
   return (
@@ -93,10 +102,11 @@ function OrderDetail ({ ownerAddress, idoAddress }) {
               <div className='text-center light-btn-div'>
                 {orderDetail.purchasedAmount === 0 ? (
                   <div className='claim_text_block'>
-                  <h4 className='mb-0 claim_text fs-lg-2 fs-6 text-uppercase'>
-                    Nothing to Claim
-                    {/* <FontAwesomeIcon className='del-icon' icon={faTrash} /> */}
-                  </h4></div>
+                    <h4 className='mb-0 claim_text fs-lg-2 fs-6 text-uppercase'>
+                      Nothing to Claim
+                      {/* <FontAwesomeIcon className='del-icon' icon={faTrash} /> */}
+                    </h4>
+                  </div>
                 ) : orderDetail.purchasedAmount > 0 &&
                   orderDetail.purchasedAmount !== orderDetail.claimAmount ? (
                   <button className='ml-2 light-blue-btn' onClick={ClaimTokens}>
@@ -106,13 +116,17 @@ function OrderDetail ({ ownerAddress, idoAddress }) {
                 ) : orderDetail.purchasedAmount > 0 &&
                   orderDetail.purchasedAmount === orderDetail.claimAmount ? (
                   <div className='d-flex align-items-center'>
-                  <div class="badges m-0"><span class="outerside level">Claimed
-                  <FontAwesomeIcon className='ms-1' icon={faCheck} style={{color: "#fff"}} />
-                  </span></div>
+                    <div class='badges m-0'>
+                      <span class='outerside level'>
+                        Claimed
+                        <FontAwesomeIcon
+                          className='ms-1'
+                          icon={faCheck}
+                          style={{ color: '#fff' }}
+                        />
+                      </span>
                     </div>
-
-                    
-                  
+                  </div>
                 ) : (
                   <td></td>
                 )}
@@ -121,8 +135,6 @@ function OrderDetail ({ ownerAddress, idoAddress }) {
           </ul>
         </div>
       </div>
-
-    
     </>
   )
 }

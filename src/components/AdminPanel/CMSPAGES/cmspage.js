@@ -14,12 +14,6 @@ function CmsPage () {
 
     setCms({ ...cms, [name]: value })
   }
-  console.log(cms)
-  const [disabled, setDisabled] = useState(true)
-
-  const EditSetting = () => {
-    setDisabled(false)
-  }
 
   const handleSave = e => {
     axios
@@ -66,10 +60,9 @@ function CmsPage () {
   }, [cms])
 
   useEffect(() => {
-    if (disabled === true) {
-      FetchData()
-    }
-  }, [FetchData, disabled])
+    FetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div>
       <div className='content'>
@@ -84,13 +77,6 @@ function CmsPage () {
                 >
                   Save
                 </button>
-                <button
-                  className='d-inline light-blue-btn text-capitalize '
-                  style={{marginLeft:"10px"}}
-                  onClick={EditSetting}
-                >
-                  Edit
-                </button>
               </div>
             </Card.Header>
             <Card.Body>
@@ -102,14 +88,11 @@ function CmsPage () {
                         <Form>
                           <Form.Group className='mb-2'>
                             <Form.Label>Terms Content</Form.Label>
-                            <Form.Control
+                            <Form.Control id="scroll-1"
                               as='textarea'
                               onChange={handleChange}
                               rows={3}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
-                              disabled={disabled}
+                              className={'text-white'}
                               name='terms_content'
                               value={cms.terms_content}
                               placeholder='Enter Terms and Conditions Here'
@@ -121,14 +104,11 @@ function CmsPage () {
                             controlId='exampleForm.ControlTextarea1'
                           >
                             <Form.Label>Privacy Content</Form.Label>
-                            <Form.Control
+                            <Form.Control id="scroll-1"
                               as='textarea'
                               name='privacy_content'
                               onChange={handleChange}
-                              className={
-                                disabled ? 'text-white-50' : 'text-white'
-                              }
-                              disabled={disabled}
+                              className={'text-white'}
                               rows={3}
                               value={cms.privacy_content}
                               placeholder='Enter Privacy Content Here'
