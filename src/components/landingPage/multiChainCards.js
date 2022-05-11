@@ -1,196 +1,483 @@
-import React, { useEffect,useState } from 'react'
-import { Link } from 'react-router-dom'
-import Arenum from '../../assets/images/arenum.png'
-import Icon1 from '../../assets/images/icon-1.png'
-import Icon2 from '../../assets/images/icon-2.png'
-import Twitter from '../../assets/images/twiiter.png'
-import Icon4 from '../../assets/images/icon-4.png'
-import Genso from '../../assets/images/genso.png'
-import Seror from '../../assets/images/seor.png'
-import { Row, Nav, Col, Tab } from 'react-bootstrap'
-import useFetchGraph from '../../CustomHooks/FetchGraph'
+import React, { useCallback, useState, useEffect } from 'react'
+import './landing.css'
 
+import axios from 'axios'
+import { Nav, Tab } from 'react-bootstrap'
+import { createClient } from 'urql'
+import IdoCards from './IdoCards'
+import useFetchIdoCounts from '../../CustomHooks/FetchIdoCounts'
+
+import Abi from '../../utils/api'
+import { ethers } from 'ethers'
+import useFetchGraph from '../../CustomHooks/FetchGraph'
+import LoaderCardSkeleton from './loaderCardSkeleton'
+// import { ethers } from 'ethers'
 const MultiChainCards = () => {
   //Custom hook for fetching data from subgraph
-  
-  const [dataG] = useFetchGraph()
- const [first,setFirst]=useState({})
-  const [time,setTime]=useState({});
- function timeConverter(UNIX_timestamp){
-    // var a = new Date(UNIX_timestamp * 1000);
-    var a=new Date(UNIX_timestamp*1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time1 = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-    time.month=month;
-    time.hour=hour;
-    time.min=min;
-    time.date=date;
-    console.log(time)
-    return time1;  
-}
-  
- 
- useEffect(() => {
+  const API_URL = process.env.REACT_APP_SUBGRAPH_API_LATEST_BSC
 
-   
-    // console.log('chain data 1', dataG.poolDetail)
-    if(dataG.poolDetail!==undefined )
-    {
-        // console.log('chain data 2', dataG.poolReq2.description)
-        console.log("statrt date",dataG.poolData.poolStartDate)
-   timeConverter(dataG.poolData.poolStartDate)
-        setFirst(dataG);
+  const [itemPerPage, setItemPerPage] = useState(0)
+  const [time] = useState({})
+  const [poolStatus, setPoolStatus] = useState('')
+
+  const [dummyPool] = useFetchGraph()
+
+  const [idoInfo, setIdoInfo] = useState(dummyPool)
+
+  const [totalIdo] = useFetchIdoCounts()
+  const timeConverter = useCallback(
+    UNIX_timestamp => {
+      // var a = new Date(UNIX_timestamp * 1000);
+      var a = new Date(UNIX_timestamp * 1000)
+      var months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ]
+      var year = a.getFullYear()
+      var month = months[a.getMonth()]
+      var date = a.getDate()
+      var hour = a.getHours()
+      var min = a.getMinutes()
+      // var sec = a.getSeconds()
+
+      var time1 = date + ' ' + month + ' ' + year
+      time.month = month
+      time.hour = hour
+      time.min = min
+      time.date = date
+      // console.log('time', time)
+      return time1
+    },
+    [time]
+  )
+
+  const ParseData = async arg => {
+    const url = await axios.get(`https://ipfs.io/ipfs/${arg}`)
+    return url.config.url
+  }
+  const GetRemainDays = async arg => {
+    var unix = await Math.round(+new Date() / 1000)
+    var date1 = unix
+    var date2 = arg
+
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2 - date1
+    var remainHour = {}
+    var days = Math.floor(Difference_In_Time / 86400)
+    var hours = Math.floor(days / 60)
+    if (days < 0) {
+      remainHour.day = 0
+      remainHour.hours = 0
+    } else {
+      remainHour.day = days
+      remainHour.hours = hours
     }
-  }, [dataG])
+    return remainHour
+  }
+  const FetchProvider = async (tokenAdd, Abi) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    var address = tokenAdd
+    var contract = await new ethers.Contract(address, Abi, signer)
+    return contract
+  }
+  const GetTotalStakeAmout = async (token, raised) => {
+    const contract = await FetchProvider(token, Abi)
+
+    const totalBidding = parseInt(await contract.totalPurchasedAmount())
+
+    const perc = ((parseInt(totalBidding) / raised) * 100).toFixed(2)
+
+    return perc
+    // setTotBidStake(totalBidding * item.swapRate)
+  }
+
+  const FetchDataSetter = useCallback(
+    idoData => {
+      async function FetchHelper (idoData) {
+        let dummyArr = []
+        // Data Parsing and Conversion appear here
+
+        for (let i = 0; i < idoData.length; i++) {
+          const {
+            poolId,
+            totalRaised,
+            poolingToken,
+            startDate,
+            endDate,
+            price,
+            idoName,
+            logoHash,
+            socials,
+            poolMeta
+          } = idoData[i]
+          await Math.round(+new Date() / 1000)
+          const timinStart = timeConverter(startDate)
+          const timinEnd = timeConverter(endDate)
+          // console.log(totalRaised.toString().length)
+
+          const remainHour = await GetRemainDays(endDate)
+          var hashData
+          if (logoHash === '') {
+            hashData = await ParseData(
+              'QmanLUKX8zzq9cNFYMDKTExp1ARfLmpS3mWyAyC2PGpCXa'
+            )
+          } else {
+            hashData = await ParseData(logoHash)
+          }
+
+          var newTotalRaised =
+            parseInt(totalRaised) / parseInt(Math.pow(10, poolMeta.decimal))
+          var newPrice =
+            parseInt(price) / parseInt(Math.pow(10, poolMeta.decimal))
+
+          // const percentFilled = await GetTotalStakeAmout(
+          //   poolingToken,
+          //   totalRaised
+          // )
+          const percentFilled = await GetTotalStakeAmout(
+            poolingToken,
+            newTotalRaised
+          )
+          console.log('percent', percentFilled)
+          let dummyObj = {
+            poolId: poolId,
+            totalRaised: newTotalRaised.toFixed(2),
+            idoAddress: poolingToken,
+            startDate: timinStart,
+            endDate: timinEnd,
+            price: newPrice,
+            idoName: idoName,
+            logoHash: hashData,
+            socials: socials,
+            remainingHours: remainHour,
+            salePercent: percentFilled
+          }
+          dummyArr.push(dummyObj)
+        }
+
+        var arr = idoInfo
+        arr.push(...dummyArr)
+        setIdoInfo(arr)
+      }
+
+      FetchHelper(idoData)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [timeConverter, idoInfo]
+  )
+
+  const fetchLiveIdo = async () => {
+    var timestamp = await Math.round(+new Date() / 1000)
+
+    const tokensQuery = `{
+      
+      poolInfos(orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} where:{startDate_lt: ${timestamp},  endDate_gt:${timestamp}  } ){
+      poolingToken
+      poolId
+      totalRaised
+      startDate
+      endDate
+      price
+  
+      idoName
+      logoHash
+      infoHash
+      isEnable
+      idoName
+      socials{
+        poolId
+        social
+      }
+      poolMeta{
+        network
+        decimal
+      }
+    }
+   
+ }`
+
+    const client2 = createClient({
+      url: API_URL
+    })
+
+    const data2 = await client2.query(tokensQuery).toPromise()
+
+    // console.log('Upcoming Pools', data2.data)
+    // console.log('data here', data2.data)
+    if (data2.data !== null || data2.data !== undefined) {
+      FetchDataSetter(data2.data.poolInfos)
+
+      // setIdoInfo(data2.data.poolInfos)
+    }
+  }
+  useEffect(() => {
+    // fetchUpcomingIdo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dummyPool])
+
+  const fetchUpcomingIdo = async () => {
+    console.log('flag value', idoInfo, itemPerPage)
+
+    var timestamp = await Math.round(+new Date() / 1000)
+
+    const tokensQuery = `{
+     poolInfos(orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} where:{startDate_gt: ${timestamp},  endDate_gt:${timestamp}  } ){
+        poolingToken
+        poolId
+        totalRaised
+        startDate
+        endDate
+        price
+
+        idoName
+        logoHash
+        infoHash
+        isEnable
+        idoName
+        socials{
+          poolId
+         social
+        
+      }
+      poolMeta{
+        network
+        decimal
+      }
+ }
+   
+ }`
+
+    const client2 = createClient({
+      url: API_URL
+    })
+
+    const data2 = await client2.query(tokensQuery).toPromise()
+
+    // console.log('Upcoming Pools', data2.data)
+    console.log(data2.data)
+    if (data2.data !== null || data2.data !== undefined) {
+      FetchDataSetter(data2.data.poolInfos)
+
+      // setIdoInfo(data2.data.poolInfos)
+    }
+  }
+  const fetchEndedIdo = async () => {
+    var timestamp = await Math.round(+new Date() / 1000)
+    console.log('itemPerPage', itemPerPage)
+    const tokensQuery = `{
+    poolInfos (orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} ,  where:{startDate_lt: ${timestamp},  endDate_lt:${timestamp}  } ) {
+      poolingToken
+      poolId
+      totalRaised
+      startDate
+      endDate
+      price
+      poolingToken
+      idoName
+      logoHash
+      infoHash
+      isEnable
+      idoName
+      socials{
+        poolId
+        social
+        
+      }
+      poolMeta{
+        network
+        decimal
+      }
+ }
+   
+ }`
+    const client2 = createClient({
+      url: API_URL
+    })
+
+    const data2 = await client2.query(tokensQuery).toPromise()
+
+    // console.log(data2.data)
+    if (data2.data !== null || data2.data !== undefined) {
+      FetchDataSetter(data2.data.poolInfos)
+    }
+  }
+  const handleLoadMore = () => {
+    if (poolStatus === 'live') {
+      console.log('handle status', poolStatus)
+      setItemPerPage(itemPerPage + 4)
+      fetchLiveIdo()
+    } else if (poolStatus === 'upcoming') {
+      console.log('handle status', poolStatus)
+
+      setItemPerPage(itemPerPage + 4)
+      fetchUpcomingIdo()
+    } else if (poolStatus === 'ended') {
+      console.log('handle status', poolStatus)
+      setItemPerPage(  itemPerPage + 4 , () => {
+        fetchEndedIdo()
+      })
+    }
+  }
+
+  const handleUpcoming = () => {
+    setIdoInfo([])
+    setPoolStatus('upcoming')
+    idoInfo.length = 0
+
+    setItemPerPage(0)
+    fetchUpcomingIdo()
+  }
+  const handleLive = () => {
+    setPoolStatus('live')
+    setIdoInfo([])
+    idoInfo.length = 0
+
+    setItemPerPage(0)
+    fetchLiveIdo()
+  }
+  const handleEnded = () => {
+    setPoolStatus('ended')
+    setIdoInfo([])
+    idoInfo.length = 0
+
+    setItemPerPage(0)
+    fetchEndedIdo()
+  }
 
   return (
     <>
-    {
-    dataG.poolReq2!=undefined?
-                       
       <section className='tab-cards'>
         <Tab.Container id='left-tabs-example' defaultActiveKey='first'>
           <div className='container-fluid custom-block'>
             <Nav variant='pills'>
               <Nav.Item>
-                <Nav.Link eventKey='first'>Upcoming (22)</Nav.Link>
+                <Nav.Link
+                  name='first'
+                  eventKey='first'
+                  onClick={handleUpcoming}
+                >
+                  Upcoming ({totalIdo.upcoming})
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='second'>Ended (71)</Nav.Link>
+                <Nav.Link name='second' eventKey='second' onClick={handleLive}>
+                  Live({totalIdo.live})
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='third'>Ended NFT (11)</Nav.Link>
+                <Nav.Link name='third' eventKey='third' onClick={handleEnded}>
+                  Ended ({totalIdo.ended})
+                </Nav.Link>
               </Nav.Item>
             </Nav>
 
             <Tab.Content>
-              <Tab.Pane eventKey='first'>
-                <div className='row'>
-                  <div className='col-lg-4 col-md-6 mb-md-5 mb-3'>
-                    <Link to='/product' className='card mb-3'>
-                      <div className='d-flex align-items-lg-center'>
-                        <figure className='mb-0 game-img'>
-                          <img
-                            className='img-fluid'
-                            src={Arenum}
-                            alt='Gammes'
-                          />
-                        </figure>
-                        <div className='w-100'>
-                          <strong className='card-title'>Arenum Games</strong>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <p className='text-uppercase'>$ARN</p>
-                           {/* <a href="#" href="#" className='tag-btn text-uppercase'>upcoming</a> */}
-                          </div>
+              <>
+                <Tab.Pane eventKey='first'>
+                  {totalIdo.upcoming > 0 && idoInfo.length <= 0 ? (
+                    <>
+                      <LoaderCardSkeleton />
+                    </>
+                  ) : totalIdo.upcoming > 0 ? (
+                    <>
+                      <IdoCards idoArr={idoInfo} />
+                      {totalIdo.upcoming <= itemPerPage ? (
+                        <></>
+                      ) : (
+                        <div className='d-flex justify-content-center align-items-center'>
+                          {' '}
+                          <button
+                            className='light-blue-btn'
+                            onClick={handleLoadMore}
+                          >
+                            Load More
+                          </button>
                         </div>
-                      </div>
-                      <div className='social-icon-bar'>
-                       
-                        <ul>
-                          <li>
-                              <figure className='mb-0'>
-                                <img className='img-fluid' src={Icon1} />
-                              </figure>
-                            
-                          </li>
-                          <li>
-                              <figure className='mb-0'>
-                                <img className='img-fluid' src={Icon2} />
-                              </figure>
-                          </li>
-                          <li>
-                              <figure className='mb-0'>
-                                <img className='img-fluid' src={Twitter} />
-                              </figure>
-                          </li>
-                          <li>
-                              <figure className='mb-0'>
-                                <img className='img-fluid' src={Icon4} />
-                              </figure>
-                          </li>
-                        
-                        </ul>
-                      </div>
-                      <p>
-                
-                       {dataG.poolReq2.description}
-                   
-                      </p>
-                      <div className='progress-bar-div'>
-                        <div className='d-flex justify-content-between'>
-                          <p className='mb-2'>
-                            registration close in 4 hours, 59 minutes
-                          </p>
-                          <span className='bar-result'>0%</span>
+                      )}
+                    </>
+                  ) : (
+                    <div className='text-white d-flex justify-content-center align-items-center'>
+                      <h4>No Upcoming IDO's</h4>
+                    </div>
+                  )}
+                </Tab.Pane>
+
+                <Tab.Pane eventKey='second'>
+                  {totalIdo.live > 0 && idoInfo.length <= 0 ? (
+                    <>
+                      <LoaderCardSkeleton />
+                    </>
+                  ) : totalIdo.live > 0 && idoInfo.length > 0 ? (
+                    <>
+                      <IdoCards idoArr={idoInfo} />
+
+                      {totalIdo.live <= itemPerPage ? (
+                        <></>
+                      ) : (
+                        <div className='d-flex justify-content-center align-items-center'>
+                          {' '}
+                          <button
+                            className='light-blue-btn'
+                            onClick={handleLoadMore}
+                          >
+                            Load More
+                          </button>
                         </div>
-                        <div className='progress mb-2'>
-                          <div
-                            className='progress-bar'
-                            role='progressbar'
-                            aria-valuenow='25'
-                            aria-valuemin='0'
-                            aria-valuemax='100'
-                          ></div>
+                      )}
+                    </>
+                  ) : (
+                    <div className='text-white d-flex justify-content-center align-items-center'>
+                      <h4>No Upcoming IDO's</h4>
+                    </div>
+                  )}
+                </Tab.Pane>
+
+                <Tab.Pane eventKey='third'>
+                  {totalIdo.ended > 0 && idoInfo.length <= 0 ? (
+                    <>
+                      {' '}
+                      <LoaderCardSkeleton />
+                    </>
+                  ) : totalIdo.ended > 0 ? (
+                    <>
+                      <IdoCards idoArr={idoInfo} />
+                      {totalIdo.ended <= itemPerPage ? (
+                        <></>
+                      ) : (
+                        <div className='d-flex justify-content-center align-items-center'>
+                          {' '}
+                          <button
+                            className='light-blue-btn'
+                            onClick={handleLoadMore}
+                          >
+                            Load More
+                          </button>
                         </div>
-                        <div className='d-flex justify-content-between'>
-                          <p className='game-price'>0 BUSD</p>
-                          <p>0/2222222 SEOR</p>
-                        </div>
-                      </div>
-                      <div className='card-footer'>
-                        <div className='card-footer-content'>
-                          <ul>
-                            <li>
-                              <p className='text-capitalize'>starts</p>
-                              <div>
-                                <strong className='d-block feature-price blue'>
-                                  {time.month}{time.date}
-                                </strong>
-                                <span className='text-capitalize'>
-                                  {time.hour}:{time.min} UTC
-                                </span>
-                              </div>
-                            </li>
-                            <li>
-                              <p className='text-capitalize'>price</p>
-                              <div>
-                                <strong className='d-block feature-price purple'>
-                                  1SMCW
-                                </strong>
-                                <span className='text-capitalize'>
-                                  =0.13 BUS
-                                </span>
-                              </div>
-                            </li>
-                            <li>
-                              <p className='text-capitalize'>total raise</p>
-                              <div>
-                                <strong className='d-block feature-price pink'>
-                                  $100,000
-                                </strong>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </Tab.Pane>
+                      )}
+                    </>
+                  ) : (
+                    <div className='text-white d-flex justify-content-center align-items-center'>
+                      <h4>No Upcoming IDO's</h4>
+                    </div>
+                  )}
+                </Tab.Pane>
+              </>
             </Tab.Content>
           </div>
         </Tab.Container>
       </section>
-:<></>
-
-}
- </>
+    </>
   )
 }
 

@@ -1,28 +1,100 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './components/header';
-import Footer from './components/footer';
-import Landing from './components/landingPage/landingPage';
-import Product from './components/ProductPage/ProductPage';
+import React, { useEffect, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from './components/header'
+// import Footer from './components/footer'
+import Landing from './components/landingPage/landingPage'
+import Product from './components/ProductPage/ProductPage'
+import Terms from './components/Terms/Terms'
+import Privacy from './components/Privacy/Privacy'
+import Admin from './components/AdminPanel/admin'
+import useGetOwner from './CustomHooks/GetOwner'
+import { useCookies } from 'react-cookie'
+import { ethers } from 'ethers'
+import Alerts from './components/Alerts/alert'
 
-function App() {
+function App () {
+  const [cookies, setCookies] = useCookies(['address'])
+  const [alert, setAlert] = useState('')
+  const [ownerFlag, setOwnerFlag] = useGetOwner(cookies.address)
+  useEffect(() => {
+    async function fetch () {
+      const { ethereum } = window
+      if (ethereum) {
+        var provider = new ethers.providers.Web3Provider(ethereum)
+
+        const isMetaMaskConnected = async () => {
+          const accounts = await provider.listAccounts()
+          return accounts.length > 0
+        }
+
+        await isMetaMaskConnected().then(connected => {
+          if (connected) {
+            console.log('MetamasK connected ')
+          } else {
+            AlertNotify(
+            "Connect Your Metamask",3000
+            )
+          }
+        })
+
+        ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x61' }]
+        })
+        const accounts = await ethereum.request({
+          method: 'eth_requestAccounts'
+        })
+        if (accounts !== null) {
+          
+          setCookies('address', accounts[0])
+        }
+      } else {
+        console.log('Error in Getting metamask')
+        AlertNotify(
+          `Metamask is not Installed.Install metamask from ${'https://chrome.google.com/webstore/detail/metamask'}`
+        ,10000)
+      }
+    }
+    fetch()
+  }, [cookies.address, setCookies, setOwnerFlag])
+  const AlertNotify = (message,time) => {
+    setAlert(message)
+
+    setTimeout(() => {
+      setAlert('')
+    }, time)
+  }
   return (
-    <div className="App">
+    <div className='App'>
+    
       <div className='wrapper'>
+        
+      {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
         <Header />
+
+
         <main>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" exact element={<Landing />} />
-              <Route path="/product" exact element={<Product />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Landing />} />
+            <Route path='/pool:id' exact element={<Product />} />
+            <Route path='/tos' exact element={<Terms />} />
+            <Route path='/privacy' exact element={<Privacy />} />
+            {ownerFlag === true ? (
+              <>
+                {' '}
+                <Route path='/admin/*' exact element={<Admin />} />
+              </>
+            ) : (
+              <></>
+            )}
+          </Routes>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

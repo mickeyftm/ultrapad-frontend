@@ -1,56 +1,78 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Logo from '../assets/images/logo.svg'
+import Holdex from '../assets/images/holdex.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
+import useGetOwner from '../CustomHooks/GetOwner'
+import { useLocation } from 'react-router-dom'
 const Header = () => {
   const [acc, setAcc] = useState('Connect Wallet')
-  const [cookies, setCookies] = useCookies(['address'])
-
+  const [cookies, setCookies, removeCookie] = useCookies(['address'])
+  const [ownerFlag] = useGetOwner(cookies.address)
+  const location = useLocation()
+  const pathname = location.pathname
   useEffect(() => {
-    window.ethereum.on('accountsChanged', accounts => {
-      let selectedAccount = accounts[0]
-      console.log(accounts)
-      setCookies('address', selectedAccount)
-      setAcc(selectedAccount)
-    })
+    if (window.ethereum !== undefined) {
+      window.ethereum.on('accountsChanged', accounts => {
+        let selectedAccount = accounts[0]
+        setCookies('address', selectedAccount)
+        setAcc(converSubString(selectedAccount))
+      })
+      if (cookies.address !== undefined) {
+        setAcc(converSubString(cookies.address))
+      }
 
-    if (cookies.address !== undefined) {
-      setAcc(cookies.address)
+      if (cookies.address === 'undefined') {
+        removeCookie('address')
+        setAcc('Connect Wallet')
+      }
     }
-
-    if (cookies.address === 'undefined') {
-      setAcc('Connect Wallet')
-    }
-
-
-    
-  }, [cookies, window.ethereum, acc])
-  
+  }, [cookies.address, acc, setCookies, ownerFlag, removeCookie])
+  const converSubString = arg => {
+    var res = arg.substring(0, 2)
+    var res2 = arg.substring(38, 42)
+    const wall = res + '...' + res2
+    return wall
+  }
   const walletConnect = async () => {
     try {
       const { ethereum } = window
-      // Will open the MetaMask UI
-      // You should disable this button while the request is pending!
-
       ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x61' }]
       })
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      console.log(accounts)
-      setAcc(accounts[0])
-      setCookies('address', accounts[0])
+      if (accounts !== null) {
+        var wall = converSubString(accounts[0])
+        setAcc(wall)
+        setCookies('address', accounts[0])
+      }
     } catch (error) {
       console.error(error)
     }
   }
+  // Sticky Menu Area
+  useEffect(() => {
+    window.addEventListener('scroll', isSticky);
+    return () => {
+        window.removeEventListener('scroll', isSticky);
+    };
+});
 
+       
+/* Method that will fix header after a specific scrollable */
+       const isSticky = (e) => {
+            const header = document.querySelector('.header-section');
+            const scrollTop = window.scrollY;
+            scrollTop >= 50 ? header.classList.add('is-sticky') : header.classList.remove('is-sticky');
+        };
   return (
     <>
-      <header>
+      <header className='header-section'>
         <Navbar className='navbar navbar-expand-lg navbar-light' expand='lg'>
           <Container fluid className='custom-block'>
             <Navbar.Brand href='/'>
@@ -67,26 +89,61 @@ const Header = () => {
               id='basic-navbar-nav'
             >
               <Nav className='m-auto navbar-nav'>
-                <Nav.Link active href='#home'>
-                  pools
-                </Nav.Link>
-                <Nav.Link href='#link'>FAQs</Nav.Link>
+                {ownerFlag === true ? (
+                  <>
+                    <Link
+                      to='/admin/dashboard1'
+                      className={
+                        pathname === '/admin/dashboard1'
+                          ? 'p-lg-4 p-2 active'
+                          : 'p-lg-4 p-2'
+                      }
+                    >
+                      Admin Panel
+                    </Link>
+
+                  </>
+                ) : (
+                  <></>
+                )}
+                <Link
+                  to='/'
+                  className={
+                    pathname === '/' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                  }
+                >
+                  Pools
+                </Link>
+                <Link
+                  to='/faqs'
+                  className={
+                    pathname === '#faqs' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                  }
+                >
+                  FAQs
+                </Link>
               </Nav>
             </Navbar.Collapse>
 
             <div className='block-btn'>
-              <a href="http://google.com/" className='d-inline shadow-btn text-capitalize'>
-                Buy <span className='text-uppercase'>Spad</span>
-              </a>
               <a
+                href='https://linux.holdex.finance/swap'
+                className='icon-btn shadow-btn text-capitalize'
+              >
+                <img
+                  src={Holdex}
+                  className=' img-fluid h-5'
+                  alt='currencylogo'
+                />
+                Buy <span className='text-uppercase'>Holdex</span>
+              </a>
+              <button
                 className='d-inline light-blue-btn text-capitalize'
                 onClick={walletConnect}
               >
                 {acc}
-              </a>  
-       
+              </button>
             </div>
-       
           </Container>
         </Navbar>
       </header>

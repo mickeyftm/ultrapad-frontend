@@ -1,0 +1,27 @@
+const currentTimeStamp = Math.floor(Date.now() / 1000);
+  let auctionTime1, auctionTime2
+  auctionTime1 = 'auctionEndDate_lt'
+  auctionTime2 = 'auctionStartDate_lt'
+
+  let query = `
+  {
+    auctions(where: { ${auctionTime1}: "${currentTimeStamp}", ${auctionTime2}: "${currentTimeStamp}" }) {
+      id
+    }
+  }
+`;
+  let dutchQuery = `
+    {
+      auctions(where: { ${auctionTime1}: "${currentTimeStamp}", ${auctionTime2}: "${currentTimeStamp}" }) {
+        id
+    }
+    }
+  `;
+
+  let fixedQuery = `
+    {
+      auctions(where: { ${auctionTime1}: "${currentTimeStamp}", ${auctionTime2}: "${currentTimeStamp}" }) {
+        id
+      }
+    }
+  `;

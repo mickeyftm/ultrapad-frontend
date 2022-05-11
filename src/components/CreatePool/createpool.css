@@ -1,0 +1,4 @@
+.required:after {
+    content:" *";
+    color: rgb(125, 97, 175);
+  }

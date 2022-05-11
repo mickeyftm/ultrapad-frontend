@@ -1,2 +1,5 @@
 node_modules
-build
+build/*
+yarn-error.log
+yarn.lock
+package-lock.json
