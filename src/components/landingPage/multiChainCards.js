@@ -8,7 +8,7 @@ import IdoCards from './IdoCards'
 import useFetchIdoCounts from '../../CustomHooks/FetchIdoCounts'
 
 // import useFetchGraph from '../../CustomHooks/FetchGraph'
-import LoaderCardSkeleton from './loaderCardSkeleton'
+import LoaderCardSkeleton from './loadercardskeleton'
 // import { ethers } from 'ethers'
 const MultiChainCards = () => {
   //Custom hook for fetching data from subgraph

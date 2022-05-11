@@ -16,7 +16,8 @@ import { DefualtImageSetter } from '../../utils/globalHelpers'
 import Alerts from '../Alerts/alert'
 import OrderDetail from '../OrderDetails/orderdetail'
 import LoaderProductSkeleton from './productSkeleton'
-import CountdownMonths from './timer'
+// import CountdownMonths from './timer'
+import IDOClock from './idoClock'
 const ProductInfo = () => {
   const { id } = useParams()
 
@@ -244,7 +245,12 @@ const ProductInfo = () => {
       // Get bidding decimal here
 
       const biddingTokenContract = await FetchProvider(biddingToken, TokenAbi)
+
       const Decimals = parseInt(await biddingTokenContract.decimals())
+      const arg = {
+        biddingToken
+      }
+      CheckApprove(arg)
       const decimalConvert = Math.pow(10, Decimals)
       // Get bidding decimal here
 
@@ -303,8 +309,9 @@ const ProductInfo = () => {
       } = hashData
       console.log('i am here ')
       const contract = await FetchProvider(poolingToken, TokenAbi)
+      console.log('contract', contract)
       const symbol = await contract.symbol()
-
+      console.log('symnbol', symbol)
       var poolStatus = ''
       var unix = Math.round(+new Date() / 1000)
       if (unix < idoData.startDate && unix < idoData.endDate) {
@@ -352,10 +359,7 @@ const ProductInfo = () => {
       console.log('i am here ')
       console.log('dummyObj ----', dummyObj)
       setItem(dummyObj)
-      if (
-        cookies.address !== undefined 
-      ) {
-      
+      if (cookies.address !== undefined) {
         await CheckApprove(dummyObj)
         GetTotalStakeAmout(dummyObj)
       }
@@ -573,7 +577,8 @@ const ProductInfo = () => {
                     <>
                       <h4 className='text-white mt-3'>
                         Sale Starts on
-                        <CountdownMonths poolStartDate={item.startDate} />
+                        {/* <CountdownMonths poolStartDate={item.startDate} /> */}
+                        <IDOClock date={item.startDate} />
                       </h4>
                     </>
                   ) : (
