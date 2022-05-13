@@ -290,7 +290,7 @@ const MultiChainCards = () => {
     var timestamp = await Math.round(+new Date() / 1000)
     console.log('itemPerPage', itemPerPage)
     const tokensQuery = `{
-    poolInfos (orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} ,  where:{startDate_lt: ${timestamp},  endDate_lt:${timestamp}  } ) {
+    poolInfos (orderBy:poolId orderDirection:asc,  skip:${itemPerPage} ,  where:{startDate_lt: ${timestamp},  endDate_lt:${timestamp}  } ) {
       poolingToken
       poolId
       totalRaised

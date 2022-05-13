@@ -7,7 +7,7 @@ const UserInfo = props => {
   const [dataProps, setDataProps] = useState({
     BidUser: props.bidPerUser
   })
-  console.log('we are in user Info', props)
+  // console.log('we are in user Info', props)
   const [cookies] = useCookies(['address'])
 
   const fetchBal = useCallback(async () => {

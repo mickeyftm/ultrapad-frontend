@@ -58,7 +58,7 @@ const Banner = () => {
                 Launching hand-picked high-quality projects on the Blockchain.
               </p>
               <p className='p'>
-                Stake Holdex tokens to get early-access to promising projects.
+                Stake UltraPad Finance tokens to get early-access to promising projects.
               </p>
             </div>
             <div className='block-btn text-wrapper'>
@@ -89,7 +89,7 @@ const Banner = () => {
                     className='d-inline blue-outline-btn text-capitalize'
                     href='http://google.com/'
                   >
-                    Buy <span className='text-uppercase'>Holdex</span>
+                    Buy{" "} <span className='text-uppercase'> {" "}UltraPad</span>
                   </a>
                 </div>
                 <div className='d-flex align-items-center'>

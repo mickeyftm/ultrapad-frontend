@@ -163,7 +163,7 @@ function LoaderProductSkeleton () {
               <ul className='mb-0'>
                 <li>
                   <span className='title'>Distribution: </span>
-                  <span> Claimed on Holdex</span>
+                  <span> Claimed on UltraPad </span>
                 </li>
                 <li className='mb-0'>
                   <span className='title'>Vesting: </span>

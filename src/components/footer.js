@@ -18,7 +18,7 @@ const footer = () => {
                             <figure className="footer-mb">
                                 <img  src={Logo} alt="sitelogo" className="img-fluid" />
                             </figure>
-                            <p  className="footer-mb">Holdex is a decentralized multi-chain fundraising platform enabling projects to raise capital and promise safety to early stage investors. Holdex tokens to get priority-access to promising projects.</p>
+                            <p  className="footer-mb">UltraPad Finance is a decentralized multi-chain fundraising platform enabling projects to raise capital and promise safety to early stage investors. UltraPad Finance tokens to get priority-access to promising projects.</p>
                             <ul className="social-icons">
                                 <li><a href="http://google.com/"><img  alt='Gammes' src={FooterIcon1} /></a></li>
                                 <li><a href="http://google.com/"><img  alt='Gammes' src={FooterIcon2} /></a></li>
@@ -58,7 +58,7 @@ const footer = () => {
                     <div className="footer-bottom-inner">
                         <div className="row align-items-center">
                             <div className="col-lg-9 col-sm-6 mb-0">
-                                <p className="copyright mb-1">© Copyright Holdex 2022. All rights reserved.</p>
+                                <p className="copyright mb-1">© Copyright Ultrapad Finance 2022. All rights reserved.</p>
                             </div>
                             <div className="col-lg-3 col-sm-6 mb-0">
                                 <ul className="footer-links">

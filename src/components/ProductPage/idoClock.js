@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 const IDOClock = props => {
-  const { date } = props
+  const { date1 } = props
+
   const [endDate, setEndDate] = useState({})
   const HandleCountDown = () => {
-    const futureDate = moment(date)
-    const today = moment()
-    const timeDuration = moment.duration(futureDate.diff(today))
+    console.log('date1', moment(date1))
+    var startTime = moment(date1)
+    var endTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+
+    console.log('time start', startTime)
+
+    console.log('time end', endTime)
+    const timeDuration = moment.duration(startTime.diff(endTime))
+    console.log('time duration', timeDuration)
     setEndDate({
       years: timeDuration.years() >= 0 ? timeDuration.years() : 0,
       months: timeDuration.months() >= 0 ? timeDuration.months() : 0,

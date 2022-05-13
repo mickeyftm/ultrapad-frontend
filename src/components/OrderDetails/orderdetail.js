@@ -8,7 +8,7 @@ import { ethers } from 'ethers'
 import Alerts from '../Alerts/alert'
 
 function OrderDetail ({ ownerAddress, idoAddress, bidDecimal, poolDecimal }) {
-  // console.log(ownerAddress, idoAddress)
+  console.log('idoadrews', idoAddress)
   const [alert] = useState('')
   const [orderDetail, setOrderDetail] = useState({
     userAddress: ownerAddress,
@@ -54,25 +54,18 @@ function OrderDetail ({ ownerAddress, idoAddress, bidDecimal, poolDecimal }) {
 
   const ClaimTokens = async () => {
     const contract = await FetchProvider(idoAddress, Abi)
-   
-   
+
     const newClaim = (
       orderDetail.purchasedAmount * Math.pow(10, orderDetail.biddingDecimal)
     ).toString()
-   
-
 
     const claimAmount = await contract.claim(newClaim)
     const receipt = await claimAmount.wait()
-
-
 
     console.log('receipt', receipt)
     const contract2 = await FetchProvider(idoAddress, Abi)
     const claimedAmou = parseInt(await contract2.claimedAmounts(ownerAddress))
     console.log(claimedAmou)
-
-    
   }
 
   return (

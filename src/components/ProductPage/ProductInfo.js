@@ -16,13 +16,15 @@ import { DefualtImageSetter } from '../../utils/globalHelpers'
 import Alerts from '../Alerts/alert'
 import OrderDetail from '../OrderDetails/orderdetail'
 import LoaderProductSkeleton from './productSkeleton'
+import moment from 'moment'
 // import CountdownMonths from './timer'
 import IDOClock from './idoClock'
+import ModalLoading from './loadingModal'
 const ProductInfo = () => {
   const { id } = useParams()
 
   const API_URL = process.env.REACT_APP_SUBGRAPH_API_LATEST_BSC
-
+  const [loading, setLoading] = useState(false)
   const [itemId] = useState(id) //get Pool Id from custom Navigation
   const [item, setItem] = useState({
     idoTokenSymbol: '',
@@ -72,82 +74,12 @@ const ProductInfo = () => {
   const [stakErr, setStakErr] = useState('')
   // error handling states
 
-  const [time] = useState({})
+  // const [time] = useState({})
 
   // ----------------------------------------
   // ----------- Helper Functions -----------
   // ----------------------------------------
 
-  const timeConverter = useCallback(
-    UNIX_timestamp => {
-      // var a = new Date(UNIX_timestamp * 1000);
-      var a = new Date(UNIX_timestamp * 1000)
-      var months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
-      var year = a.getFullYear()
-      var month = months[a.getMonth()]
-      var date = a.getDate()
-      var hour = a.getHours()
-      var min = a.getMinutes()
-      var sec = a.getSeconds()
-      var time1
-      if (parseInt(hour) > 12) {
-        const newHour = parseInt(hour) - 12
-
-        time1 =
-          date +
-          ' ' +
-          month +
-          ' ' +
-          year +
-          ' ' +
-          newHour +
-          ':' +
-          min +
-          ':' +
-          sec +
-          ' ' +
-          'pm' +
-          ' '
-      } else if (
-        (time1 =
-          date +
-          ' ' +
-          month +
-          ' ' +
-          year +
-          ' ' +
-          hour +
-          ':' +
-          min +
-          ':' +
-          sec +
-          ' ' +
-          ' am ' +
-          ' ')
-      )
-        time.month = month
-      time.hour = hour
-      time.min = min
-      time.date = date
-
-      // console.log('time', time)
-      return time1
-    },
-    [time]
-  )
   const ParseData = async arg => {
     const url = await axios.get(`https://ipfs.infura.io/ipfs/${arg}`)
 
@@ -218,10 +150,8 @@ const ProductInfo = () => {
         args.idoAddress
       )
 
-      console.log('allowance check 1', parseInt(allowance.toString()))
-
+      
       if (parseInt(allowance.toString()) <= 0) {
-        console.log('allowance check', allowance.toString())
         // if not allowance then go for approve
         setApproveErr('Wait ! it takes some time for Approval')
       } else {
@@ -269,7 +199,7 @@ const ProductInfo = () => {
         setBidPerUser(newPurchaseAmount)
       }
 
-      console.log('total Bidding Amount')
+      // console.log('total Bidding Amount')
 
       const divWithDecimals = totalBidding / decimalConvert
       // const result = exponentialToDecimal(divWithDecimals)
@@ -322,9 +252,13 @@ const ProductInfo = () => {
         poolStatus = 'open'
       }
 
-      const timinStart = await timeConverter(idoData.startDate)
+      const timinStart = moment
+        .unix(idoData.startDate)
+        .format('MMMM Do YYYY, h:mm:ss a')
       console.log('dates', timinStart)
-      const timinEnd = await timeConverter(idoData.endDate)
+      const timinEnd = moment
+        .unix(idoData.endDate)
+        .format('MMMM Do YYYY, h:mm:ss a')
       const remainHour = await GetRemainDays(idoData.endDate)
 
       var newTotalRaised =
@@ -365,7 +299,7 @@ const ProductInfo = () => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [timeConverter, GetTotalStakeAmout, CheckApprove]
+    [GetTotalStakeAmout, CheckApprove]
   )
 
   const fetchWithId = useCallback(
@@ -503,18 +437,20 @@ const ProductInfo = () => {
         ).toString()
 
         console.log('stakeWithBid', stakeWithBid)
-
+        setLoading(true)
         contract
           .purchase(stakeWithBid)
           .then(async res => {
             const receipt = await res.wait()
-
+            setLoading(false)
             console.log('receipt', receipt)
 
             await GetTotalStakeAmout(item)
           })
           .catch(err => {
+            setLoading(false)
             AlertNotify(`Error in Staking Tokens ${err}`, 4000)
+           
             console.log('error in fetching ', err)
           })
 
@@ -578,7 +514,7 @@ const ProductInfo = () => {
                       <h4 className='text-white mt-3'>
                         Sale Starts on
                         {/* <CountdownMonths poolStartDate={item.startDate} /> */}
-                        <IDOClock date={item.startDate} />
+                        <IDOClock date1={item.startDate} />
                       </h4>
                     </>
                   ) : (
@@ -915,7 +851,7 @@ const ProductInfo = () => {
                   <ul className='mb-0'>
                     <li>
                       <span className='title'>Distribution: </span>
-                      <span> Claimed on Holdex</span>
+                      <span> Claimed on UltraPad</span>
                     </li>
                     <li className='mb-0'>
                       <span className='title'>Vesting: </span>
@@ -925,6 +861,7 @@ const ProductInfo = () => {
                 </div>
               </div>
             </div>
+            {loading? <ModalLoading /> : <></>}
           </Row>
         </Container>
       ) : (
