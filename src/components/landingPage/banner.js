@@ -123,23 +123,23 @@ const Banner = () => {
               <ul>
                 <li>
                   <strong className='d-block price'>${tokenInfo.price}</strong>
-                  <p className='blue-title mb-0'>price</p>
+                  <p className=' mb-0'>price</p>
                 </li>
                 <li>
                   <strong className='d-block price'>
                     ${tokenInfo.market_cap}
                   </strong>
-                  <p className='blue-title mb-0'>
+                  <p className=' mb-0'>
                     Market Cap (Supply:{tokenInfo.supply})
                   </p>
                 </li>
                 <li>
                   <strong className='d-block price'>${tokenInfo.tvl}</strong>
-                  <p className='blue-title mb-0'>TVL</p>
+                  <p className=' mb-0'>TVL</p>
                 </li>
                 <li>
                   <strong className='d-block price'>$0.91</strong>
-                  <p className='blue-title mb-0'>Raised in 103 projects</p>
+                  <p className=' mb-0'>Raised in 103 projects</p>
                 </li>
               </ul>
             </div>
