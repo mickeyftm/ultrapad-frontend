@@ -693,19 +693,19 @@ const ProductInfo = () => {
                 <div className='social-icons'>
                   <ul className='mb-0'>
                     <li>
-                      <a href='http://google.com/'></a>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
                     </li>
                     <li>
-                      <a href='http://google.com/'></a>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
                     </li>
                     <li>
-                      <a href='http://google.com/'></a>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
                     </li>
                     <li>
-                      <a href='http://google.com/'></a>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
                     </li>
                     <li className='mx-0'>
-                      <a href='http://google.com/'></a>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
                     </li>
                   </ul>
                 </div>
