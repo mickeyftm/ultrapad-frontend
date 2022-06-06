@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Logo from '../assets/images/logo.svg'
-import Holdex from '../assets/images/holdex.svg'
+// import Holdex from '../assets/images/holdex.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -130,11 +130,11 @@ const Header = () => {
                 href='https://linux.holdex.finance/swap'
                 className='icon-btn shadow-btn text-capitalize'
               >
-                <img
+                {/* <img
                   src={Holdex}
                   className=' img-fluid h-5'
                   alt='currencylogo'
-                />
+                /> */}
                 Buy <span className='text-uppercase'>{" "}UltraPad</span>
               </a>
               <button
