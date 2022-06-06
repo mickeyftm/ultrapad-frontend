@@ -44,8 +44,8 @@ const footer = () => {
                             <h3 className="footer-mb text-capitalize">Audits</h3>
                             <ul className="footer-links">
                              
-                                <li><a href="http://google.com/"><img src="images/quill-audits.png" className="img-fluid" alt="" /></a></li>
-                                <li><a href="http://google.com/"><img src="images/certick.png" className="img-fluid" alt="" /></a></li>
+                                <li><a href="https://ultrapad.finance.server18.arhamsoft.info/"><img src="images/quill-audits.png" className="img-fluid" alt="" /></a></li>
+                                <li><a href="https://ultrapad.finance.server18.arhamsoft.info/"><img src="images/certick.png" className="img-fluid" alt="" /></a></li>
                             
                             </ul>
                         </div>

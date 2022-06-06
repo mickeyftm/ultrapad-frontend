@@ -150,7 +150,6 @@ const ProductInfo = () => {
         args.idoAddress
       )
 
-      
       if (parseInt(allowance.toString()) <= 0) {
         // if not allowance then go for approve
         setApproveErr('Wait ! it takes some time for Approval')
@@ -186,7 +185,7 @@ const ProductInfo = () => {
 
       //  Get total purchase Amount per User
       const contract = await FetchProvider(tokenAdd, Abi)
-      console.log(contract)
+
       const totalBidding = parseInt(await contract.totalPurchasedAmount())
       if (cookies.address !== undefined) {
         const purchasedAmouPerUser = parseFloat(
@@ -218,9 +217,9 @@ const ProductInfo = () => {
   const FetchDataSetter = useCallback(
     async idoData => {
       // Data Parsing and Conversion appear here
-      console.log('ido data', idoData)
+
       const hashData = await ParseData(idoData.infoHash)
-      console.log('ipfs values ', hashData)
+      // console.log('ipfs values ', hashData)
 
       const {
         title,
@@ -237,11 +236,11 @@ const ProductInfo = () => {
         telegram,
         website
       } = hashData
-      console.log('i am here ')
+      // console.log('i am here ')
       const contract = await FetchProvider(poolingToken, TokenAbi)
-      console.log('contract', contract)
+      // console.log('contract', contract)
       const symbol = await contract.symbol()
-      console.log('symnbol', symbol)
+      // console.log('symnbol', symbol)
       var poolStatus = ''
       var unix = Math.round(+new Date() / 1000)
       if (unix < idoData.startDate && unix < idoData.endDate) {
@@ -252,10 +251,11 @@ const ProductInfo = () => {
         poolStatus = 'open'
       }
 
-      const timinStart = moment
-        .unix(idoData.startDate)
-        .format('MMMM Do YYYY, h:mm:ss a')
-      console.log('dates', timinStart)
+      // const timinStart = moment
+      //   .unix(idoData.startDate)
+      //   .format('MMMM Do YYYY, h:mm:ss a')
+      const tempEnd = moment.unix(idoData.startDate).format('MMMM DD YYYY')
+      // console.log('dates', timinStart)
       const timinEnd = moment
         .unix(idoData.endDate)
         .format('MMMM Do YYYY, h:mm:ss a')
@@ -263,7 +263,7 @@ const ProductInfo = () => {
 
       var newTotalRaised =
         idoData.totalRaised / Math.pow(10, idoData.poolMeta.decimal)
-      console.log('newTotalRaised', idoData.totalRaised)
+      // console.log('newTotalRaised', idoData.totalRaised)
 
       var newPrice =
         parseInt(idoData.price) /
@@ -272,7 +272,7 @@ const ProductInfo = () => {
       let dummyObj = {
         poolId: idoData.poolId,
         symbol: symbol,
-        startDate: timinStart,
+        startDate: tempEnd,
         endDate: timinEnd,
         price: tokenPrice,
         idoAddress: idoData.poolingToken,
@@ -290,8 +290,8 @@ const ProductInfo = () => {
         poolStatus: poolStatus,
         timeCounter: poolStartDate
       }
-      console.log('i am here ')
-      console.log('dummyObj ----', dummyObj)
+      // console.log('i am here ')
+      // console.log('dummyObj ----', dummyObj)
       setItem(dummyObj)
       if (cookies.address !== undefined) {
         await CheckApprove(dummyObj)
@@ -339,7 +339,7 @@ const ProductInfo = () => {
 
       const data2 = await client2.query(tokensQuery).toPromise()
 
-      console.log('data with id', data2.data)
+      // console.log('data with id', data2.data)
       if (data2.data.poolInfos !== null && data2.data.poolInfos !== undefined) {
         FetchDataSetter(data2.data.poolInfos[0])
       }
@@ -381,7 +381,7 @@ const ProductInfo = () => {
 
   const handleChange = e => {
     const remainAucAmount = item.totalSupply - totAucStake
-    console.log('remainAucAmount', remainAucAmount)
+    // console.log('remainAucAmount', remainAucAmount)
     if (
       item.totalSupply < e.target.value ||
       remainAucAmount < e.target.value ||
@@ -402,8 +402,7 @@ const ProductInfo = () => {
       '115792089237316195423570985008687907853269984665640564039457584007913129639935'
     )
     console.log(newApproveAmou)
-    console.log('approve', approve)
-
+    // console.log('approve', approve)
     const receipt = await approve.wait()
     setApproveErr('')
     console.log('receipt', receipt)
@@ -424,19 +423,19 @@ const ProductInfo = () => {
 
         setStakErr('')
         const tokenAdd = item.idoAddress
-        console.log('token address', tokenAdd)
+        // console.log('token address', tokenAdd)
         const contract = await FetchProvider(tokenAdd, Abi)
-        console.log(biddTokenInfo)
+        // console.log(biddTokenInfo)
         // const stakeWithDecimal = stakeAmou * tokenInf.decimal
         // console.log('bidding token decimals', tokenInf.decimal)
 
-        console.log('decimals', biddTokenInfo.decimals)
+        // console.log('decimals', biddTokenInfo.decimals)
 
         const stakeWithBid = (
           stakeAmou * parseInt(biddTokenInfo.decimals)
         ).toString()
 
-        console.log('stakeWithBid', stakeWithBid)
+        // console.log('stakeWithBid', stakeWithBid)
         setLoading(true)
         contract
           .purchase(stakeWithBid)
@@ -450,8 +449,8 @@ const ProductInfo = () => {
           .catch(err => {
             setLoading(false)
             AlertNotify(`Error in Staking Tokens ${err}`, 4000)
-           
-            console.log('error in fetching ', err)
+
+            // console.log('error in fetching ', err)
           })
 
         setApproveErr('')
@@ -568,7 +567,7 @@ const ProductInfo = () => {
                                   <input
                                     type='number'
                                     onChange={e => {
-                                      console.log(e.target.value)
+                                      // console.log(e.target.value)
                                       setApproveAmou(parseFloat(e.target.value))
                                     }}
                                     value={'Approve Your Tokens'}
@@ -710,7 +709,7 @@ const ProductInfo = () => {
                 <div className='social-icons'>
                   <ul className='mb-0'>
                     <li>
-                      <a href='http://google.com/'>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'>
                         <svg
                           stroke='currentColor'
                           fill='currentColor'
@@ -725,7 +724,7 @@ const ProductInfo = () => {
                       </a>
                     </li>
                     <li>
-                      <a href='http://google.com/'>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'>
                         <svg
                           stroke='currentColor'
                           fill='currentColor'
@@ -740,7 +739,7 @@ const ProductInfo = () => {
                       </a>
                     </li>
                     <li>
-                      <a href='http://google.com/'>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'>
                         <svg
                           stroke='currentColor'
                           fill='currentColor'
@@ -755,7 +754,7 @@ const ProductInfo = () => {
                       </a>
                     </li>
                     <li>
-                      <a href='http://google.com/'>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'>
                         <svg
                           stroke='currentColor'
                           fill='currentColor'
@@ -770,7 +769,7 @@ const ProductInfo = () => {
                       </a>
                     </li>
                     <li className='mx-0'>
-                      <a href='http://google.com/'>
+                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'>
                         <svg
                           stroke='currentColor'
                           fill='currentColor'
@@ -861,7 +860,7 @@ const ProductInfo = () => {
                 </div>
               </div>
             </div>
-            {loading? <ModalLoading /> : <></>}
+            {loading ? <ModalLoading /> : <></>}
           </Row>
         </Container>
       ) : (
