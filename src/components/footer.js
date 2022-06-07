@@ -36,7 +36,7 @@ const footer = () => {
                              
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">How to participate in IDO</a></li>
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">FAQ</a></li>
-                                <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">Apply for IDO</a></li>
+                                <li><a href={process.env.REACT_APP_Web_link}>Apply for IDO</a></li>
                             
                             </ul>
                         </div>
