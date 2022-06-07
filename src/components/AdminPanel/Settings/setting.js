@@ -81,7 +81,7 @@ function Setting () {
           <Card>
             <Card.Header className='titles-sett text-center'>
               <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
-                <div className='mb-sm-0 mb-2'>Site Settings</div>
+                <h2 className='text-shadow mb-sm-0 mb-2'> Site Settings</h2>
                 <div>
                   <button
                     className='d-inline light-blue-btn text-capitalize mb-sm-0 mb-2'

@@ -73,7 +73,7 @@ function ManageFaq () {
       <div className='content faqs-pg'>
         <Card>
           <Card.Header className='titles-sett'>
-            Manage FAQS
+            <h2 className='text-shadow'>Manage FAQS</h2>
             <button
               className='d-inline light-blue-btn text-capitalize'
               onClick={AddFaqHandler}

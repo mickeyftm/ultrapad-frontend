@@ -69,7 +69,7 @@ function CmsPage () {
         <div className='cms-pg'>
           <Card>
             <Card.Header className='titles-sett'>
-              <div>Manage CMS</div>
+              <h2 className='text-shadow'>Manage CMS</h2>
               <div>
                 <button
                   className='d-inline light-blue-btn text-capitalize '
@@ -114,12 +114,7 @@ function CmsPage () {
                               placeholder='Enter Privacy Content Here'
                             />
                           </Form.Group>
-                          <Form.Group
-                            className='mb-3'
-                            controlId='exampleForm.ControlTextarea1'
-                          >
-                            <Form.Label></Form.Label>
-                          </Form.Group>
+                         
                         </Form>
                       </div>
                     </Col>

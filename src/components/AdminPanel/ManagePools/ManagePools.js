@@ -128,7 +128,7 @@ function ManagePools () {
           ) : (
             <Card>
               <Card.Header className='titles-sett'>
-                Manage Pools
+                <h2 className='text-shadow'>Manage Pools</h2>
                 <Button
                   onClick={() => setAddPool(true)}
                   className='text-white light-blue-btn text-capitalize d-inline'
