@@ -168,7 +168,7 @@ const ProductInfo = () => {
     return wall
   }
   const FetchProvider = async (tokenAdd, Abi) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const provider = new ethers.providers.Web3Provider(window.ethereum) 
     const signer = provider.getSigner()
     var address = tokenAdd
     var contract = await new ethers.Contract(address, Abi, signer)
@@ -240,7 +240,7 @@ const ProductInfo = () => {
     async args => {
       const { idoAddress, totalSupply } = args
       const tokenAdd = idoAddress
-
+      console.log("Get totka stake amount")
       const contract = await FetchProvider(tokenAdd, Abi)
       console.log(contract)
       const totalBidding = parseInt(await contract.totalPurchasedAmount())
@@ -489,305 +489,300 @@ const ProductInfo = () => {
   // ----------------------------------
   return (
     <section className='section_padding' id='productInfo'>
-        <Container>
-          {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
-          <Row>
-            <div className='col-lg-4 mb-lg-0 mb-3'>
-              <div className='profile-info'>
-                <div className='top-sec skeleton'>
-                  <div className='profile'>
-                    <img
-                      src={`https://ipfs.io/ipfs/${item.logo}`}
-                      alt='Profile img'
-                      // onError={addDefaultImg}
-                    />
-                  </div>
-                  <div className='name'>
-                    <h2>{item.name}</h2>
-                    <div className='text-sm font-secondary text-ignored'>
-                      {item.name} / {biddTokenInfo.name}
-                    </div>
+      <Container>
+        {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
+        <Row>
+          <div className='col-lg-4 mb-lg-0 mb-3'>
+            <div className='profile-info'>
+              <div className='top-sec skeleton'>
+                <div className='profile'>
+                  <img
+                    src={`https://ipfs.io/ipfs/${item.logo}`}
+                    alt='Profile img'
+                    // onError={addDefaultImg}
+                  />
+                </div>
+                <div className='name'>
+                  <h2>{item.name}</h2>
+                  <div className='text-sm font-secondary text-ignored'>
+                    {item.name} / {biddTokenInfo.name}
                   </div>
                 </div>
-                <div className='badges'>
-                  <span className='outerside soon'>Soon</span>
-                  <span className='outerside level'>level</span>
-                  {item.isKyc === 'true' ? (
-                    <span className='outerside kyc'>KYC</span>
-                  ) : (
-                    <></>
-                  )}{' '}
-                </div>
-                <div className='wallet-sec text-center'>
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      id='dropdown-basic'
-                      className='wallet-info'
-                    >
-                      {acc}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={handleDisconnectWallet}>
-                        Disconnect
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  {item.poolStatus === 'close' ? (
-                    <>
-                      <h4 className='text-white mt-2'>Pool Ended</h4>
-                    </>
-                  ) : item.poolStatus === 'upcoming' ? (
-                    <h4 className='text-white mt-2'>Pool Not Started </h4>
-                  ) : (
-                    <>
-                    
-                      <div className='input-wrapper'>
-                        {approveErr === '' ? (
-                          <>
-                            <div className='filed-wrapper stack_flex'>
-                              <input
-                                type='number'
-                                onChange={handleChange}
-                                value={stakeAmou}
-                                placeholder='Enter value to Stake'
-                                name='stake-amou'
-                                className='input-field text-white p-1 px-2 rounded'
-                                required
-                              />
-                              <button
-                                className='light-blue-btn rounded'
-                                onClick={handleStakeClick}
-                              >
-                                Stake
-                              </button>
-                            </div>
-                            {/* <button
+              </div>
+              <div className='badges'>
+                <span className='outerside soon'>Soon</span>
+                <span className='outerside level'>level</span>
+                {item.isKyc === 'true' ? (
+                  <span className='outerside kyc'>KYC</span>
+                ) : (
+                  <></>
+                )}{' '}
+              </div>
+              <div className='wallet-sec text-center'>
+                <Dropdown>
+                  <Dropdown.Toggle id='dropdown-basic' className='wallet-info'>
+                    {acc}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={handleDisconnectWallet}>
+                      Disconnect
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                {item.poolStatus === 'close' ? (
+                  <>
+                    <h4 className='text-white mt-2'>Pool Ended</h4>
+                  </>
+                ) : item.poolStatus === 'upcoming' ? (
+                  <h4 className='text-white mt-2'>Pool Not Started </h4>
+                ) : (
+                  <>
+                    <div className='input-wrapper'>
+                      {approveErr === '' ? (
+                        <>
+                          <div className='filed-wrapper stack_flex'>
+                            <input
+                              type='number'
+                              onChange={handleChange}
+                              value={stakeAmou}
+                              placeholder='Enter value to Stake'
+                              name='stake-amou'
+                              className='input-field text-white p-1 px-2 rounded'
+                              required
+                            />
+                            <button
+                              className='light-blue-btn rounded'
+                              onClick={handleStakeClick}
+                            >
+                              Stake
+                            </button>
+                          </div>
+                          {/* <button
                             className='light-blue-btn rounded'
                             onClick={handleStakeClick}
                           >
                             Stake
                           </button> */}
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              className='light-blue-btn'
-                              onClick={handleApprove}
-                            >
-                              Approve Tokens
-                            </button>
-                          </>
-                        )}
-                      </div>
-
-                      <UserInfo
-                        item={item.biddingToken}
-                        bal={balan}
-                        idoAddress={item.idoAddress}
-                        bidName={biddTokenInfo.name}
-                      />
-                    </>
-                  )}
-                  {errors !== '' ? (
-                    <div className='text-danger p-1'>{errors}</div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
-                <div className='usd skeleton'>
-                  <h3 className='mt-4'>
-                    {' '}
-                    1 {item.name} = {item.price} {biddTokenInfo.name}{' '}
-                  </h3>
-                  <h4 className='mt-2'>
-                    {' '}
-                    {item.price} {biddTokenInfo.name} = 1 {item.name}{' '}
-                  </h4>
-                </div>
-                <div className='progress-bar'>
-                  <div className='prog-text d-flex'>
-                    <span>
-                      Close in {item.remainTime.day} Days,{' '}
-                      {item.remainTime.hours} hours
-                    </span>
-                    <span>{percen}%</span>
-                  </div>
-                  <ProgressBar now={percen} />
-                  <div className='prog-text d-flex '>
-                    <span>{totBidStake} BUSD</span>
-                    <span className='pt-2'>
-                      {totAucStake} /{item.totalSupply} ({item.name})
-                    </span>
-                  </div>
-                  {stakErr !== '' ? (
-                    <div>
-                      <p className='text-danger p-1'>{stakErr}</p>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className='light-blue-btn'
+                            onClick={handleApprove}
+                          >
+                            Approve Tokens
+                          </button>
+                        </>
+                      )}
                     </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                <div className='wifi text-white'>
-                  <span>IDO and distribution on BSC</span>
-                </div>
 
-                <div className='d-sm-flex text-white justify-content-between '>
-                  <div className='sale mb-2'>
-                    <span>User Buy Amount</span>
-                  </div>
-                  <span>{bidPerUser}</span>
-                </div>
-                <div className='d-sm-flex text-white justify-content-between '>
-                  <div className='sale'>
-                    <span>Sale</span>
-                  </div>
-                  <span>{item.startDate}</span>
-                </div>
-                {/ AMOUNT-BLOCK-CODE /}
-                <div className='amount_block_code mt-lg-5 mt-3'>
-                  <ul>
-                    <li>
-                      <div className='d-sm-flex text-white justify-content-between '>
-                        <div className='sale text-capitalize'>
-                          <span>Total Purchased Amount</span>
-                        </div>
-                        <span>0</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='d-sm-flex text-white justify-content-between '>
-                        <div className='sale text-capitalize'>
-                          <span>Claim Amount</span>
-                        </div>
-                        <span>0</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='text-center light-btn-div'>
-                        <a
-                          href='#'
-                          className='d-inline-block light-btn text-capitalize'
-                        >
-                          action
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className='col-lg-8 mb-lg-0 mb-3'>
-              <div className='coin-detail text-white'>
-                <div className='d-flex align-items-center skeleton'>
-                  <div className='coin-profile'>
-                    <img
-                      src={`https://ipfs.io/ipfs/${item.logo}`}
-                      alt='Profile img'
-                      // onError={addDefaultImg}
+                    <UserInfo
+                      item={item.biddingToken}
+                      bal={balan}
+                      idoAddress={item.idoAddress}
+                      bidName={biddTokenInfo.name}
                     />
-                  </div>
-                  <h2>{item.name}</h2>
-                </div>
-                <p>{item.description}</p>
-                <div className='social-icons'>
-                  <ul className='mb-0'>
-                    <li>
-                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
-                    </li>
-                    <li>
-                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
-                    </li>
-                    <li>
-                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
-                    </li>
-                    <li>
-                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
-                    </li>
-                    <li className='mx-0'>
-                      <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
-                    </li>
-                  </ul>
-                </div>
-                <div className='pool-detail'>
-                  <h4>Pool Details</h4>
+                  </>
+                )}
+                {errors !== '' ? (
+                  <div className='text-danger p-1'>{errors}</div>
+                ) : (
+                  <></>
+                )}
+              </div>
 
-                  <ul>
-                    <li className='d-sm-flex'>
-                      <div className='w-50 mb-sm-0 mb-1'>
-                        <span className='title'>Access Type: </span>
-                        <span> Levels</span>
-                      </div>
-                      <div className='w-50'>
-                        <span className='title'>Hard Cap: </span>
-                        <span> ${item.hardCap}</span>
-                      </div>
-                    </li>
-                    <li>
-                      <span className='title'>Swap Rate: </span>
-                      <span className='desc-color'>
-                        1 {item.name}
-                        <span className='text-white'> = </span> ${item.price} |{' '}
-                        {item.price} {item.name}
-                        <span className='text-white'> per </span> {item.price}{' '}
-                        {biddTokenInfo.name}
-                      </span>
-                    </li>
-                    <li className='mb-0'>
-                      <span className='title'>Start/end: </span>
-                      <span>
-                        {item.startDate}UTC - {item.endDate} UTC
-                      </span>
-                    </li>
-                  </ul>
-                  <h4>Token</h4>
-                  <ul>
-                    <li>
-                      <span className='title'>Token: </span>
-                      <span className='desc-color'>
-                        {' '}
-                        {item.name}({item.name})
-                      </span>
-                    </li>
-                    <li>
-                      <span className='title'>Type: </span>
-                      <span> Levels</span>
-                    </li>
-                    <li>
-                      <span className='title'>Total Supply: </span>
-                      <span>{/* {/ {item.totalSupply} {item.name} /} */}</span>
-                    </li>
-                    <li>
-                      <span className='title'>Initial Supply: </span>
-                      <span className='desc-color'>
-                        {' '}
-                        {item.hardCap} {item.name}
-                        <span className='text-white'>, market cap </span>
-                        $981 039
-                      </span>
-                    </li>
-                    <li className='mb-0'>
-                      <span className='title'>Token Listing: </span>
-                      <span> TBA</span>
-                    </li>
-                  </ul>
-                  <h4>Distribution</h4>
-                  <ul className='mb-0'>
-                    <li>
-                      <span className='title'>Distribution: </span>
-                      <span> Claimed on Holdex</span>
-                    </li>
-                    <li className='mb-0'>
-                      <span className='title'>Vesting: </span>
-                      <span>{item.tokenVestion}</span>
-                    </li>
-                  </ul>
+              <div className='usd skeleton'>
+                <h3 className='mt-4'>
+                  {' '}
+                  1 {item.name} = {item.price} {biddTokenInfo.name}{' '}
+                </h3>
+                <h4 className='mt-2'>
+                  {' '}
+                  {item.price} {biddTokenInfo.name} = 1 {item.name}{' '}
+                </h4>
+              </div>
+              <div className='progress-bar'>
+                <div className='prog-text d-flex'>
+                  <span>
+                    Close in {item.remainTime.day} Days, {item.remainTime.hours}{' '}
+                    hours
+                  </span>
+                  <span>{percen}%</span>
                 </div>
+                <ProgressBar now={percen} />
+                <div className='prog-text d-flex '>
+                  <span>{totBidStake} BUSD</span>
+                  <span className='pt-2'>
+                    {totAucStake} /{item.totalSupply} ({item.name})
+                  </span>
+                </div>
+                {stakErr !== '' ? (
+                  <div>
+                    <p className='text-danger p-1'>{stakErr}</p>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className='wifi text-white'>
+                <span>IDO and distribution on BSC</span>
+              </div>
+
+              <div className='d-sm-flex text-white justify-content-between '>
+                <div className='sale mb-2'>
+                  <span>User Buy Amount</span>
+                </div>
+                <span>{bidPerUser}</span>
+              </div>
+              <div className='d-sm-flex text-white justify-content-between '>
+                <div className='sale'>
+                  <span>Sale</span>
+                </div>
+                <span>{item.startDate}</span>
+              </div>
+              {/ AMOUNT-BLOCK-CODE /}
+              <div className='amount_block_code mt-lg-5 mt-3'>
+                <ul>
+                  <li>
+                    <div className='d-sm-flex text-white justify-content-between '>
+                      <div className='sale text-capitalize'>
+                        <span>Total Purchased Amount</span>
+                      </div>
+                      <span>0</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='d-sm-flex text-white justify-content-between '>
+                      <div className='sale text-capitalize'>
+                        <span>Claim Amount</span>
+                      </div>
+                      <span>0</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className='text-center light-btn-div'>
+                      <a
+                        href='#'
+                        className='d-inline-block light-btn text-capitalize'
+                      >
+                        action
+                      </a>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
-          </Row>
-        </Container>
-    
+          </div>
+          <div className='col-lg-8 mb-lg-0 mb-3'>
+            <div className='coin-detail text-white'>
+              <div className='d-flex align-items-center skeleton'>
+                <div className='coin-profile'>
+                  <img
+                    src={`https://ipfs.io/ipfs/${item.logo}`}
+                    alt='Profile img'
+                    // onError={addDefaultImg}
+                  />
+                </div>
+                <h2>{item.name}</h2>
+              </div>
+              <p>{item.description}</p>
+              <div className='social-icons'>
+                <ul className='mb-0'>
+                  <li>
+                    <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
+                  </li>
+                  <li>
+                    <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
+                  </li>
+                  <li>
+                    <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
+                  </li>
+                  <li>
+                    <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
+                  </li>
+                  <li className='mx-0'>
+                    <a href='https://ultrapad.finance.server18.arhamsoft.info/'></a>
+                  </li>
+                </ul>
+              </div>
+              <div className='pool-detail'>
+                <h4>Pool Details</h4>
+
+                <ul>
+                  <li className='d-sm-flex'>
+                    <div className='w-50 mb-sm-0 mb-1'>
+                      <span className='title'>Access Type: </span>
+                      <span> Levels</span>
+                    </div>
+                    <div className='w-50'>
+                      <span className='title'>Hard Cap: </span>
+                      <span> ${item.hardCap}</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className='title'>Swap Rate: </span>
+                    <span className='desc-color'>
+                      1 {item.name}
+                      <span className='text-white'> = </span> ${item.price} |{' '}
+                      {item.price} {item.name}
+                      <span className='text-white'> per </span> {item.price}{' '}
+                      {biddTokenInfo.name}
+                    </span>
+                  </li>
+                  <li className='mb-0'>
+                    <span className='title'>Start/end: </span>
+                    <span>
+                      {item.startDate}UTC - {item.endDate} UTC
+                    </span>
+                  </li>
+                </ul>
+                <h4>Token</h4>
+                <ul>
+                  <li>
+                    <span className='title'>Token: </span>
+                    <span className='desc-color'>
+                      {' '}
+                      {item.name}({item.name})
+                    </span>
+                  </li>
+                  <li>
+                    <span className='title'>Type: </span>
+                    <span> Levels</span>
+                  </li>
+                  <li>
+                    <span className='title'>Total Supply: </span>
+                    <span>{/* {/ {item.totalSupply} {item.name} /} */}</span>
+                  </li>
+                  <li>
+                    <span className='title'>Initial Supply: </span>
+                    <span className='desc-color'>
+                      {' '}
+                      {item.hardCap} {item.name}
+                      <span className='text-white'>, market cap </span>
+                      $981 039
+                    </span>
+                  </li>
+                  <li className='mb-0'>
+                    <span className='title'>Token Listing: </span>
+                    <span> TBA</span>
+                  </li>
+                </ul>
+                <h4>Distribution</h4>
+                <ul className='mb-0'>
+                  <li>
+                    <span className='title'>Distribution: </span>
+                    <span> Claimed on Holdex</span>
+                  </li>
+                  <li className='mb-0'>
+                    <span className='title'>Vesting: </span>
+                    <span>{item.tokenVestion}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Row>
+      </Container>
     </section>
   )
 }

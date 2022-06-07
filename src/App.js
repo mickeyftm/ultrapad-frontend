@@ -22,7 +22,7 @@ function App () {
     async function fetch () {
       const { ethereum } = window
       if (ethereum) {
-        var provider = new ethers.providers.Web3Provider(ethereum)
+        var provider = new ethers.providers.Web3Provider(ethereum) || "https://data-seed-prebsc-1-s1.binance.org:8545/";
 
         const isMetaMaskConnected = async () => {
           const accounts = await provider.listAccounts()

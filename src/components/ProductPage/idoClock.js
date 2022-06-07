@@ -38,7 +38,7 @@ const IDOClock = props => {
         endDate.seconds === 0 ? (
           <>
             <p className='font-weight-normal remaingin-balance m-0 font-size-sm text-danger text-center mt-1'>
-              Deadline Passed
+              Sale Started Refresh Page
             </p>
           </>
         ) : (
