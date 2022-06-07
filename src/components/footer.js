@@ -15,7 +15,7 @@ const footer = () => {
                 <div className="container-fluid custom-block">
                     <div className="row">
                         <div className="col-lg-6 mb-lg-0 mb-4">
-                            <figure className="footer-mb">
+                            <figure className="footer-mb footer-logo">
                                 <img  src={Logo} alt="sitelogo" className="img-fluid" />
                             </figure>
                             <p  className="footer-mb">UltraPad Finance is a decentralized multi-chain fundraising platform enabling projects to raise capital and promise safety to early stage investors. UltraPad Finance tokens to get priority-access to promising projects.</p>

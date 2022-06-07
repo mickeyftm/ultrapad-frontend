@@ -824,7 +824,7 @@ function Createpool () {
                 <ErrorLabels props={errors.title} />
               </Form.Group>
             </div>
-            <div className='col-md-6 mb-md-0 mb-3'>
+            <div className='col-md-6 mb-3'>
               <div className='img-cover-box'>
                 {/* <p className='mb-0'> Image will be appear here</p> */}
                 {poolMeta.logo !== '' ? (
@@ -898,11 +898,11 @@ function Createpool () {
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group className='mb-md-5 mb-4' controlId='poolStartDat1e'>
                 <Info name={'Network'} desc={'Select Network e.g Bsc,Eth'} />
-                <Dropdown style={{ backgroundColor: '#1F1D3D' }}>
+                <Dropdown style={{ backgroundColor: '#050d5982' }}>
                   <Dropdown.Toggle
                     className='pt-lg-4 pb-lg-4 pt-lg-3 pb-lg-3 primary_dropdown'
                     id='dropdown-basic'
-                    style={{ backgroundColor: '#1F1D3D', width: '100%' }}
+                    style={{ backgroundColor: '#050d5982', width: '100%' }}
                   >
                     {poolMeta.networks}
                   </Dropdown.Toggle>

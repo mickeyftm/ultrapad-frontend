@@ -1217,6 +1217,9 @@ footer .footer-bottom .footer-links li:not(:last-child) {
 	background: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
   width: 100%;
 	display: inline-block;
+  display: flex;
+  align-items:center;
+  justify-self:center;
 }
 /* SLIDE_CODE_TEXT */
 .slide_text{
@@ -1543,7 +1546,7 @@ header .icon-btn img {
 }
 .create-pool .form-control {
   border: none;
-  background: #1d1a35;
+  background: #050d5982;
   color: #fff;
   font-size: 22px;
   padding: 10px 15px;
@@ -1796,6 +1799,9 @@ th {
 .faq-modal.modal-header {
   background-image: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
   padding: 3px 10px;
+}
+.blue-imp.light-blue-btn {
+  background-image: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
 }
 .faq-modal .btn-close {
   fill: #fff;
@@ -4320,6 +4326,11 @@ span {
       rgb(149 155 224 / 25%) 100%
     );
   }
+  .footer-logo{
+    width:100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   footer .footer-bottom-inner {
     text-align: center;
   }
@@ -4348,7 +4359,7 @@ span {
   }
   .profile-info {
     padding: 25px 10px;
-    margin-bottom: 30px;
+    margin-bottom:15px;
   }
   .profile-info .sale {
     margin-bottom: 10px;
@@ -4447,6 +4458,10 @@ span {
   .manage-pools {
     padding: 5px;
     margin: 5px;
+}
+.text-btn-bg {
+  padding: 8px 20px;
+  border-radius: 5px;
 }
 }
 @media (max-width: 480px) {

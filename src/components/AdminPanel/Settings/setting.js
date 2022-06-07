@@ -153,7 +153,7 @@ function Setting () {
                               value={settingDetail.site_description}
                             />
                           </Form.Group>
-                          <Form.Group>
+                          <Form.Group className='mb-3'>
                             <Form.Label>Meta Description</Form.Label>
                             <Form.Control id="scroll-1"
                               as='textarea'

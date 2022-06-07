@@ -101,7 +101,7 @@ function FaqModal ({ show, handleModal }) {
             <></>
           )}
           <Button
-            className=' light-blue-btn text-capitalize'
+            className='blue-imp light-blue-btn text-capitalize'
             type='submit'
             onClick={handleFaqSubmit}
           >
