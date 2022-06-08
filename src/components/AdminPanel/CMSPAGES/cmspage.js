@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Card from 'react-bootstrap/Card'
 import { Row, Col, Form } from 'react-bootstrap'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Alerts from '../../Alerts/alert'
 import axios from 'axios'
 function CmsPage () {
@@ -88,7 +90,7 @@ function CmsPage () {
                         <Form>
                           <Form.Group className='mb-2'>
                             <Form.Label>Terms Content</Form.Label>
-                            <Form.Control id="scroll-1"
+                            {/* <Form.Control id="scroll-1"
                               as='textarea'
                               onChange={handleChange}
                               rows={3}
@@ -97,7 +99,9 @@ function CmsPage () {
                               value={cms.terms_content}
                               placeholder='Enter Terms and Conditions Here'
                               required
-                            />
+                            /> */}
+                            <CKEditor initData={<p>This is an example CKEditor 4 WYSIWYG editor instance.</p>} />
+                        
                           </Form.Group>
                           <Form.Group
                             className='mb-3'

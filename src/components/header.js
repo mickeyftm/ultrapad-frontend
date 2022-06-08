@@ -80,7 +80,6 @@ const Header = () => {
                 <img src={Logo} className='img-fluid' alt='SiteLogo' />
               </figure>
             </Navbar.Brand>
-
             <Navbar.Toggle aria-controls='basic-navbar-nav'>
               <FontAwesomeIcon icon={faBars} />
             </Navbar.Toggle>

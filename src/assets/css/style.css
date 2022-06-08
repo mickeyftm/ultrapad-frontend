@@ -144,15 +144,20 @@ input:focus-visible{
   border-radius: 11px;
   height: 100%;
 }
-.dashboard-cards .bg-primary {
+/* .dashboard-cards .bg-primary {
   background-image: linear-gradient(84.05deg, #FAD96A 0%, #FD5FCC 100%);
-  /* background: #45aaf2 !important; */
 }
 .dashboard-cards .blue-light {
   background: linear-gradient(90deg, #6825e7, #aa58b8);
 }
 .dashboard-cards .blue-yellow {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31) !important;
+} */
+.dashboard-cards .shadow-cards div:nth-child(odd) .widget-metric_6{
+  background-image: linear-gradient(84.05deg, #FAD96A 0%, #FD5FCC 100%);
+}
+.dashboard-cards .shadow-cards div:nth-child(even) .widget-metric_6{
+  background: linear-gradient(90deg, #6825e7, #aa58b8);
 }
 .widget-metric_6 .value {
   margin-right: 5px;
@@ -243,6 +248,45 @@ input:focus-visible{
 .sidebar .main-nav li.active span {
   color: #f3cb31;
 }
+/* manage pools */
+.manage-faqs-accordian .accordion-item{
+  background:#332070;
+}
+.manage-faqs-accordian  .accordion-button, .manage-faqs-accordian .accordion-header{
+  background:#3b4067;
+}
+.manage-faqs-accordian  .accordion-body{
+  background: #18123263;
+}
+.manage-faqs-accordian .card-header-pills{
+  width:200px;
+}
+.accordion-button:focus{box-shadow:none;}
+.manage-faqs-accordian .accordion-header  {
+  border-radius: 10px;
+}
+.manage-faqs-accordian .accordion-header .card-header:hover {padding-left:25px;}
+.manage-faqs-accordian .accordion-header .card-header {
+  border-bottom-style: dashed;
+  border-color: #4ab1f5;
+  transition:all ease-in-out .3s;
+}
+.manage-faqs-accordian .accordion-button::after{display:none;}
+.manage-faqs-accordian .light-blue-btn {
+  background-image: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
+}
+.manage-faqs-accordian .light-blue-btn:hover {
+  background-image: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%) !important;
+}
+.manage-faqs-accordian .qstn-span {
+  background-color: #fd7bb6;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .manage-pools .table {
   background: #3b4067;
   border: grey;
@@ -332,14 +376,14 @@ th {
 .faqs-pg .faqs-admn-styling li.green-box {
   border-radius: 8px;
 }
-.faqs-pg .faqs-admn-styling li.yellow-box:hover {
+/* .faqs-pg .faqs-admn-styling li.yellow-box:hover {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
   color: #fff;
 }
 .faqs-pg .faqs-admn-styling li.green-box:hover {
   background-image: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
   color: #fff;
-}
+} */
 .faqs-pg .faqs-admn-styling p.card-text {
   font-size: 16px;
   font-weight: 300;
@@ -3115,7 +3159,7 @@ p {
   .light-blue-btn {
     font-size: 16px;
     line-height: 20px;
-    padding: 8px 20px;
+    padding: 9px 20px;
     font-size: 14px;
     border-radius: 5px;
     margin: auto;

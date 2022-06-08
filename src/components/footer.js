@@ -33,7 +33,7 @@ const footer = () => {
                             <h3 className="footer-mb text-capitalize">general</h3>
                             <ul className="footer-links">
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">How to participate in IDO</a></li>
-                                <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">FAQ</a></li>
+                                <li><a href="/faqs">FAQ</a></li>
                                 <li><a href={process.env.REACT_APP_Web_link}>Apply for IDO</a></li>
                             </ul>
                         </div>
