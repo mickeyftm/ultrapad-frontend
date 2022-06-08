@@ -53,7 +53,7 @@ body {
 }
 .text-shadow{
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .is-sticky {
@@ -116,7 +116,7 @@ input:focus-visible{
 }
 .sidebar .main-nav li:hover {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .sidebar .main-nav li:hover span {
@@ -169,7 +169,7 @@ input:focus-visible{
   text-align: center;
 }
 .widget-metric_6 .icon-wrapper {
-  -webkit-border-radius: 8px;
+  border-radius: 8px;
   -moz-border-radius: 8px;
   display: block;
   position: relative;
@@ -237,7 +237,7 @@ input:focus-visible{
 }
 .sidebar .main-nav li.active a {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .sidebar .main-nav li.active span {
@@ -421,7 +421,7 @@ p {
   border-radius: 8px;
   cursor: pointer;
   background: linear-gradient(266.83deg, #000, #000);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all ease-in-out 0.4s;
 }
@@ -680,7 +680,7 @@ header .navbar-light .navbar-nav a,header .navbar-light .navbar-nav a.active{
 }
 header .navbar-light .navbar-nav a:hover,header .navbar-light .navbar-nav a.active{
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 header .navbar-light .navbar-nav a:hover::after {
@@ -792,7 +792,7 @@ header .navbar-light .navbar-nav .nav-link:hover:before {
   font-weight: 900;
   line-height: 130px;
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .text-wrapper {
@@ -897,7 +897,7 @@ header .navbar-light .navbar-nav .nav-link:hover:before {
 } */
 .feature .feature-h2 h2 {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   max-width: 257px;
 }
@@ -932,9 +932,9 @@ header .navbar-light .navbar-nav .nav-link:hover:before {
 .feature .slick-arrow.slick-prev {
   display: none !important;
 }
-.feature .slick-slider .slick-track {
-  /* height: 76px; */
-}
+/* .feature .slick-slider .slick-track {
+  height: 76px;
+} */
 /* END FEATURE */
 
 /* MULTICHAINCARDS */
@@ -1175,7 +1175,7 @@ footer .footer-header .footer-mb {
 .footer-links li a:hover {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
   background-clip: border-box;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .footer-links li a img {
@@ -1492,7 +1492,7 @@ footer .footer-bottom .footer-links li:not(:last-child) {
   color: #fff;
   text-align: center;
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   max-width: 200px;
   margin: 0 auto;
@@ -1550,7 +1550,7 @@ header .icon-btn img {
 }
 .page-heading h2 {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   max-width: 300px;
   margin: 0 auto;
@@ -2235,7 +2235,7 @@ input[type='number'] {
 }
 .text-btn-bg span{
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 /* TERMS PAGE */
@@ -3851,12 +3851,12 @@ input[type='number'] {
   header .navbar-light .navbar-nav .nav-link.active,
   header .navbar-light .navbar-nav .show > .nav-link {
     background: linear-gradient(0deg, #46bdf4, #46bdf4);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   header .navbar-light .navbar-nav .nav-link:hover {
     background: linear-gradient(0deg, #46bdf4, #46bdf4);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .navbar-expand-lg .navbar-nav a {
