@@ -135,7 +135,7 @@ const Header = () => {
                   className=' img-fluid h-5'
                   alt='currencylogo'
                 /> */}
-                Buy <span className='text-uppercase'>{" "}UltraPad</span>
+                Buy &nbsp; <span className='text-uppercase'>{" "} UltraPad </span>
               </a>
               <button
                 className='d-inline light-blue-btn text-capitalize'

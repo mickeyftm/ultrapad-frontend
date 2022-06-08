@@ -6,6 +6,7 @@ import {
   faPlusCircle
 } from '@fortawesome/free-solid-svg-icons'
 import 'react-datepicker/dist/react-datepicker.css'
+import uploadPhoto from '../../assets/images/photo.png'
 import {
   Form,
   Button,
@@ -839,7 +840,7 @@ function Createpool () {
                     ></img>
 
                     <Form.Control
-                      className='upload_logo'
+                      className='upload_logo h-100 w-100 p-0'
                       name='logo'
                       placeholder='Upload Logo'
                       type='file'
@@ -849,16 +850,19 @@ function Createpool () {
                 ) : (
                   <>
                     <Form.Label htmlFor='fileUpload'>
-                      <p className='logo_text mb-0'>
-                        <FontAwesomeIcon
+                      <p className='logo_text mb-0 w-75'>
+                        {/* <FontAwesomeIcon
                           className='add-icon mx-2 ms-0'
                           icon={faPlusCircle}
-                        />
-                        Select logo
+                        /> */}
+                        <figure className='mx-auto photo'>
+                          <img src={uploadPhoto} className='img-fluid' alt='Upload Photo' />
+                        </figure>
+                        <span className='inherit'>Drop your image here, or <span className='text-shadow fw-bold'>Browse</span></span>
                       </p>
                     </Form.Label>
                     <Form.Control
-                      className='upload_logo'
+                      className='upload_logo h-100 w-100 p-0'
                       name='logo'
                       placeholder='Upload Logo'
                       type='file'
