@@ -27,7 +27,9 @@ const footer = () => {
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/"><img  alt='Gammes' src={FooterIcon5} /></a></li>
                             </ul>
                         </div>
-                        <div className="col-lg-2 mb-lg-0 mb-3">
+                        <div className='col-lg-4 mb-0 offset-lg-2'>
+                            <div className='row'>
+                            <div className="col-lg-6 mb-lg-0 mb-3">
                             <h3 className="footer-mb text-capitalize">general</h3>
                             <ul className="footer-links">
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/">How to participate in IDO</a></li>
@@ -35,12 +37,14 @@ const footer = () => {
                                 <li><a href={process.env.REACT_APP_Web_link}>Apply for IDO</a></li>
                             </ul>
                         </div>
-                        <div className="col-lg-2 mb-lg-0 mb-3">
+                        <div className="col-lg-6 mb-lg-0 mb-3">
                             <h3 className="footer-mb text-capitalize">Audits</h3>
                             <ul className="footer-links">
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/"><img src="images/quill-audits.png" className="img-fluid" alt="" /></a></li>
                                 <li><a href="https://ultrapad.finance.server18.arhamsoft.info/"><img src="images/certick.png" className="img-fluid" alt="" /></a></li>
                             </ul>
+                        </div>
+                            </div>
                         </div>
                     </div>
                 </div>

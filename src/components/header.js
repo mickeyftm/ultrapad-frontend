@@ -95,8 +95,8 @@ const Header = () => {
                       to='/admin/dashboard1'
                       className={
                         pathname === '/admin/dashboard1'
-                          ? 'p-lg-4 p-2 active'
-                          : 'p-lg-4 p-2'
+                          ? ' active'
+                          : ''
                       }
                     >
                       Admin Panel
@@ -109,7 +109,7 @@ const Header = () => {
                 <Link
                   to='/'
                   className={
-                    pathname === '/' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                    pathname === '/' ? ' active' : ''
                   }
                 >
                   Pools
@@ -117,7 +117,7 @@ const Header = () => {
                 <a
                   href='/#faqs'
                   className={
-                    pathname === '#faqs' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                    pathname === '#faqs' ? ' active' : ''
                   }
                 >
                   FAQs

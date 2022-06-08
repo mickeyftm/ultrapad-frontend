@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 // import DatePicker from "react-datepicker"
 import { Link } from 'react-router-dom'
 import {
-  faArrowAltCircleLeft,
-  faPlusCircle
+  faArrowAltCircleLeft
 } from '@fortawesome/free-solid-svg-icons'
 import 'react-datepicker/dist/react-datepicker.css'
-import uploadPhoto from '../../assets/images/photo.png'
+import uploadImg from '../../assets/images/photo.png'
 import {
   Form,
   Button,
@@ -28,16 +27,13 @@ import {
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-// import { FaBeer  } from "react-icons";
 import Info from '../InfoBtn/info'
 import { ethers } from 'ethers'
 import { useCookies } from 'react-cookie'
 import ErrorLabels from '../ErrorLabels/errorlabels'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/material_green.css'
-
 import StorageAbi from '../../utils/StorageAbi'
-
 import byteCode from '../../utils/idoByteCode'
 import Alerts from '../Alerts/alert'
 // import ManagePools from '../AdminPanel/ManagePools/ManagePools'
@@ -855,10 +851,10 @@ function Createpool () {
                           className='add-icon mx-2 ms-0'
                           icon={faPlusCircle}
                         /> */}
-                        <figure className='mx-auto photo'>
-                          <img src={uploadPhoto} className='img-fluid' alt='Upload Photo' />
+                        <figure className='mx-auto upload-img'>
+                          <img src={uploadImg} className='img-fluid' alt='Upload'></img>
                         </figure>
-                        <span className='inherit'>Drop your image here, or <span className='text-shadow fw-bold'>Browse</span></span>
+                        <span>Drop your image here, or <span className='text-shadow fw-bold'>Browse</span></span>
                       </p>
                     </Form.Label>
                     <Form.Control

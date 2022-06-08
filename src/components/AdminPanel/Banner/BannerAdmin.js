@@ -1,11 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import Table from 'react-bootstrap/Table'
-import { Button } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPlus
-} from '@fortawesome/free-solid-svg-icons'
 
 
 import { createClient } from 'urql'
