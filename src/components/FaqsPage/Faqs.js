@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Accordion } from 'react-bootstrap';
+import Footer from '../../components/footer'
 function Faqs() {
 
     return (
         <>
             <div className='container'>
                 <div class="section_padding">
-                        <div className='terms-page'>
+                        <div className='terms-page bg-transparent'>
                             <div className="page-heading my-lg-4 my-2">
                                 <h2 className='text-white text-capitalize mt-4 text-center'>FAQs</h2>
                             </div>
@@ -193,6 +194,7 @@ function Faqs() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

@@ -256,7 +256,7 @@ input:focus-visible{
   border-bottom: 20px solid transparent;
   border-right: 20px solid #8dc7ea;
   border-left: 0px solid transparent;
-  border-top: 20px solid transparent;
+  border-top: 19px solid transparent;
 }
 .sidebar .main-nav li.active a {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
@@ -2302,8 +2302,37 @@ input[type='number'] {
   border-radius: 10px;
   margin-bottom: 50px;
 }
+.terms-page h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  line-height: 40px;
+  background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .terms-list-style {
   list-style: lower-alpha;
+}
+.roman-list-style{
+  list-style-type: upper-roman;
+}
+.bullets {
+  list-style: none;
+}
+.bullets > li {
+  display: flex;
+  align-items: inherit;
+}
+.bullets > li::before{
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  height: 15px;
+  min-width: 15px;
+  margin-right: 10px;
+  margin-top: 5px;
+  background: linear-gradient(89.31deg, #FAD96A 0%, #FD60CC 100%);
 }
 .text-links{
   color:#4ab0f5;
@@ -3819,6 +3848,23 @@ th {
 }
 .ido-front-side-faqs .card-title, .manage-qstns .card-title {
   font-size:18px;
+}
+/* TERMS PAGE */
+.terms-page h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  line-height: 40px;
+  background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bullets {
+  padding-left: 10px;
+}
+.bullets > li::before {
+  height: 10px;
+  min-width: 10px;
 }
 }
 @media (max-width: 1199px) {
