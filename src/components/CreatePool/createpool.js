@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 // import DatePicker from "react-datepicker"
 import { Link } from 'react-router-dom'
 import {
-  faArrowAltCircleLeft,
-  faPlusCircle
+  faArrowAltCircleLeft
 } from '@fortawesome/free-solid-svg-icons'
 import 'react-datepicker/dist/react-datepicker.css'
+import uploadImg from '../../assets/images/photo.png'
 import {
   Form,
   Button,
@@ -27,16 +27,13 @@ import {
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-// import { FaBeer  } from "react-icons";
 import Info from '../InfoBtn/info'
 import { ethers } from 'ethers'
 import { useCookies } from 'react-cookie'
 import ErrorLabels from '../ErrorLabels/errorlabels'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/material_green.css'
-
 import StorageAbi from '../../utils/StorageAbi'
-
 import byteCode from '../../utils/idoByteCode'
 import Alerts from '../Alerts/alert'
 // import ManagePools from '../AdminPanel/ManagePools/ManagePools'
@@ -824,7 +821,7 @@ function Createpool () {
                 <ErrorLabels props={errors.title} />
               </Form.Group>
             </div>
-            <div className='col-md-6 mb-md-0 mb-3'>
+            <div className='col-md-6 mb-3'>
               <div className='img-cover-box'>
                 {/* <p className='mb-0'> Image will be appear here</p> */}
                 {poolMeta.logo !== '' ? (
@@ -839,7 +836,7 @@ function Createpool () {
                     ></img>
 
                     <Form.Control
-                      className='upload_logo'
+                      className='upload_logo h-100 w-100 p-0'
                       name='logo'
                       placeholder='Upload Logo'
                       type='file'
@@ -849,16 +846,19 @@ function Createpool () {
                 ) : (
                   <>
                     <Form.Label htmlFor='fileUpload'>
-                      <p className='logo_text mb-0'>
-                        <FontAwesomeIcon
+                      <p className='logo_text mb-0 w-75'>
+                        {/* <FontAwesomeIcon
                           className='add-icon mx-2 ms-0'
                           icon={faPlusCircle}
-                        />
-                        Select logo
+                        /> */}
+                        <figure className='mx-auto upload-img'>
+                          <img src={uploadImg} className='img-fluid' alt='Upload'></img>
+                        </figure>
+                        <span>Drop your image here, or <span className='text-shadow fw-bold'>Browse</span></span>
                       </p>
                     </Form.Label>
                     <Form.Control
-                      className='upload_logo'
+                      className='upload_logo h-100 w-100 p-0'
                       name='logo'
                       placeholder='Upload Logo'
                       type='file'
@@ -898,11 +898,11 @@ function Createpool () {
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group className='mb-md-5 mb-4' controlId='poolStartDat1e'>
                 <Info name={'Network'} desc={'Select Network e.g Bsc,Eth'} />
-                <Dropdown style={{ backgroundColor: '#1F1D3D' }}>
+                <Dropdown style={{ backgroundColor: '#050d5982' }}>
                   <Dropdown.Toggle
                     className='pt-lg-4 pb-lg-4 pt-lg-3 pb-lg-3 primary_dropdown'
                     id='dropdown-basic'
-                    style={{ backgroundColor: '#1F1D3D', width: '100%' }}
+                    style={{ backgroundColor: '#050d5982', width: '100%' }}
                   >
                     {poolMeta.networks}
                   </Dropdown.Toggle>

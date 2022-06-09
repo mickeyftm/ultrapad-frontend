@@ -87,7 +87,7 @@ const Banner = () => {
               
                   <a
                     className='d-inline blue-outline-btn text-capitalize'
-                    href='http://google.com/'
+                    href='https://ultrapad.finance.server18.arhamsoft.info/'
                   >
                     Buy{" "} <span className='text-uppercase'> {" "}UltraPad</span>
                   </a>

@@ -8,6 +8,7 @@ import Landing from './components/landingPage/landingPage'
 import Product from './components/ProductPage/ProductPage'
 import Terms from './components/Terms/Terms'
 import Privacy from './components/Privacy/Privacy'
+import Faqs from './components/FaqsPage/Faqs'
 import Admin from './components/AdminPanel/admin'
 import useGetOwner from './CustomHooks/GetOwner'
 import { useCookies } from 'react-cookie'
@@ -22,7 +23,7 @@ function App () {
     async function fetch () {
       const { ethereum } = window
       if (ethereum) {
-        var provider = new ethers.providers.Web3Provider(ethereum)
+        var provider = new ethers.providers.Web3Provider(ethereum) || "https://data-seed-prebsc-1-s1.binance.org:8545/";
 
         const isMetaMaskConnected = async () => {
           const accounts = await provider.listAccounts()
@@ -82,6 +83,7 @@ function App () {
             <Route path='/pool:id' exact element={<Product />} />
             <Route path='/tos' exact element={<Terms />} />
             <Route path='/privacy' exact element={<Privacy />} />
+            <Route path='/faqs' exact element={<Faqs />} />
             {ownerFlag === true ? (
               <>
                 {' '}

@@ -21,38 +21,41 @@ const MultiChainCards = () => {
   const [totalIdo] = useFetchIdoCounts()
 
   const [idoInfo, setIdoInfo] = useState([])
-  const timeConverter = useCallback(UNIX_timestamp => {
-    // var a = new Date(UNIX_timestamp * 1000);
-    var a = new Date(UNIX_timestamp * 1000)
-    var months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ]
-    var year = a.getFullYear()
-    var month = months[a.getMonth()]
-    var date = a.getDate()
-    var hour = a.getHours()
-    var min = a.getMinutes()
-    // var sec = a.getSeconds()
+  const timeConverter = useCallback(
+    UNIX_timestamp => {
+      // var a = new Date(UNIX_timestamp * 1000);
+      var a = new Date(UNIX_timestamp * 1000)
+      var months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ]
+      var year = a.getFullYear()
+      var month = months[a.getMonth()]
+      var date = a.getDate()
+      var hour = a.getHours()
+      var min = a.getMinutes()
+      // var sec = a.getSeconds()
 
-    var time1 = date + ' ' + month + ' ' + year
-    time.month = month
-    time.hour = hour
-    time.min = min
-    time.date = date
-    // console.log('time', time)
-    return time1
-  },[time])
+      var time1 = date + ' ' + month + ' ' + year
+      time.month = month
+      time.hour = hour
+      time.min = min
+      time.date = date
+      // console.log('time', time)
+      return time1
+    },
+    [time]
+  )
 
   const ParseData = async arg => {
     const url = await axios.get(`https://ipfs.io/ipfs/${arg}`)
@@ -80,7 +83,7 @@ const MultiChainCards = () => {
 
   const GetTotalStakeAmout = async (token, raised) => {
     // const tokenAdd = token.toUpperCase()
-    console.log('token address', token)
+    // console.log('token address', token)
 
     let perc = Math.floor(Math.random() * 100)
     return perc
@@ -195,7 +198,7 @@ const MultiChainCards = () => {
 
     const tokensQuery = `{
       
-      poolInfos(orderBy:poolId orderDirection:asc, first:4 skip:${itemPerPage} where:{startDate_lt: ${timestamp},  endDate_gt:${timestamp}  } ){
+      poolInfos(orderBy:poolId orderDirection:asc, first:4 skip:0 where:{startDate_lt: ${timestamp},  endDate_gt:${timestamp}  } ){
       poolingToken
       
       poolId
@@ -279,7 +282,7 @@ const MultiChainCards = () => {
     const data2 = await client2.query(tokensQuery).toPromise()
 
     // console.log('Upcoming Pools', data2.data)
-    console.log(data2.data)
+    // console.log(data2.data)
     if (data2.data !== null || data2.data !== undefined) {
       FetchDataSetter(data2.data.poolInfos)
 
@@ -288,9 +291,9 @@ const MultiChainCards = () => {
   }
   const fetchEndedIdo = async () => {
     var timestamp = await Math.round(+new Date() / 1000)
-    console.log('itemPerPage', itemPerPage)
+    // console.log('itemPerPage', itemPerPage)
     const tokensQuery = `{
-    poolInfos (orderBy:poolId orderDirection:asc,  skip:${itemPerPage} ,  where:{startDate_lt: ${timestamp},  endDate_lt:${timestamp}  } ) {
+    poolInfos (orderBy:poolId orderDirection:asc,  skip:0 ,  where:{startDate_lt: ${timestamp},  endDate_lt:${timestamp}  } ) {
       poolingToken
       poolId
       totalRaised
@@ -328,16 +331,16 @@ const MultiChainCards = () => {
   }
   const handleLoadMore = () => {
     if (poolStatus === 'live') {
-      console.log('handle status', poolStatus)
+      // console.log('handle status', poolStatus)
       setItemPerPage(itemPerPage + 4)
       fetchLiveIdo()
     } else if (poolStatus === 'upcoming') {
-      console.log('handle status', poolStatus)
+      // console.log('handle status', poolStatus)
 
       setItemPerPage(itemPerPage + 4)
       fetchUpcomingIdo()
     } else if (poolStatus === 'ended') {
-      console.log('handle status', poolStatus)
+      // console.log('handle status', poolStatus)
       setItemPerPage(itemPerPage + 4)
       fetchEndedIdo()
     }

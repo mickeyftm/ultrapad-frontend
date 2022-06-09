@@ -19,7 +19,6 @@ import { ethers } from 'ethers'
 import Alerts from '../../Alerts/alert'
 
 
-
 function ManagePools () {
 
   const [AllOrders] = useFetchAllOrder()
@@ -126,9 +125,9 @@ function ManagePools () {
               </Card>
             </>
           ) : (
-            <Card>
+            <Card className='pt-lg-4 pt-3'>
               <Card.Header className='titles-sett'>
-                Manage Pools
+                <h2 className='text-shadow'>Manage Pools</h2>
                 <Button
                   onClick={() => setAddPool(true)}
                   className='text-white light-blue-btn text-capitalize d-inline'

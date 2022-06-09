@@ -35,9 +35,7 @@ const UserInfo = props => {
           <span className='text-capitalize text-white'>balance:</span> <span>{props.bal} {props.bidName}{' '}</span>
         </p>
 
-      {/* <span className='col-6 m-2'>
-          <a href='http://google.com/'>How to participate</a>
-        </span> */}
+     
     </div>
   )
 }

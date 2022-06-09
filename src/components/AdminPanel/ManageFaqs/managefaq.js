@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
+import { Accordion } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import FaqModal from './addfaqmodal'
 import EditFaqModal from './editfaq'
@@ -71,48 +73,47 @@ function ManageFaq () {
   return (
     <div>
       <div className='content faqs-pg'>
-        <Card>
+        <Card className='pt-lg-4 pt-3'>
           <Card.Header className='titles-sett'>
-            Manage FAQS
+            <h2 className='text-shadow'>Manage FAQS</h2>
             <button
               className='d-inline light-blue-btn text-capitalize'
               onClick={AddFaqHandler}
             >
               <FontAwesomeIcon className='add-icon' icon={faPlus} /> Add Faq
             </button>
+            
           </Card.Header>
-
+         
           {faqs.length > 0 ? (
             faqs.map((item, index) => {
               return (
-                <div
-                  className='manage-pools  border border-secondary '
-                  key={index}
-                >
-                  <div className='card-header border-bottom border-primary'>
-                    <h4 className='card-title text-white mb-0'>
-                      {'Q'}
-                      {' . '}
-                      {item.title}
-                    </h4>
-                  </div>
+                <Accordion key={index} className="manage-faqs-accordian">
+                <Accordion.Item className='border-0' eventKey="0">
+                <div className='manage-pools p-0'>
+                <Accordion.Header>
+                  <div className='card-header w-100'>
+                      <div className='manage-qstns'>
+                        <h4 className='card-title text-white mb-0 d-flex align-items-center'>
+                         <div className='me-2'><span className='qstn-span'>{'Q'} </span></div> &nbsp; <div>{item.title}</div></h4>
+                        <ul className='nav nav-pills card-header-pills faqs-admn-styling mx-2'>
+                            <li className='nav-item text-white'>
+                              {/* <p className='nav-link text-white'>EDIT</p> */}
+                              <Link to="#" onClick={() => EditFaqHandler(item)} className="icon-btn shadow-btn text-uppercase">edit</Link>
+                            </li>
+                            <li className='nav-item border-primary green-box'>
+                              {/* <p onClick={() => DeleteFaqHandler(item)} className='nav-link text-white light-blue-btn text-uppercase'>DELETE </p> */}
+                              <Link to="#" onClick={() => DeleteFaqHandler(item)} className="d-inline light-blue-btn text-uppercase">delete</Link>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
                   <div className='faqs-wraper'>
                     <div className='card-body text-white'>
                       <p className='card-text'>{item.description}</p>
-                      <ul className='nav nav-pills card-header-pills faqs-admn-styling mx-2'>
-                        <li
-                          className='nav-item text-white border border-warning space-between yellow-box'
-                          onClick={() => EditFaqHandler(item)}
-                        >
-                          <p className='nav-link text-white'>EDIT</p>
-                        </li>
-                        <li
-                          className='nav-item border border-primary green-box'
-                          onClick={() => DeleteFaqHandler(item)}
-                        >
-                          <p className='nav-link text-white '>DELETE </p>
-                        </li>
-                      </ul>
+                     
                       {alert !== '' ? (
                         <Alerts message={alert} show={true} />
                       ) : (
@@ -120,7 +121,12 @@ function ManageFaq () {
                       )}
                     </div>
                   </div>
+              </Accordion.Body>
                 </div>
+                </Accordion.Item>
+              </Accordion>
+                
+                
               )
             })
           ) : (

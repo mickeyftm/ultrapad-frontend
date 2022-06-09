@@ -99,7 +99,7 @@ function EditFaqModal ({ show, handleEditModal, data }) {
         {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
         <Modal.Footer className='faq-modal  border-top-0'>
           <Button
-            className=' light-blue-btn text-capitalize'
+            className='blue-imp light-blue-btn text-capitalize'
             type='submit'
             onClick={handleFaqSubmit}
           >

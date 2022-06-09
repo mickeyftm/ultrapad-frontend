@@ -80,7 +80,6 @@ const Header = () => {
                 <img src={Logo} className='img-fluid' alt='SiteLogo' />
               </figure>
             </Navbar.Brand>
-
             <Navbar.Toggle aria-controls='basic-navbar-nav'>
               <FontAwesomeIcon icon={faBars} />
             </Navbar.Toggle>
@@ -95,8 +94,8 @@ const Header = () => {
                       to='/admin/dashboard1'
                       className={
                         pathname === '/admin/dashboard1'
-                          ? 'p-lg-4 p-2 active'
-                          : 'p-lg-4 p-2'
+                          ? ' active'
+                          : ''
                       }
                     >
                       Admin Panel
@@ -109,7 +108,7 @@ const Header = () => {
                 <Link
                   to='/'
                   className={
-                    pathname === '/' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                    pathname === '/' ? ' active' : ''
                   }
                 >
                   Pools
@@ -117,7 +116,7 @@ const Header = () => {
                 <a
                   href='/#faqs'
                   className={
-                    pathname === '#faqs' ? 'p-lg-4 p-2 active' : 'p-lg-4 p-2'
+                    pathname === '#faqs' ? ' active' : ''
                   }
                 >
                   FAQs
@@ -127,7 +126,7 @@ const Header = () => {
 
             <div className='block-btn'>
               <a
-                href='https://linux.holdex.finance/swap'
+                href='https://ultrapad.finance.server18.arhamsoft.info/'
                 className='icon-btn shadow-btn text-capitalize'
               >
                 {/* <img
@@ -135,7 +134,7 @@ const Header = () => {
                   className=' img-fluid h-5'
                   alt='currencylogo'
                 /> */}
-                Buy <span className='text-uppercase'>{" "}UltraPad</span>
+                Buy &nbsp; <span className='text-uppercase'>{" "} UltraPad </span>
               </a>
               <button
                 className='d-inline light-blue-btn text-capitalize'

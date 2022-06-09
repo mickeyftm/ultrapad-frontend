@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Card from 'react-bootstrap/Card'
 import { Row, Col, Form } from 'react-bootstrap'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Alerts from '../../Alerts/alert'
 import axios from 'axios'
 function CmsPage () {
@@ -9,11 +11,11 @@ function CmsPage () {
     privacy_content: ''
   })
   const [alert, setAlert] = useState('')
-  const handleChange = e => {
-    const { name, value } = e.target
+  // const handleChange = e => {
+  //   const { name, value } = e.target
 
-    setCms({ ...cms, [name]: value })
-  }
+  //   setCms({ ...cms, [name]: value })
+  // }
 
   const handleSave = e => {
     axios
@@ -67,9 +69,9 @@ function CmsPage () {
     <div>
       <div className='content'>
         <div className='cms-pg'>
-          <Card>
+          <Card className='pt-lg-4 pt-3'>
             <Card.Header className='titles-sett'>
-              <div>Manage CMS</div>
+              <h2 className='text-shadow'>Manage CMS</h2>
               <div>
                 <button
                   className='d-inline light-blue-btn text-capitalize '
@@ -88,7 +90,7 @@ function CmsPage () {
                         <Form>
                           <Form.Group className='mb-2'>
                             <Form.Label>Terms Content</Form.Label>
-                            <Form.Control id="scroll-1"
+                            {/* <Form.Control id="scroll-1"
                               as='textarea'
                               onChange={handleChange}
                               rows={3}
@@ -97,14 +99,17 @@ function CmsPage () {
                               value={cms.terms_content}
                               placeholder='Enter Terms and Conditions Here'
                               required
-                            />
+                            /> */}
+                           <span className="ido-ckeditor"> <CKEditor  editor={ClassicEditor}/></span>
+                        
                           </Form.Group>
                           <Form.Group
                             className='mb-3'
                             controlId='exampleForm.ControlTextarea1'
                           >
                             <Form.Label>Privacy Content</Form.Label>
-                            <Form.Control id="scroll-1"
+                            <span className="ido-ckeditor"> <CKEditor  editor={ClassicEditor}/></span>
+                            {/* <Form.Control id="scroll-1"
                               as='textarea'
                               name='privacy_content'
                               onChange={handleChange}
@@ -112,14 +117,9 @@ function CmsPage () {
                               rows={3}
                               value={cms.privacy_content}
                               placeholder='Enter Privacy Content Here'
-                            />
+                            /> */}
                           </Form.Group>
-                          <Form.Group
-                            className='mb-3'
-                            controlId='exampleForm.ControlTextarea1'
-                          >
-                            <Form.Label></Form.Label>
-                          </Form.Group>
+                         
                         </Form>
                       </div>
                     </Col>
