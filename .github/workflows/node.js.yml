@@ -21,6 +21,7 @@ jobs:
               run: |
                   npm install
                   npm run build
+                  cp .htaccess ./build
 
             - name: 📂 Sync files
               uses: SamKirkland/FTP-Deploy-Action@4.1.0
