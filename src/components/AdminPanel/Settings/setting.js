@@ -78,7 +78,7 @@ function Setting () {
       <div className='content'>
         <div className='cms-pg'>
         {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
-          <Card>
+          <Card className='pt-lg-4 pt-3'>
             <Card.Header className='titles-sett text-center'>
               <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
                 <h2 className='text-shadow mb-sm-0 mb-2'> Site Settings</h2>

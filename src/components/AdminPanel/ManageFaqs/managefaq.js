@@ -73,7 +73,7 @@ function ManageFaq () {
   return (
     <div>
       <div className='content faqs-pg'>
-        <Card>
+        <Card className='pt-lg-4 pt-3'>
           <Card.Header className='titles-sett'>
             <h2 className='text-shadow'>Manage FAQS</h2>
             <button
@@ -93,10 +93,10 @@ function ManageFaq () {
                 <div className='manage-pools p-0'>
                 <Accordion.Header>
                   <div className='card-header w-100'>
-                      <div className='d-flex justify-content-between'>
+                      <div className='manage-qstns'>
                         <h4 className='card-title text-white mb-0 d-flex align-items-center'>
                          <div className='me-2'><span className='qstn-span'>{'Q'} </span></div> &nbsp; <div>{item.title}</div></h4>
-                        <ul className='nav nav-pills card-header-pills faqs-admn-styling mx-2 d-flex justify-content-end'>
+                        <ul className='nav nav-pills card-header-pills faqs-admn-styling mx-2'>
                             <li className='nav-item text-white'>
                               {/* <p className='nav-link text-white'>EDIT</p> */}
                               <Link to="#" onClick={() => EditFaqHandler(item)} className="icon-btn shadow-btn text-uppercase">edit</Link>

@@ -87,11 +87,14 @@ input:focus-visible{
 [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
   outline: none;
 }
+.pink-text{
+  color: #ff805c;
+}
 /* admin side css */
 .sidebar {
-  width: 280px;
+  width: 250px;
   padding: 50px 0;
-  background:#9b4ba64f;
+  background:#1e1866;
   box-shadow: 0px 0px 50px #171c250d;
   border-radius: 8px;
   margin-right: 30px;
@@ -110,9 +113,9 @@ input:focus-visible{
   font-weight: 500;
   height: 100%;
   max-height: calc(100% - 100px);
-  overflow-y: auto;
+  /* overflow-y: auto; */
   color: #fff;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 .sidebar .main-nav li:hover {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
@@ -134,7 +137,7 @@ input:focus-visible{
 }
 .admin-side-wraper .content {
   padding: 150px 40px 10px 16px;
-  width: calc(100% - 343px);
+  width: calc(100% - 286px);
   float: right;
 }
 .dark-theme {
@@ -202,7 +205,7 @@ input:focus-visible{
   justify-content: center;
 }
 .admin-side-wraper .card {
-  background: #9b4ba64f;
+  background: #1e2966;
   border-radius: 8px;
 }
 .admin-side-wraper {
@@ -236,9 +239,24 @@ input:focus-visible{
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
   transition: all ease-in-out 0.3s;
 }
+
 .sidebar .main-nav a:hover:before,
 .sidebar .main-nav li.active a:before {
   width: 4px;
+}
+
+  /* right arrow */
+.sidebar .main-nav li.active {
+  background: #8dc7ea24;
+}
+.sidebar .main-nav li.active::after {
+  content: '';
+  position: absolute;
+  right: -11px;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid #8dc7ea;
+  border-left: 0px solid transparent;
+  border-top: 20px solid transparent;
 }
 .sidebar .main-nav li.active a {
   background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
@@ -250,16 +268,22 @@ input:focus-visible{
 }
 /* manage pools */
 .manage-faqs-accordian .accordion-item{
-  background:#332070;
+  background:#1e2966;
 }
 .manage-faqs-accordian  .accordion-button, .manage-faqs-accordian .accordion-header{
   background:#3b4067;
 }
 .manage-faqs-accordian  .accordion-body{
-  background: #18123263;
+  background: #1e2966;
 }
-.manage-faqs-accordian .card-header-pills{
-  width:200px;
+.manage-qstns {
+  display: flex;
+  justify-content:space-between;
+}
+.manage-faqs-accordian .faqs-admn-styling.card-header-pills{
+  min-width:200px;
+  display:flex;
+  justify-content:end;
 }
 .accordion-button:focus{box-shadow:none;}
 .manage-faqs-accordian .accordion-header  {
@@ -336,6 +360,25 @@ th {
 }
 /*  */
 /* cms pages css */
+.ido-ckeditor .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+  height: 180px;
+  background-color: #3b4067;
+  border-color: transparent;
+  color: #fff;
+}
+.ido-ckeditor .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+  background: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
+}
+.ido-ckeditor .ck-rounded-corners .ck.ck-button {
+  color:#fff;
+}
+.ido-ckeditor .ck-rounded-corners .ck.ck-button:hover , .ido-ckeditor .ck.ck-button.ck-on, .ido-ckeditor a.ck.ck-button.ck-on, .ido-ckeditor .ck.ck-button.ck-on:not(.ck-disabled):hover{
+  color:#fff;
+  background: #5ea4c5;
+}
+.ido-ckeditor .ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__panel .ck-list__item > button{
+  color: #000;
+}
 .cms-pages-style label {
   color: #fff;
   text-align: left;
@@ -2254,7 +2297,7 @@ input[type='number'] {
 /* TERMS PAGE */
 .terms-page {
   color:#fff;
-  background: #9b4ba64f;
+  background:#1e2966;
   padding: 20px 40px 40px 40px;
   border-radius: 10px;
   margin-bottom: 50px;
@@ -2273,6 +2316,33 @@ input[type='number'] {
 }
 .chainLogo{
   height: 30px;
+}
+/* IDO FRONT SIDE FAQS */
+.ido-front-side-faqs {
+  margin-bottom:20px;
+}
+.ido-front-side-faqs .card-title {
+  font-weight:600;
+}
+.ido-front-side-faqs .accordion-button:not(.collapsed)::after, .ido-front-side-faqs .accordion-button::after{
+  filter: brightness(0) invert(1);
+}
+.ido-front-side-faqs .accordion-item{
+  border: none;
+}
+.ido-front-side-faqs .accordion-button{
+  background: linear-gradient(90deg,#7a0fff 0,#46bdf4);
+  border-color: transparent;
+}
+.ido-front-side-faqs .accordion-body{
+  background:#3b4067;
+  color:#fff;
+}
+.ido-front-side-faqs .ido-ul {
+  list-style-type: decimal;
+}
+.ido-front-side-faqs .ido-ul li:not(:last-child) {
+  margin-bottom: 10px;
 }
 /* ***************************************************** MEDIA QUERY  ****************************************************** */
 @media (max-width: 1799px) {
@@ -3031,7 +3101,7 @@ footer .footer-header .social-icons li a img {
 }
 @media (max-width: 1399px) {
   /* TAGLINE */
-  .slide_text {
+.slide_text {
     padding: 2px;
 }
 .slide_text span {
@@ -3107,7 +3177,7 @@ h3 {
 }
 p {
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
 }
   /* header */
   header .navbar-light .navbar-brand figure {
@@ -3469,11 +3539,13 @@ header .navbar-light .navbar-nav .nav-link:before {
 }
 .sidebar {
   top: 130px;
+  width:220px;
 }
 /* END OF HEADER */
 /* ADMIN MANAGE_POOLS */
 .admin-side-wraper .content {
   padding: 130px 25px 10px 10px;
+  width: calc(100% - 258px);
 }
 /* END OF ADMIN MANAGE_POOLS */
 /* BANNER */
@@ -3744,6 +3816,9 @@ th {
 }
 .form-control[type='file']:not(:disabled):not([readonly]) {
   padding: 13px 20px;
+}
+.ido-front-side-faqs .card-title, .manage-qstns .card-title {
+  font-size:18px;
 }
 }
 @media (max-width: 1199px) {
@@ -4274,6 +4349,11 @@ span{
 #faqs .accordion-button {
   font-size: 16px;
 }
+/* MANAGE FAQS */
+
+.manage-faqs-accordian .accordion-header .card-header:hover {
+  padding-left: 18px;
+}
 }
 @media (max-width: 576px) {
   .section_padding {
@@ -4605,4 +4685,17 @@ span {
   .hero-banner .banner-text .clipboard {
     width: auto;
   }
+  /* MANAGE FAQS */
+  .manage-qstns {
+    flex-direction:column;
+  }
+  .manage-faqs-accordian .faqs-admn-styling.card-header-pills {
+    width:auto;
+    padding:5px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+}
+.manage-faqs-accordian .accordion-button {
+  padding:5px;
+}
 }

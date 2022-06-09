@@ -72,12 +72,18 @@ function BannerAdmin () {
 return (
     <div>
       <div className='content'>
-          <div className='row'>
+        
+              {/* TABLE */}
+      <div className='manage-pools-pg'>
+
+        <Card className='pt-lg-4 pt-3'>
+              {/* CARD ROW */}
+      <div className='row'>
             <div className='col-md-12'>
               <div className='panel dark-theme'>
                 <div className='panel-body dashboard-cards'>
                   <div className='row mb-3 shadow-cards justify-content-between align-content-center'>
-                    <div className='col-md-4 col-12 mb-3'>
+                    <div className='col-lg-4 col-md-6 col-sm-6 col-12 mb-3'>
                       <div className='widget-metric_6 animate bg-primary box-primary-shadow'>
                         <div className='right'>
                           <span className='value'>
@@ -88,7 +94,7 @@ return (
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4 col-12 mb-3">
+                    <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                         <div className="widget-metric_6 animate blue-yellow box-primary-shadow">
                             <div className="right">
                                 <span className="value">Manage Faqs</span>
@@ -96,7 +102,7 @@ return (
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4 col-12 mb-3">
+                    <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                         <div className="widget-metric_6 animate blue-light box-primary-shadow">
                             <div className="right">
                                 <span className="value">CMS Pages</span>
@@ -104,7 +110,7 @@ return (
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4 col-12 mb-3">
+                    <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                         <div className="widget-metric_6 animate blue-light box-primary-shadow">
                             <div className="right">
                                 <span className="value">Settings </span>
@@ -133,9 +139,7 @@ return (
               </div>
             </div>
           </div>
-              {/* TABLE */}
-      <div className='manage-pools-pg'>
-        <Card>
+      {/*  END CARD ROW*/}
           <Card.Header className='titles-sett'>
             <h2 className='text-shadow'>Top Pools - {poolAmount} </h2>
           </Card.Header>

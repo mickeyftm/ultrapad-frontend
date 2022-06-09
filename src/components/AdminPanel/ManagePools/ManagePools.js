@@ -125,7 +125,7 @@ function ManagePools () {
               </Card>
             </>
           ) : (
-            <Card>
+            <Card className='pt-lg-4 pt-3'>
               <Card.Header className='titles-sett'>
                 <h2 className='text-shadow'>Manage Pools</h2>
                 <Button
