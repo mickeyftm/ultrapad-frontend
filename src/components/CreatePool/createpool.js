@@ -900,7 +900,7 @@ function Createpool () {
                 <Info name={'Network'} desc={'Select Network e.g Bsc,Eth'} />
                 <Dropdown style={{ backgroundColor: '#050d5982' }}>
                   <Dropdown.Toggle
-                    className='pt-lg-4 pb-lg-4 pt-lg-3 pb-lg-3 primary_dropdown'
+                    className='p-lg-4 p-3 primary_dropdown'
                     id='dropdown-basic'
                     style={{ backgroundColor: '#050d5982', width: '100%' }}
                   >

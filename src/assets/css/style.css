@@ -3332,6 +3332,9 @@ p {
   }
   /* END OF HEADER */
   /* BANNER */
+  .hero-banner {
+    padding: 220px 0px 50px 0px;
+}
   .hero-banner .banner-text .banner-span {
     font-size: 60px;
     line-height: 65px;
@@ -4247,7 +4250,7 @@ span{
     border-radius: 5px;
   }
   .hero-banner {
-    padding: 200px 0px 0px 0px;
+    padding:150px 0px 0px 0px;
   }
   section {
     padding-top: 30px;
@@ -4422,7 +4425,7 @@ span{
   padding: 10px 3px;
 }
 .manage-faqs-accordian .accordion-header .card-header:hover {
-  padding-left:unset;
+  padding-left:3px;
 }
 .manage-faqs-accordian .accordion-button {
   padding:10px;
@@ -4899,5 +4902,9 @@ span {
 .your-project .project-bg {
   padding: 18px;
   border-radius: 10px;
+}
+.faqs-pg .manage-pools h4 {
+  font-size: 14px;
+  line-height: 18px;
 }
 }
