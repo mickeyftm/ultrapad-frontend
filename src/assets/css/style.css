@@ -252,6 +252,7 @@ input:focus-visible{
 .sidebar .main-nav li.active::after {
   content: '';
   position: absolute;
+  bottom:0;
   right: -11px;
   border-bottom: 20px solid transparent;
   border-right: 20px solid #8dc7ea;
@@ -941,7 +942,7 @@ header .navbar-light .navbar-nav .nav-link:hover:before {
 /* END BANNER */
 /* market-cap */
 .market-cap .market-cap-inner {
-  background: linear-gradient(85.87deg, rgb(251 201 120 / 75%) 23.07%, rgba(253 111 192  / 75%) 96.08%);
+  background:linear-gradient(84.05deg, #FAD96A 0%, #FD60CC 100%);
   border-radius: 24px;
   padding: 86px 131px;
   margin: 0 100px;
@@ -1367,7 +1368,7 @@ footer .footer-bottom .footer-links li:not(:last-child) {
 }
 .profile-info,
 .coin-detail {
-  background:#9b4ba64f;
+  background:#1e2966;
   padding: 16px;
   border-radius: 20px;
 }
@@ -3263,6 +3264,9 @@ p {
     border-radius: 5px;
     margin: auto;
   }
+  .banner-text .blue-outline-btn {
+    padding: 5px 20px;
+  }
   .blue-outline-btn {
     font-size: 16px;
     line-height: 20px;
@@ -3848,6 +3852,7 @@ th {
 }
 .ido-front-side-faqs .card-title, .manage-qstns .card-title {
   font-size:18px;
+  line-height:26px;
 }
 /* TERMS PAGE */
 .terms-page h3 {
@@ -3958,7 +3963,7 @@ th {
     width: 200px;
   }
   .admin-side-wraper .content {
-    width: calc(100% - 250px);
+    width: calc(100% - 220px);
   }
   #faqs .accordion-button{
     padding: 10px 0px;
@@ -4314,8 +4319,8 @@ span{
   }
   /* MANAGE_POOLS */
   .manage-pools {
-    padding: 10px;
-    margin: 10px;
+    padding:0px;
+    margin:0px;
   }
   .manage-pools .card-header {
     padding: 10px;
@@ -4384,7 +4389,8 @@ span{
     margin-bottom: 10px;
 }
 #message {
-  right: 10px;
+  right:25px;
+  top:75vh !important;
 }
 /*  PRODUCT INFO */
 #clockdiv div > span {
@@ -4396,9 +4402,25 @@ span{
   font-size: 16px;
 }
 /* MANAGE FAQS */
-
+.manage-pools .card-header {
+  padding: 10px 0px;
+}
 .manage-faqs-accordian .accordion-header .card-header:hover {
-  padding-left: 18px;
+  padding-left:11px;
+}
+.manage-faqs-accordian .accordion-button {
+  padding:10px;
+}
+.ido-front-side-faqs .card-title, .manage-qstns .card-title {
+  font-size: 14px;
+}
+/* CKEDITOR */
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners, .ido-ckeditor .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable {
+  height:120px;
+}
+/* IDO FAQS */
+.ido-front-side-faqs {
+  margin-bottom: 10px;
 }
 }
 @media (max-width: 576px) {
@@ -4621,6 +4643,11 @@ span {
   padding: 8px 20px;
   border-radius: 5px;
 }
+#message {
+  right: 25px;
+  top: 85vh !important;
+  width: 70%;
+}
 }
 @media (max-width: 480px) {
   h2 {
@@ -4737,7 +4764,7 @@ span {
   }
   .manage-faqs-accordian .faqs-admn-styling.card-header-pills {
     width:auto;
-    padding:5px 0px 0px 0px;
+    padding:10px 0px 0px 0px;
     display: flex;
     justify-content: center;
 }

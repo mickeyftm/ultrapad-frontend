@@ -754,7 +754,7 @@ function Createpool () {
         )
       }
     } else {
-      AlertNotify('Check for Errors !!!! ', 3000)
+      AlertNotify('Check for Errors !!!! ', 5000000)
       setModalShow(false)
     }
   }

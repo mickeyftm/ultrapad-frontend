@@ -54,7 +54,7 @@ const footer = () => {
                     <div className="footer-bottom-inner">
                         <div className="row align-items-center">
                             <div className="col-lg-9 col-sm-6 mb-0">
-                                <p className="copyright mb-1">© Copyright Ultrapad Finance 2022. All rights reserved.</p>
+                                <p className="copyright mb-sm-0 mb-2">© Copyright Ultrapad Finance 2022. All rights reserved.</p>
                             </div>
                             <div className="col-lg-3 col-sm-6 mb-0">
                                 <ul className="footer-links">
