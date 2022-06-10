@@ -28,7 +28,7 @@ function EditFaqModal ({ show, handleEditModal, data }) {
       .then(res => {
         console.log('successfully Edited faq')
         // After 3 seconds set the show value to false
-        setAlert('SuccessFullt Edited Faq')
+        setAlert('SuccessFully Edited Faq')
         setTimeout(() => {
           setAlert('')
         }, 3000)

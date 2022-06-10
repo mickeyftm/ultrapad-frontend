@@ -688,7 +688,7 @@ const ProductInfo = () => {
               <div className='coin-detail text-white'>
                 <div className='d-flex flex-sm-row flex-column align-items-center justify-content-between'>
                   <div className='coin-profile d-flex align-items-center'>
-                    <img
+                    <img className='me-2'
                       src={`https://ipfs.io/ipfs/${item.logo}`}
                       alt='Profile img'
                       onError={DefualtImageSetter}

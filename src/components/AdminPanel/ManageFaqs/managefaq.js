@@ -76,12 +76,12 @@ function ManageFaq () {
         <Card className='pt-lg-4 pt-3'>
           <Card.Header className='titles-sett'>
             <h2 className='text-shadow'>Manage FAQS</h2>
-            <button
+            <div className='sm-right-btn'><button
               className='d-inline light-blue-btn text-capitalize'
               onClick={AddFaqHandler}
             >
               <FontAwesomeIcon className='add-icon' icon={faPlus} /> Add Faq
-            </button>
+            </button></div>
             
           </Card.Header>
          

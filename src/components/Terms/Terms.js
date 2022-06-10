@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Footer from '../../components/footer'
 import axios from 'axios'
 
 
@@ -26,6 +27,7 @@ function Terms() {
                     </div>
                 </div>
             </div>
+            <Footer/>
 
         </>
     )

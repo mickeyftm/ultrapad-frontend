@@ -80,14 +80,7 @@ function CmsPage () {
           <Card className='pt-lg-4 pt-3'>
             <Card.Header className='titles-sett'>
               <h2 className='text-shadow'>Manage CMS</h2>
-              <div>
-                <button
-                  className='d-inline light-blue-btn text-capitalize '
-                  onClick={handleSave}
-                >
-                  Save
-                </button>
-              </div>
+              
             </Card.Header>
             <Card.Body>
               <div className='cms-pages-style'>
@@ -108,29 +101,19 @@ function CmsPage () {
                               placeholder='Enter Terms and Conditions Here'
                               required
                             /> */}
-                            
-                            
                            <span className="ido-ckeditor"> 
-                           {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}></div> */}
-                           <CKEditor
-                            editor={ClassicEditor}
-                            data={terms}
-                            onChange={ ( event, editor1 ) => {setTerms(editor1.getData())}}
-                           />
-                       </span>
-                        
+                            <CKEditor editor={ClassicEditor} data={terms} onChange={ ( event, editor1 ) => {setTerms(editor1.getData())}}/>
+                           </span>
+                           <div className='d-flex justify-content-end align-items-center mx-0 my-3'><button className='d-inline mx-0 light-blue-btn text-capitalize' onClick={handleSave}>Save</button></div>
                           </Form.Group>
                           <Form.Group
                             className='mb-3'
                             controlId='exampleForm.ControlTextarea1'>
                             <Form.Label>Privacy Content</Form.Label>
                             <span className="ido-ckeditor">
-                            <CKEditor
-                              editor={ClassicEditor}  
-                              data1={privacy}
-                              onChange={ ( event, editor2 ) => {setPrivacy(editor2.getData())}}
-                            />
+                              <CKEditor editor={ClassicEditor} data1={privacy} onChange={ ( event, editor2 ) => {setPrivacy(editor2.getData())}}/>
                             </span>
+                            <div className='d-flex justify-content-end align-items-center mx-0 my-3'><button className='d-inline mx-0 light-blue-btn text-capitalize' onClick={handleSave}>Save</button></div>
                             {/* <Form.Control id="scroll-1"
                               as='textarea'
                               name='privacy_content'

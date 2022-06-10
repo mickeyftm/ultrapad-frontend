@@ -496,7 +496,7 @@ const ProductInfo = () => {
             <div className='profile-info'>
               <div className='top-sec skeleton'>
                 <div className='profile'>
-                  <img
+                  <img 
                     src={`https://ipfs.io/ipfs/${item.logo}`}
                     alt='Profile img'
                     // onError={addDefaultImg}

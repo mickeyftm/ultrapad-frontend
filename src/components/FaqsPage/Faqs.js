@@ -20,7 +20,7 @@ function Faqs() {
                                     <Accordion.Body>
                                     <p className="card-text">
                                     You can participate in IDOs by staking $UPAD in one of the available staking pools to obtain a level. To do this:</p>
-                                    <ul className='ido-ul'>
+                                    <ul>
                                         <li>Head to the <Link to="#" className='text-links'>IDO Staking</Link> page</li>
                                         <li>Connect your wallet</li>
                                         <li>Stake enough $UPAD in your preferred pool to get one of the levels. You can check the list of levels to know the amount of stake you need.</li>
@@ -36,7 +36,7 @@ function Faqs() {
                                     <h4 className='card-title text-white mb-0'>How do IDO processes?</h4>
                                     </Accordion.Header>
                                     <Accordion.Body>
-                                    <ul className='ido-ul'>
+                                    <ul>
                                         <li>Registration for IDO opens 48 hours before the start of IDO sale.</li>
                                         <li>IDO registration gets closed 4 hours before the start of IDO sale.</li>
                                         <li>Choose the whitelist and lottery level winners that can be viewed on the pool page.</li>

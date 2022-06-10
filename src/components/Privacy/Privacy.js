@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Footer from '../../components/footer'
 import axios from 'axios'
 
 function Privacy() {
@@ -25,6 +26,7 @@ function Privacy() {
                     </div>
                 </div>
             </div>
+            <Footer/>
 
         </>
     )

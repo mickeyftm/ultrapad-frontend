@@ -46,7 +46,7 @@ function Setting () {
       .then(res => {
         console.log('setting responce', res.data.data)
         setSettingDetails(res.data.data)
-        setAlert('SuccessFullt Edited Faq')
+        setAlert('SuccessFully Edited Faq')
         setTimeout(() => {
           setAlert('')
         }, 5000)
@@ -83,12 +83,9 @@ function Setting () {
               <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
                 <h2 className='text-shadow mb-sm-0 mb-2'> Site Settings</h2>
                 <div>
-                  <button
-                    className='d-inline light-blue-btn text-capitalize mb-sm-0 mb-2'
-                    onClick={SaveSettings}
-                  >
-                    Save Settings
-                  </button>
+                <div className='sm-right-btn'><button className='d-inline light-blue-btn text-capitalize mb-sm-0 mb-2' onClick={SaveSettings}>
+                    Save Settings</button>
+                  </div>
                 </div>
               </div>
             </Card.Header>

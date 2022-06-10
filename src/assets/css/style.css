@@ -88,7 +88,7 @@ input:focus-visible{
   outline: none;
 }
 .pink-text{
-  color: #ff805c;
+  color:#f3cb31;
 }
 /* admin side css */
 .sidebar {
@@ -1488,6 +1488,7 @@ footer .footer-bottom .footer-links li:not(:last-child) {
 .wifi svg {
   margin-right: 10px;
   padding-bottom: 3px;
+  fill: #4aaef5;
 }
 .social-icons {
   margin-bottom: 25px;
@@ -2296,11 +2297,7 @@ input[type='number'] {
   background-color: #353456;
 }
 .terms-page i{
-  background: linear-gradient(50deg, #ff57e2, #f3cb31);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color:#f3cb31;
   font-weight: 600;
 }
 /* TERMS PAGE */
@@ -3327,9 +3324,6 @@ p {
   header .navbar-light .navbar-nav .nav-link:not(:last-child) {
     margin-right: 30px;
   }
-  header .block-btn a:not(:last-child) {
-    margin-right: 5px;
-  }
   header {
     padding: 5px 0px;
   }
@@ -3434,6 +3428,9 @@ p {
 
   .flatpickr-input {
     height: 50px;
+    font-size: 16px;
+  }
+  .filed-wrapper .input-field {
     font-size: 16px;
   }
   /* MANAGE POOLS */
@@ -3571,9 +3568,6 @@ header .navbar-light .navbar-nav .nav-link {
 }
 header .navbar-light .navbar-nav .nav-link:not(:last-child) {
   margin-right: 30px;
-}
-header .block-btn a:not(:last-child) {
-  margin-right: 5px;
 }
 header {
   padding: 5px 0px;
@@ -4029,7 +4023,7 @@ th {
     left: 0;
     right: 0;
     top: 35px;
-    background:rgb(5 13 89);
+    background:rgb(6 14 90);
     padding:25px 20px;
     margin-top: 20px;
     color: #200d3a;
@@ -4071,6 +4065,10 @@ th {
   }
   .img-cover-box{
     width: 100%;
+  }
+  /* MANAGE FAQS */
+  .manage-qstns {
+    flex-direction: column;
   }
 }
 @media (max-width: 767px) {
@@ -4223,7 +4221,7 @@ span{
   }
   .hero-banner .banner-text .light-p {
     font-size: 16px;
-    margin-bottom: 1px;
+    margin-bottom: 3px;
     line-height: 20px;
   }
   .hero-banner .banner-text .p {
@@ -4421,10 +4419,10 @@ span{
 }
 /* MANAGE FAQS */
 .manage-pools .card-header {
-  padding: 10px 0px;
+  padding: 10px 3px;
 }
 .manage-faqs-accordian .accordion-header .card-header:hover {
-  padding-left:11px;
+  padding-left:unset;
 }
 .manage-faqs-accordian .accordion-button {
   padding:10px;
@@ -4459,6 +4457,11 @@ span{
   margin-bottom: 5px;
   font-size: 15px;
 }
+.manage-qstns .shadow-btn, .manage-qstns .light-blue-btn {
+  line-height: 15px;
+  padding: 7px 17px;
+  font-size: 12px;
+}
 }
 @media (max-width: 576px) {
   .section_padding {
@@ -4488,6 +4491,10 @@ span {
   .titles-sett.card-header {
     flex-direction: column;
     row-gap: 10px;
+  }
+  .sm-right-btn {
+    width:100%;
+    text-align: right;
   }
   .flatpickr-input {
     height: 45px;
@@ -4543,6 +4550,14 @@ span {
       rgb(149 155 224 / 25%) 100%
     );
   }
+  /* BANNER */
+  .hero-banner .banner-text .light-p {
+    font-size: 14px;
+  }
+  .hero-banner .banner-text .banner-span {
+    font-size: 20px;
+    line-height: 29px;
+}
   .footer-logo{
     width:100px;
     margin-left: auto;
@@ -4693,6 +4708,25 @@ span {
 .terms-page ul li , .terms-page ol li:not(:last-child){
   margin-bottom: 5px;
 }
+/* WALLET SECTION */
+.wallet-sec {
+  padding: 10px;
+}
+.usd h3 {
+  font-size: 18px;
+}
+.usd h4 {
+  font-size: 13px;
+}
+.amount_block_code span{
+  font-size: 16px;
+  line-height: 25px;
+}
+.manage-faqs-accordian .qstn-span {
+  height: 25px;
+  font-size: 13px;
+  width: 25px;
+}
 }
 @media (max-width: 480px) {
   .h2 {
@@ -4703,6 +4737,11 @@ span {
     font-size: 23px;
     line-height: 30px;
   }
+  .light-blue-btn {
+    line-height: 16px;
+    padding: 5px 9px;
+    font-size: 13px;
+}
   footer .footer-header p {
     width: auto;
   }
@@ -4739,7 +4778,7 @@ span {
   }
   .sidebar {top:115px} .admin-side-wraper .content{padding:115px 10px 10px 10px;}
   header .navbar-collapse {
-    top: 25%;
+    top: 33%;
     padding-left: 12px;
   }
   .hero-banner .block-btn {
@@ -4815,7 +4854,6 @@ span {
     width:auto;
     padding:10px 0px 0px 0px;
     display: flex;
-    justify-content: center;
 }
 .manage-faqs-accordian .accordion-button {
   padding:5px;
@@ -4827,5 +4865,39 @@ span {
   font-size: 13px;
   line-height: 14px;
   margin-bottom: 2px;
+}
+.text-btn-bg {
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+.text-btn-bg span{
+
+  font-size:13;
+}
+/* banner */
+.hero-banner {
+  padding: 125px 0px 0px 0px;
+}
+.hero-banner .banner-text .banner-h1 {
+  font-size: 34px;
+  line-height: 40px;
+}
+.hero-banner .banner-text .banner-span {
+  font-size: 17px;
+  line-height: 25px;
+}
+.price {
+  font-size: 18px;
+  line-height: 21px;
+}
+.h4, h4 {
+  font-size: 15px;
+}
+.accordion-header button {
+  padding: 10px;
+}
+.your-project .project-bg {
+  padding: 18px;
+  border-radius: 10px;
 }
 }

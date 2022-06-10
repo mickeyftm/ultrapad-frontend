@@ -128,13 +128,9 @@ function ManagePools () {
             <Card className='pt-lg-4 pt-3'>
               <Card.Header className='titles-sett'>
                 <h2 className='text-shadow'>Manage Pools</h2>
-                <Button
-                  onClick={() => setAddPool(true)}
-                  className='text-white light-blue-btn text-capitalize d-inline'
-                >
-                  <FontAwesomeIcon className='add-icon' icon={faPlus} /> Add
+                <div className='sm-right-btn'><Button className='d-inline light-blue-btn text-capitalize' onClick={() => setAddPool(true)}><FontAwesomeIcon className='add-icon' icon={faPlus} /> Add
                   Pool
-                </Button>
+                </Button></div>
               </Card.Header>
               <Card.Body>
                 {AllOrders.length > 0 ? (
