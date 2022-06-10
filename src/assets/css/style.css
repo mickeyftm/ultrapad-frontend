@@ -2295,15 +2295,18 @@ input[type='number'] {
 .network-drop:hover {
   background-color: #353456;
 }
-.terms-page span{
-  background: linear-gradient(266.83deg, #ff57e2, #f3cb31);
+.terms-page i{
+  background: linear-gradient(50deg, #ff57e2, #f3cb31);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 600;
 }
 /* TERMS PAGE */
 .terms-page {
   color:#fff;
-  background:#1e2966;
+  background:#1e29663d;
   padding: 20px 40px 40px 40px;
   border-radius: 10px;
   margin-bottom: 50px;
