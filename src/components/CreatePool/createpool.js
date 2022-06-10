@@ -1249,7 +1249,7 @@ function Createpool () {
           {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
           <Modal.Body>
             {/* <div className="loader">
-              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+              <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div> */}
             {modalSuccess === true ? (
               <div className='text-center modal-success-status'>

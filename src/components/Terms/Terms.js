@@ -17,15 +17,16 @@ function Terms() {
     return (
         <>
             <div className='container'>
-
-                <div class="page-content">
-                    <div className="page-heading">
-                        <h2 className='text-white  mt-4'>Terms of use</h2>
-                    </div>  
-                    <p dangerouslySetInnerHTML={{__html: data}}></p>
+                <div className="section_padding">
+                    <div className='terms-page'>
+                        <div className="page-heading my-lg-4 my-2">
+                            <h2 className='text-white text-capitalize mt-4 text-center'>Terms of use</h2>
+                        </div>
+                        <p dangerouslySetInnerHTML={{__html: data}}></p>
+                    </div>
                 </div>
-            
             </div>
+
         </>
     )
 }

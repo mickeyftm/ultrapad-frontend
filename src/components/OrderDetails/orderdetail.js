@@ -72,7 +72,7 @@ function OrderDetail ({ ownerAddress, idoAddress, bidDecimal, poolDecimal }) {
     <>
       {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
 
-      <div class='products-table table-responsive manage-pools p-0 mt-1 mx-0'>
+      <div className='products-table table-responsive manage-pools p-0 mt-1 mx-0'>
         <div className='amount_block_code mt-lg-2 mt-1'>
           <ul>
             <li>
@@ -109,8 +109,8 @@ function OrderDetail ({ ownerAddress, idoAddress, bidDecimal, poolDecimal }) {
                 ) : orderDetail.purchasedAmount > 0 &&
                   orderDetail.purchasedAmount === orderDetail.claimAmount ? (
                   <div className='d-flex align-items-center'>
-                    <div class='badges m-0'>
-                      <span class='outerside level'>
+                    <div className='badges m-0'>
+                      <span className='outerside level'>
                         Claimed
                         <FontAwesomeIcon
                           className='ms-1'

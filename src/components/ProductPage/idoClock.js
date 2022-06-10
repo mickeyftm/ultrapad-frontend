@@ -56,7 +56,7 @@ const IDOClock = props => {
               </div>
               {/* <span className='d-color'>:</span> */}
               <div className='d-flex flex-column'>
-                <span class='hours'>
+                <span className='hours'>
                   {' '}
                   {endDate.hours} {''} <span>H</span>
                 </span>

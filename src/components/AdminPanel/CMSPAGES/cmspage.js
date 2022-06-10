@@ -5,6 +5,9 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Alerts from '../../Alerts/alert'
 import axios from 'axios'
+
+
+
 function CmsPage () {
   const [cms, setCms] = useState({
     terms_content: '',
@@ -70,7 +73,8 @@ function CmsPage () {
   useEffect(() => {
     FetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
+// CKEDITOR
   return (
     <div>
       <div className='content'>
@@ -120,8 +124,7 @@ function CmsPage () {
                           </Form.Group>
                           <Form.Group
                             className='mb-3'
-                            controlId='exampleForm.ControlTextarea1'
-                          >
+                            controlId='exampleForm.ControlTextarea1'>
                             <Form.Label>Privacy Content</Form.Label>
                             <span className="ido-ckeditor">
                             <CKEditor

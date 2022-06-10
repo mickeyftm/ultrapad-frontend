@@ -47,20 +47,20 @@ function Clock (props) {
     <div>
       <div id='clockdiv' className='py-2'>
         <div>
-          <span class='days'>{leading0(state.days)}</span>
-          <div class='smalltext'>Days</div>
+          <span className='days'>{leading0(state.days)}</span>
+          <div className='smalltext'>Days</div>
         </div>
         <div>
-          <span class='hours'> {leading0(state.hours)}</span>
-          <div class='smalltext'>Hours</div>
+          <span className='hours'> {leading0(state.hours)}</span>
+          <div className='smalltext'>Hours</div>
         </div>
         <div>
-          <span class='minutes'> {leading0(state.minutes)}</span>
-          <div class='smalltext'>Minutes</div>
+          <span className='minutes'> {leading0(state.minutes)}</span>
+          <div className='smalltext'>Minutes</div>
         </div>
         <div>
-          <span class='seconds'>{leading0(state.seconds)}</span>
-          <div class='smalltext'>Seconds</div>
+          <span className='seconds'>{leading0(state.seconds)}</span>
+          <div className='smalltext'>Seconds</div>
         </div>
       </div>
     </div>

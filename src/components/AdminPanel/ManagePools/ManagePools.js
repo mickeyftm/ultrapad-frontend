@@ -111,7 +111,7 @@ function ManagePools () {
           {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
           {addPool ? (
             <>
-              <Card className='pt-lg-3 pt-1'>
+              <Card className='pt-lg-3 pt-3'>
                 {/* <Button
                   onClick={() => setAddPool(false)}
                   className='text-white light-blue-btn text-capitalize d-inline w-md-25'

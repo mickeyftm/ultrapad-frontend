@@ -16,13 +16,13 @@ function Privacy() {
     return (
         <>
             <div className='container'>
-            <div class="section_padding">
-                <div className='terms-page'>
-                    <div className="page-heading my-lg-4 my-2">
-                        <h2 className='text-white text-capitalize mt-4 text-center'>Privacy policy</h2>
+                <div className="section_padding">
+                    <div className='terms-page'>
+                        <div className="page-heading my-lg-4 my-2">
+                            <h2 className='text-white text-capitalize mt-4 text-center'>Privacy policy</h2>
+                        </div>
+                        <p dangerouslySetInnerHTML={{__html: data}}></p>
                     </div>
-                    <p dangerouslySetInnerHTML={{__html: data}}></p>
-                </div>
                 </div>
             </div>
 

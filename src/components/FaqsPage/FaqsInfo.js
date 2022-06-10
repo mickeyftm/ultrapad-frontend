@@ -20,7 +20,7 @@ const FaqsInfo = () => {
   return (
     <section>
       <Container>
-      <div class="page-heading my-lg-4 my-2"><h2 class="text-white text-capitalize mt-4 text-center">FAQs</h2></div>
+      <div className="page-heading my-lg-4 my-2"><h2 className="text-white text-capitalize mt-4 text-center">FAQs</h2></div>
 
         {/* <Accordion className='ido-front-side-faqs'>
             <Accordion.Item eventKey={index} key={index}>
@@ -28,7 +28,7 @@ const FaqsInfo = () => {
                   <h4 className='card-title text-white mb-0'>{item.title}</h4>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <p class="card-text">{item.description}</p>
+                  <p className="card-text">{item.description}</p>
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion> */}
@@ -42,7 +42,7 @@ const FaqsInfo = () => {
                   <h4 className='card-title text-white mb-0'>{item.title}</h4>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <p class="card-text">{item.description}</p>
+                  <p className="card-text">{item.description}</p>
                 </Accordion.Body>
             </Accordion.Item>
                 
@@ -56,21 +56,23 @@ const FaqsInfo = () => {
             faq.map((item, index) => {
               return (
                 <Accordion className='ido-front-side-faqs'>
-                <Accordion.Item eventKey={index} key={index}>
-                <Accordion.Header>
-                  <h4 className='card-title text-white mb-0'>{item.title}</h4>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <p class="card-text">{item.description}</p>
-                </Accordion.Body>
-            </Accordion.Item>
-            </Accordion>
+                  <Accordion.Item eventKey={index} key={index}>
+                    <Accordion.Header>
+                      <h4 className='card-title text-white mb-0'>{item.title}</h4>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <p className="card-text">{item.description}</p>
+                    </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            
               )
             })
           ) : (
+            
             <></>
           )}
-       
+          <div className="d-flex justify-content-center align-items-center py-lg-4 py-3"> <button className="light-blue-btn">Load More</button></div>
 
       
       </Container>
