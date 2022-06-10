@@ -10,6 +10,8 @@ function CmsPage () {
     terms_content: '',
     privacy_content: ''
   })
+  const [terms, setTerms] = useState()
+  const [privacy, setPrivacy] = useState()
   const [alert, setAlert] = useState('')
   // const handleChange = e => {
   //   const { name, value } = e.target
@@ -20,8 +22,8 @@ function CmsPage () {
   const handleSave = e => {
     axios
       .post(`${process.env.REACT_APP_ADMIN_API}/site_settings`, {
-        terms_content: cms.terms_content,
-        privacy_content: cms.privacy_content
+        terms_content: terms,
+        privacy_content: privacy
       })
       .then(res => {
         console.log('setting responce', res.data.data)
@@ -30,6 +32,8 @@ function CmsPage () {
           terms_content: res.data.data.terms_content,
           privacy_content: res.data.data.privacy_content
         })
+        setTerms(res.data.data.terms_content);
+        setPrivacy(res.data.data.privacy_content);
         e.preventDefault()
         setAlert('Successfully updated CMS')
         setTimeout(() => {
@@ -49,12 +53,14 @@ function CmsPage () {
     axios
       .get(`${process.env.REACT_APP_ADMIN_API}/site_settings`)
       .then(res => {
-        console.log('setting responce', res)
         setCms({
           ...cms,
           terms_content: res.data.data.terms_content,
           privacy_content: res.data.data.privacy_content
         })
+        setTerms(res.data.data.terms_content);
+        setPrivacy(res.data.data.privacy_content);
+
       })
       .catch(err => {
         console.log('Error in  fetching settings Component', err)
@@ -100,7 +106,16 @@ function CmsPage () {
                               placeholder='Enter Terms and Conditions Here'
                               required
                             /> */}
-                           <span className="ido-ckeditor"> <CKEditor  editor={ClassicEditor}/></span>
+
+                            
+                           <span className="ido-ckeditor"> 
+                           {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}></div> */}
+                           <CKEditor
+                            editor={ClassicEditor}
+                            data={terms}
+                            onChange={ ( event, editor1 ) => {setTerms(editor1.getData())}}
+                           />
+                       </span>
                         
                           </Form.Group>
                           <Form.Group
@@ -108,7 +123,13 @@ function CmsPage () {
                             controlId='exampleForm.ControlTextarea1'
                           >
                             <Form.Label>Privacy Content</Form.Label>
-                            <span className="ido-ckeditor"> <CKEditor  editor={ClassicEditor}/></span>
+                            <span className="ido-ckeditor">
+                            <CKEditor
+                              editor={ClassicEditor}  
+                              data={privacy}
+                              onChange={ ( event, editor1 ) => {setPrivacy(editor1.getData())}}
+                            />
+                            </span>
                             {/* <Form.Control id="scroll-1"
                               as='textarea'
                               name='privacy_content'
