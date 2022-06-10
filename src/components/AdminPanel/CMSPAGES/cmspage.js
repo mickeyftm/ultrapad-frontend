@@ -128,9 +128,9 @@ function CmsPage () {
                             <Form.Label>Privacy Content</Form.Label>
                             <span className="ido-ckeditor">
                             <CKEditor
-                              editor={ClassicEditor}  
+                              editor2={ClassicEditor}  
                               data={privacy}
-                              onChange={ ( event, editor1 ) => {setPrivacy(editor1.getData())}}
+                              onChange={ ( event, editor2 ) => {setPrivacy(editor2.getData())}}
                             />
                             </span>
                             {/* <Form.Control id="scroll-1"
