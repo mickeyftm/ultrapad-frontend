@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Card from 'react-bootstrap/Card'
 import { Row, Col, Form } from 'react-bootstrap'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEditor , CKEditorContext } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Alerts from '../../Alerts/alert'
 import axios from 'axios'
@@ -45,7 +45,6 @@ function CmsPage () {
       })
       .catch(err => {
         console.log('Error in  fetching settings Component', err)
-
         setAlert('Error in Updating CMS ')
         setTimeout(() => {
           setAlert('')
@@ -63,7 +62,6 @@ function CmsPage () {
         })
         setTerms(res.data.data.terms_content);
         setPrivacy(res.data.data.privacy_content);
-
       })
       .catch(err => {
         console.log('Error in  fetching settings Component', err)
@@ -110,7 +108,7 @@ function CmsPage () {
                               placeholder='Enter Terms and Conditions Here'
                               required
                             /> */}
-
+                            
                             
                            <span className="ido-ckeditor"> 
                            {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}></div> */}
@@ -128,8 +126,8 @@ function CmsPage () {
                             <Form.Label>Privacy Content</Form.Label>
                             <span className="ido-ckeditor">
                             <CKEditor
-                              editor2={ClassicEditor}  
-                              data={privacy}
+                              editor={ClassicEditor}  
+                              data1={privacy}
                               onChange={ ( event, editor2 ) => {setPrivacy(editor2.getData())}}
                             />
                             </span>
@@ -143,7 +141,6 @@ function CmsPage () {
                               placeholder='Enter Privacy Content Here'
                             /> */}
                           </Form.Group>
-                         
                         </Form>
                       </div>
                     </Col>
