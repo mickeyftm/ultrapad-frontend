@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Card from 'react-bootstrap/Card'
 import { Row, Col, Form } from 'react-bootstrap'
-import { CKEditor , CKEditorContext } from '@ckeditor/ckeditor5-react';
+import { CKEditor  } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Alerts from '../../Alerts/alert'
 import axios from 'axios'
