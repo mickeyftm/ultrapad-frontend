@@ -111,7 +111,7 @@ function ManagePools () {
           {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
           {addPool ? (
             <>
-              <Card className='pt-lg-3 pt-3'>
+              <Card className='pt-lg-3 pt-3 h-auto'>
                 {/* <Button
                   onClick={() => setAddPool(false)}
                   className='text-white light-blue-btn text-capitalize d-inline w-md-25'
@@ -121,11 +121,11 @@ function ManagePools () {
                 </Button> */}
                 <Card.Header className='titles-sett'>
                   <Createpool />
-                </Card.Header>
+                </Card.Header>Create Pool
               </Card>
             </>
           ) : (
-            <Card className='pt-lg-4 pt-3'>
+            <Card className='pt-lg-4 pt-3 h-auto'>
               <Card.Header className='titles-sett'>
                 <h2 className='text-shadow'>Manage Pools</h2>
                 <div className='sm-right-btn'><Button className='d-inline light-blue-btn text-capitalize' onClick={() => setAddPool(true)}><FontAwesomeIcon className='add-icon' icon={faPlus} /> Add

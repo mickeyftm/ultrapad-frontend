@@ -76,12 +76,12 @@ return (
               {/* TABLE */}
       <div className='manage-pools-pg'>
 
-        <Card className='pt-lg-4 pt-3'>
+        <Card className='pt-lg-4 pt-3 h-100'>
               {/* CARD ROW */}
       <div className='row'>
             <div className='col-md-12'>
               <div className='panel dark-theme'>
-                <div className='panel-body dashboard-cards h-auto'>
+                <div className='panel-body dashboard-cards'>
                   <div className='row mb-3 shadow-cards justify-content-between align-content-center'>
                     <div className='col-lg-4 col-md-6 col-sm-6 col-12 mb-3'>
                       <div className='widget-metric_6 animate bg-primary box-primary-shadow'>

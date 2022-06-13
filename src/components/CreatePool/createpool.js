@@ -1218,7 +1218,7 @@ function Createpool () {
           </Row>
 
           {/*------------ tokennomics---------- */}
-          <div className='btn-wrapper'>
+          <div className='btn-wrapper border-0'>
             <Button
               // type='submit'
               className='light-blue-btn w-10'

@@ -4101,7 +4101,7 @@ th {
     right: 0;
     top: 35px;
     background:rgb(6 14 90);
-    padding:25px 20px;
+    padding:5px 20px;
     margin-top: 20px;
     color: #200d3a;
     border-radius: 0;
@@ -4645,11 +4645,7 @@ span {
     border-radius: 7px;
     border: 1px solid transparent;
     padding: 10px;
-    background: linear-gradient(
-      84.05deg,
-      rgb(141 199 234 / 25%) 0%,
-      rgb(149 155 224 / 25%) 100%
-    );
+    background:linear-gradient(84.05deg,#fad96a,#fd60cc);
   }
   /* BANNER */
   .hero-banner .banner-text .light-p {
