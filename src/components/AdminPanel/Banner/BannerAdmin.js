@@ -81,7 +81,7 @@ return (
       <div className='row'>
             <div className='col-md-12'>
               <div className='panel dark-theme'>
-                <div className='panel-body dashboard-cards'>
+                <div className='panel-body dashboard-cards h-auto'>
                   <div className='row mb-3 shadow-cards justify-content-between align-content-center'>
                     <div className='col-lg-4 col-md-6 col-sm-6 col-12 mb-3'>
                       <div className='widget-metric_6 animate bg-primary box-primary-shadow'>

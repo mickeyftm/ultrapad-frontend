@@ -1088,27 +1088,7 @@ function Createpool () {
                   <></>
                 )}
               </Form.Group>
-              <FormGroup
-                className='mb-md-5 mb-4 d-flex flex-column'
-                controlId='poolStartDate'
-              >
-                <Info
-                  name={'Is KYC Enables'}
-                  desc={'Enter KYC enanble/disable for this IDO '}
-                />
-                <div className='switch'>
-                  <input
-                    id='switch-1'
-                    type='checkbox'
-                    className='switch-input'
-                    checked={poolMeta.isKyc}
-                    onChange={e => handleKyc(e)}
-                  />
-                  <label htmlFor='switch-1' className='switch-label'>
-                    {/* Switch */}
-                  </label>
-                </div>
-              </FormGroup>
+             
             </div>
             <div className='col-md-6 mb-md-0 mb-3'>
               <Form.Group
@@ -1132,6 +1112,29 @@ function Createpool () {
                   <></>
                 )}
               </Form.Group>
+            </div>
+            <div className='col-md-6 mb-md-0 mb-3'>
+              <FormGroup
+                className='mb-md-5 mb-4 d-flex flex-column'
+                controlId='poolStartDate'
+              >
+                <Info
+                  name={'Is KYC Enables'}
+                  desc={'Enter KYC enanble/disable for this IDO '}
+                />
+                <div className='switch'>
+                  <input
+                    id='switch-1'
+                    type='checkbox'
+                    className='switch-input'
+                    checked={poolMeta.isKyc}
+                    onChange={e => handleKyc(e)}
+                  />
+                  <label htmlFor='switch-1' className='switch-label'>
+                    {/* Switch */}
+                  </label>
+                </div>
+              </FormGroup>
             </div>
           </Row>
           {/*------------- Socials----------------- */}

@@ -77,7 +77,7 @@ function CmsPage () {
     <div>
       <div className='content'>
         <div className='cms-pg'>
-          <Card className='pt-lg-4 pt-3'>
+          <Card className='pt-lg-4 pt-3 h-auto'>
             <Card.Header className='titles-sett'>
               <h2 className='text-shadow'>Manage CMS</h2>
               

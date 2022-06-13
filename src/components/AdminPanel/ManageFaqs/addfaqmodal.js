@@ -27,7 +27,7 @@ function FaqModal ({ show, handleModal }) {
       })
       .then(res => {
       
-        setAlert('SuccessFullt Added Faq')
+        setAlert('SuccessFully Added Faq')
         setTimeout(()=>{
           setAlert("")
         },77000)
@@ -35,7 +35,7 @@ function FaqModal ({ show, handleModal }) {
       })
       .catch(err => {
         console.log(err)
-        setAlert('Unable to Add Faq,Check Server!!!')
+        setAlert('Unable to Add Faq, Check Server!!!')
         setTimeout(()=>{
           setAlert("")
         },77000)

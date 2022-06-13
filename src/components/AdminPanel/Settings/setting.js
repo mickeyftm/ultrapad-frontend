@@ -46,10 +46,10 @@ function Setting () {
       .then(res => {
         console.log('setting responce', res.data.data)
         setSettingDetails(res.data.data)
-        setAlert('SuccessFully Edited Faq')
+        setAlert('SuccessFully Save Setting.')
         setTimeout(() => {
           setAlert('')
-        }, 5000)
+        }, 888000)
       })
       .catch(err => {
         console.log('Error in  fetching settings Component', err)
@@ -78,7 +78,7 @@ function Setting () {
       <div className='content'>
         <div className='cms-pg'>
         {alert !== '' ? <Alerts message={alert} show={true} /> : <></>}
-          <Card className='pt-lg-4 pt-3'>
+          <Card className='pt-lg-4 pt-3 h-100'>
             <Card.Header className='titles-sett text-center'>
               <div className='d-flex flex-sm-row flex-column justify-content-sm-between w-100'>
                 <h2 className='text-shadow mb-sm-0 mb-2'> Site Settings</h2>

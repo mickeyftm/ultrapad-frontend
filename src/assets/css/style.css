@@ -207,6 +207,7 @@ input:focus-visible{
 .admin-side-wraper .card {
   background: #1e2966;
   border-radius: 8px;
+  height:100vh;
 }
 .admin-side-wraper {
   position: relative;
@@ -1917,6 +1918,10 @@ th {
   right: 11px;
   font-size: 45px;
 }
+.faq-modal #inner-message p span {
+  position: inherit;
+  font-size: inherit;
+}
 /* faq-loader */
 .faq-loader {
   align-items: center;
@@ -1938,13 +1943,14 @@ th {
 /* Alert css */
 #message {
   position: fixed;
-  top: 90vh;
+  /* top: 87vh; */
+  top: auto;
   background: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
   left: 48%;
   color: #fff;
   width: 49.5%;
   z-index: 999;
-  height: fit-content;
+  overflow-y: auto;
 }
 #hidden-message {
   position: fixed;
@@ -1966,6 +1972,19 @@ th {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+}
+#inner-message p{
+  height: inherit;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  height:70px;
+}
+#inner-message p span{
+  display: block;
+  padding: 10px 0px;
+  height:inherit;
 }
 #inner-message .content {
   width: 95%;
@@ -2389,6 +2408,7 @@ input[type='number'] {
 }
 .ido-front-side-faqs .accordion-item{
   border: none;
+  background: #3b4067;
 }
 .ido-front-side-faqs .accordion-button{
   background: linear-gradient(90deg,#7a0fff 0,#46bdf4);
@@ -2661,6 +2681,7 @@ input[type='number'] {
     bottom: 20px;
     left: auto;
     right: 20px;
+    margin-bottom: 5px;
 }
 header .icon-btn {
   height: 48px;
@@ -3387,6 +3408,9 @@ p {
     margin-left: 10px;
     font-size: 13px;
   }
+  .admin-side-wraper .card {
+    height: 88vh;
+}
   /* END OF BANNER */
   /* PRICE */
   .price {
@@ -3802,17 +3826,22 @@ h4 {
 .faq-modal.modal-header button.close-btn {
   font-size: 25px;
 }
+.faq-modal label.form-label {
+  font-size: 16px;
+}
 #message #inner-message h2 {
   font-size: 35px;
 }
 #inner-message .content {
   font-size: 16px;
 }
+#inner-message p{
+
+  padding:5px;
+  height:50px;
+}
 .alert {
   padding: 10px;
-}
-.cms-pages-style label {
-  font-size: 15px;
 }
 /* END OF FAQ */
 /* FEATURE */
@@ -3912,9 +3941,6 @@ th {
 }
 /* CLedotor cms pages */
 .cms-pages-style label {
-  font-size:16px;
-}
-.cms-pages-style label {
     font-size: 20px;
 }
 .ido-ckeditor p {
@@ -3927,6 +3953,9 @@ th {
 .ido-ckeditor .ck-rounded-corners .ck.ck-button {
   font-size:14px;
 }
+/* #message {
+  top:87vh;
+} */
 }
 @media (max-width: 1199px) {
   section {
@@ -3937,9 +3966,9 @@ th {
     padding: 10px 12px;
     font-size: 20px;
 }
-  #message {
+  /* #message {
     top: 80vh;
-  }
+  } */
   .text-wrapper {
     margin-bottom: 20px;
   }
@@ -4138,9 +4167,9 @@ th {
 .img-cover-box{
   height: 150px;
 }
-#message {
+/* #message {
   top: 90vh;
-}
+} */
 .social-icons ul li a{
   font-size: 20px;
 }
@@ -4478,7 +4507,7 @@ footer .footer-header .footer-mb {
 }
 #message {
   right:25px;
-  top:75vh !important;
+  /* top:75vh !important; */
 }
 /*  PRODUCT INFO */
 #clockdiv div > span {
@@ -4769,8 +4798,9 @@ span {
 }
 #message {
   right: 25px;
-  top: 85vh !important;
+  /* top: 88vh !important; */
   width: 70%;
+  height:fit-content;
 }
 /* TERMS PAGE */
 .terms-page {
@@ -4931,9 +4961,6 @@ span {
 }
 .manage-faqs-accordian .accordion-button {
   padding:5px;
-}
-#message {
-  top: 88vh !important;
 }
 .space-p {
   font-size: 13px;

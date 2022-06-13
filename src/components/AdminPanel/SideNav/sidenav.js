@@ -6,6 +6,7 @@ import { faPrint } from '@fortawesome/free-solid-svg-icons'
 import { faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faToolbox } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 
 function Sidenav (props) {
 
@@ -45,11 +46,11 @@ function Sidenav (props) {
           
           <li className={pathname==="/admin/faqs"?"active":""}>
             <span className='admin-show'>
-              <FontAwesomeIcon className='me-2' icon={faWrench} />
+              <FontAwesomeIcon className='me-2' icon={faQuestionCircle} />
             </span>
             <Link to='faqs' className='admin-none'>
               <span>
-                <FontAwesomeIcon className='me-2' icon={faWrench} />
+                <FontAwesomeIcon className='me-2' icon={faQuestionCircle} />
               </span>
             </Link>
             <Link to='faqs' className='text-white admin-show'>

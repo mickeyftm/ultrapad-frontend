@@ -72,6 +72,7 @@ const FaqsInfo = () => {
             
             <></>
           )}
+          <div class="text-white d-flex justify-content-center align-items-center"><h4>No More FAQs</h4></div>
           <div className="d-flex justify-content-center align-items-center py-lg-4 py-3"> <button className="light-blue-btn">Load More</button></div>
 
       
