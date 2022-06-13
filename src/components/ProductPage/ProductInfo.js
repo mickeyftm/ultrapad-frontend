@@ -600,7 +600,7 @@ const ProductInfo = () => {
                   {errors !== '' ? (
                     <div className='text-danger p-1'>
                       <FontAwesomeIcon icon={faInfoCircle} />
-                      <span className='ml-2'>{errors}</span>
+                      <span className='ml-2 ms-2'>{errors}</span>
                     </div>
                   ) : (
                     <></>

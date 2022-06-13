@@ -20,7 +20,7 @@ const FaqsInfo = () => {
   return (
     <section>
       <Container>
-      <div className="page-heading my-lg-4 my-2"><h2 className="text-white text-capitalize mt-4 text-center">FAQs</h2></div>
+      <div className="page-heading my-lg-4 mt-0 mb-3"><h2 className="text-white text-capitalize mt-4 text-center">FAQs</h2></div>
 
         {/* <Accordion className='ido-front-side-faqs'>
             <Accordion.Item eventKey={index} key={index}>

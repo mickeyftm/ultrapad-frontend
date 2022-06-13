@@ -296,6 +296,9 @@ input:focus-visible{
   border-color: #4ab1f5;
   transition:all ease-in-out .3s;
 }
+.manage-faqs-accordian .accordion-header .card-header {
+  padding-bottom: 20px;
+}
 .manage-faqs-accordian .accordion-button::after{display:none;}
 .manage-faqs-accordian .light-blue-btn {
   background-image: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
@@ -306,8 +309,8 @@ input:focus-visible{
 .manage-faqs-accordian .qstn-span {
   background-color: #fd7bb6;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
+  height:45px;
+  width:45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -384,8 +387,20 @@ th {
   color: #fff;
   text-align: left;
   display: flex;
-  font-size: 16px;
+  font-size:25px;
   padding: 10px;
+}
+.ido-ckeditor p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+}
+.ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__button .ck-button__label {
+  width: 8em;
+  font-size: 18px;
+}
+.ido-ckeditor .ck-rounded-corners .ck.ck-button {
+  font-size: 18px;
 }
 .cms-pages-style .form-control:focus {
   box-shadow: none;
@@ -781,7 +796,7 @@ header .navbar-light .navbar-nav a.active::after {
   width: 16px;
 }
 header .navbar-light .navbar-nav a::after {
-  top: -23px;
+  top: -28px;
   content: '';
   height: 16px;
   left: 0;
@@ -1511,8 +1526,9 @@ footer .footer-bottom .footer-links li:not(:last-child) {
   margin-right: 30px;
 }
 .pool-detail .title {
-  font-weight: 800;
+  font-weight:600;
   margin-right: 3px;
+  font-size: 18px;
 }
 .pool-detail h4 {
   font-weight: 700;
@@ -2328,6 +2344,7 @@ input[type='number'] {
 }
 .terms-page ul li:not(:last-child), .terms-page ol li:not(:last-child){
   margin-bottom: 25px;
+  font-size: 20px;
 }
 /* .terms-page .ul > li {
   display: flex;
@@ -2371,6 +2388,7 @@ input[type='number'] {
 .ido-front-side-faqs .accordion-button{
   background: linear-gradient(90deg,#7a0fff 0,#46bdf4);
   border-color: transparent;
+  padding:25px;
 }
 .ido-front-side-faqs .accordion-body{
   background:#3b4067;
@@ -2417,10 +2435,6 @@ input[type='number'] {
   h3 {
     font-size: 25px;
     line-height: 29px;
-  }
-  p {
-    font-size: 16px;
-    line-height: 20px;
   }
   header .shadow-btn {
     padding: 15px 34px;
@@ -2668,10 +2682,6 @@ h3 {
   font-size: 25px;
   line-height: 29px;
 }
-p {
-  font-size: 16px;
-  line-height: 20px;
-}
 header .shadow-btn {
   padding: 15px 34px;
   margin: auto;
@@ -2908,10 +2918,6 @@ h3 {
   font-size: 25px;
   line-height: 29px;
 }
-p {
-  font-size: 16px;
-  line-height: 20px;
-}
 .logo_text{
   font-size: 20px;
   line-height: 22px;
@@ -2949,7 +2955,7 @@ header .light-blue-btn {
 .blue-outline-btn {
   font-size: 16px;
   line-height: 20px;
-  padding: 15px 34px;
+  padding: 12px 34px;
   margin: auto;
 }
 .block-btn {
@@ -3223,6 +3229,9 @@ p {
   }
   .navbar-expand-lg .navbar-nav a {
     padding:15px 20px;
+  }
+  header .navbar-light .navbar-nav a::after {
+    top: -23px;
   }
   header .icon-btn {
     height: 36px;
@@ -3862,6 +3871,9 @@ th {
   font-size:18px;
   line-height:26px;
 }
+.ido-front-side-faqs .accordion-button {
+  padding: 19px;
+}
 /* TERMS PAGE */
 .terms-page h3 {
   font-size: 24px;
@@ -3872,6 +3884,9 @@ th {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.terms-page ul li:not(:last-child), .terms-page ol li:not(:last-child) {
+  font-size: 17px;
+}
 .terms-page ul {
   padding-left: 10px;
 }
@@ -3881,6 +3896,31 @@ th {
 }
 .terms-page ul li:not(:last-child), .terms-page ol li:not(:last-child){
   margin-bottom: 15px;
+}
+/* Mnage faqs */
+.manage-faqs-accordian .accordion-header .card-header {
+  padding-bottom:10px;
+}
+.manage-faqs-accordian .qstn-span {
+  height:35px;
+  width:35px;
+}
+/* CLedotor cms pages */
+.cms-pages-style label {
+  font-size:16px;
+}
+.cms-pages-style label {
+    font-size: 20px;
+}
+.ido-ckeditor p {
+  font-size:16px;
+  line-height:25px;
+}
+.ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__button .ck-button__label {
+  font-size:14px;
+}
+.ido-ckeditor .ck-rounded-corners .ck.ck-button {
+  font-size:14px;
 }
 }
 @media (max-width: 1199px) {
@@ -4102,9 +4142,19 @@ th {
 span{
   font-size: 16px;
 }
-.accordion-header {
-  font-size: 20px;
-  line-height: 24px;
+.accordion-header  .card-title {
+  font-size:16px;
+  line-height:20px;
+}
+.terms-page ul li:not(:last-child), .terms-page ol li:not(:last-child) {
+  font-size: 15px;
+}
+.ido-front-side-faqs .accordion-body {
+  font-size: 15px;
+  padding: 16px 11px;
+}
+.terms-page ul li:not(:last-child), .terms-page ol li:not(:last-child) {
+  margin-bottom: 10px;
 }
 #faqs .accordion-body {
   font-size: 15px;
@@ -4136,6 +4186,11 @@ span{
   }
   .text-btn-bg {
     border-radius: 8px;
+    padding: 7px 15px;
+    font-size: 14px;
+  }
+  .text-btn-bg span{
+    font-size: 14px;
   }
   .text-shadow-btn {
     line-height: 17px;
@@ -4207,9 +4262,12 @@ span{
     padding: 5px 15px;
     font-size: 12px;
   }
+  header span {
+    font-size: 14px;
+  }
   header .light-blue-btn {
-    padding: 4px 15px;
-    font-size: 12px;
+    padding: 5px 15px;
+    font-size: 13px;
   }
   .hero-banner {
     background-size: cover;
@@ -4353,6 +4411,9 @@ span{
   .cms-pages-style .form-control {
     height: 50px;
   }
+  .cms-pages-style label {
+    font-size:18px;
+}
   /* END OF CMS PAGES */
   /* DASHBOARD */
   .widget-metric_6 .value {
@@ -4404,8 +4465,11 @@ span{
   .switch-label::after{
     width: 20px;
   }
-  footer .footer-header .footer-mb {
+  footer .footer-header .footer-mb img{
     margin-bottom: 10px;
+}
+footer .footer-header .footer-mb {
+  margin-bottom: 15px;
 }
 #message {
   right:25px;
@@ -4431,7 +4495,7 @@ span{
   padding:10px;
 }
 .ido-front-side-faqs .card-title, .manage-qstns .card-title {
-  font-size: 14px;
+  font-size: 16px;
 }
 /* CKEDITOR */
 .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners, .ido-ckeditor .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable {
@@ -4451,8 +4515,8 @@ span{
   padding: 30px 30px;
 }
 .space-p {
-  font-size: 17px;
-  line-height: 20px;
+  font-size: 15px;
+  line-height: 17px;
   margin-bottom: 5px;
 }
 /* IDO FAQS */
@@ -4508,7 +4572,7 @@ span {
     padding-top: 0px;
   }
   header .icon-btn {
-    height: 24px;
+    height: 30px;
   }
   header .icon-btn img {
     width: 12px;
@@ -4516,11 +4580,11 @@ span {
   }
   header .shadow-btn {
     padding: 3px 12px;
-    font-size: 10px;
+    font-size: 13px;
   }
   header .light-blue-btn {
-    padding: 2px 12px;
-    font-size: 10px;
+    padding: 5px 12px;
+
   }
   .tab-cards .card {
     width: 400px;
@@ -4730,6 +4794,10 @@ span {
   font-size: 13px;
   width: 25px;
 }
+/* POOL DETAILS */
+.pool-detail .title {
+  font-size:17px;
+}
 }
 @media (max-width: 480px) {
   .h2 {
@@ -4741,8 +4809,6 @@ span {
     line-height: 30px;
   }
   .light-blue-btn {
-    line-height: 16px;
-    padding: 5px 9px;
     font-size: 13px;
 }
   footer .footer-header p {
