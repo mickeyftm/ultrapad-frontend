@@ -1999,6 +1999,11 @@ th {
   outline: none;
   box-shadow: none;
 }
+
+::-webkit-calendar-picker-indicator { /* Microsoft Edge */
+  color: #fff;
+  filter: invert(1);
+ }
 /* Switch */
 .switch {
   position: relative;
@@ -4822,7 +4827,7 @@ span {
     width: auto;
   }
   .tab-cards .card {
-    padding: 5px 10px;
+    padding:15px 10px 5px 10px;
   }
   .tab-cards .card .social-icon-bar {
     margin: 20px -11px;
@@ -4920,7 +4925,7 @@ span {
     flex-direction:column;
   }
   .manage-faqs-accordian .faqs-admn-styling.card-header-pills {
-    width:auto;
+    min-width:auto;
     padding:10px 0px 0px 0px;
     display: flex;
 }
