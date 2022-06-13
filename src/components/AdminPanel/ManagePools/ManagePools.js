@@ -121,7 +121,7 @@ function ManagePools () {
                 </Button> */}
                 <Card.Header className='titles-sett'>
                   <Createpool />
-                </Card.Header>Create Pool
+                </Card.Header>
               </Card>
             </>
           ) : (
